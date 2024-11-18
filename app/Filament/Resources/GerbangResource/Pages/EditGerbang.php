@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Filament\Resources\GerbangResource\Pages;
+
+use App\Filament\Resources\GerbangResource;
+use Filament\Actions;
+use Filament\Resources\Pages\EditRecord;
+
+class EditGerbang extends EditRecord
+{
+    protected static string $resource = GerbangResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\DeleteAction::make(),
+        ];
+    }
+
+    public function getTitle(): string
+    {
+        return "Edit Daftar Gerbang";
+    }
+}
