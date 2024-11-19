@@ -57,6 +57,8 @@ class DataCsController extends Controller
             return new DataCsResource($data_cs);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json(['message' => 'Data not found'], Response::HTTP_NOT_FOUND);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json(['message' => 'Validation error', 'errors' => $e->errors()], Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (\Exception $e) {
             Log::error("Update error for DataCs ID $id: " . $e->getMessage());
             return response()->json(['message' => 'Error updating data'], Response::HTTP_INTERNAL_SERVER_ERROR);
