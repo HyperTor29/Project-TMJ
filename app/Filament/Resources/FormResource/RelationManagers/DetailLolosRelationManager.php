@@ -26,6 +26,7 @@ class DetailLolosRelationManager extends RelationManager
             ->schema([
                 Forms\Components\TimePicker::make('pukul')
                     ->label('Pukul')
+                    ->default(now()->setTimezone('Asia/Jakarta'))
                     ->required(),
 
                 Forms\Components\Select::make('gardu_id')
