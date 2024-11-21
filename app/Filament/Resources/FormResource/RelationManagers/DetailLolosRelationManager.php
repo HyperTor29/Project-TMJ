@@ -26,7 +26,7 @@ class DetailLolosRelationManager extends RelationManager
             ->schema([
                 Forms\Components\TimePicker::make('pukul')
                     ->label('Pukul')
-                    ->default(now()->setTimezone('Asia/Jakarta'))
+                    // ->default(now()->setTimezone('Asia/Jakarta'))
                     ->required(),
 
                 Forms\Components\Select::make('gardu_id')
@@ -79,6 +79,7 @@ class DetailLolosRelationManager extends RelationManager
                         Forms\Components\FileUpload::make('surat')
                             ->label('Foto Surat')
                             ->image()
+                            ->maxSize(5120)
                             ->required(),
                     ]),
 
@@ -89,6 +90,7 @@ class DetailLolosRelationManager extends RelationManager
                         Forms\Components\FileUpload::make('foto')
                             ->label('Foto Kendaraan')
                             ->image()
+                            ->maxSize(5120)
                             ->required(),
                     ]),
             ]);

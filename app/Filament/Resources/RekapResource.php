@@ -9,16 +9,27 @@ use Filament\Tables\Table;
 use App\Models\Form;
 use App\Models\DetailLolos;
 use App\Filament\Resources\RekapResource\Pages;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class RekapResource extends Resource
 {
     protected static ?string $model = Form::class;
+
     protected static ?string $detailLolosModel = DetailLolos::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard';
+
     protected static ?string $navigationGroup = 'Laporan';
+
     protected static ?string $navigationLabel = 'Rekapan';
+
     protected static ?int $navigationSort = 23;
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('user_id', Auth::id());
+    }
 
     public static function table(Table $table): Table
     {

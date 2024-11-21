@@ -24,6 +24,9 @@ class DetailLolos extends Model
         'Instansi_id',
         'penanggung_jawab',
         'surat_izin_lintas',
+        'surat',
+        'foto',
+        'user_id',
     ];
 
     public function Gardu() {
@@ -55,6 +58,11 @@ class DetailLolos extends Model
     public function form()
     {
         return $this->belongsTo(Form::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 }

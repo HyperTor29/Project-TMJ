@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\ImageColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class DetailLolosResource extends Resource
 {
@@ -23,6 +24,11 @@ class DetailLolosResource extends Resource
     protected static ?string $navigationGroup = 'Laporan';
 
     protected static ?int $navigationSort = 22;
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('user_id', Auth::id());
+    }
 
     public static function form(Form $form): Form
     {
@@ -90,6 +96,7 @@ class DetailLolosResource extends Resource
                     Forms\Components\FileUpload::make('surat')
                     ->label('Foto Surat')
                     ->image()
+                    ->maxSize(5120)
                     ->required(),
                 ]),
 
@@ -100,6 +107,7 @@ class DetailLolosResource extends Resource
                     Forms\Components\FileUpload::make('foto')
                     ->label('Foto Kendaraan')
                     ->image()
+                    ->maxSize(5120)
                     ->required(),
                 ])
             ]);
