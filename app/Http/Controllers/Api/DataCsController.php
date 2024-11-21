@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Routing\Controller;
-use App\Http\Resources\Api\DataCsResource;
 use App\Models\DataCs;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -14,7 +13,7 @@ class DataCsController extends Controller
     public function index()
     {
         $data_cs = DataCs::all();
-        return DataCsResource::collection($data_cs);
+        return response()->json($data_cs);
     }
 
     public function show($id)
@@ -25,7 +24,7 @@ class DataCsController extends Controller
             return response()->json(['message' => 'Data not found'], Response::HTTP_NOT_FOUND);
         }
 
-        return new DataCsResource($data_cs);
+        return response()->json($data_cs);
     }
 
     public function store(Request $request)
@@ -38,7 +37,7 @@ class DataCsController extends Controller
 
         $data_cs = DataCs::create($validatedData);
 
-        return new DataCsResource($data_cs); // Pastikan resource yang digunakan benar
+        return response()->json($data_cs, Response::HTTP_CREATED);
     }
 
     public function update(Request $request, $id)
@@ -54,11 +53,9 @@ class DataCsController extends Controller
 
             $data_cs->update($validatedData);
 
-            return new DataCsResource($data_cs);
+            return response()->json($data_cs);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json(['message' => 'Data not found'], Response::HTTP_NOT_FOUND);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json(['message' => 'Validation error', 'errors' => $e->errors()], Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (\Exception $e) {
             Log::error("Update error for DataCs ID $id: " . $e->getMessage());
             return response()->json(['message' => 'Error updating data'], Response::HTTP_INTERNAL_SERVER_ERROR);

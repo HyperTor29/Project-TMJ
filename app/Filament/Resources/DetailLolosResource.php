@@ -169,12 +169,13 @@ class DetailLolosResource extends Resource
                 ->label('Surat Izin Lintas')
                 ->searchable(),
 
-                Tables\Columns\ImageColumn::make('surat')
-                ->label('Foto Surat'),
+                Tables\Columns\ImageColumn::make('surats.surat')
+                ->label('Foto Surat')
+                ->url(fn ($record) => asset('storage/' . $record->surat)),
 
-                Tables\Columns\ImageColumn::make('foto')
-                ->label('Foto Kendaraan'),
-
+                Tables\Columns\ImageColumn::make('fotos.foto')
+                ->label('Foto Kendaraan')
+                ->url(fn ($record) => asset('storage/' . $record->foto)),
             ])
             ->filters([
                 //

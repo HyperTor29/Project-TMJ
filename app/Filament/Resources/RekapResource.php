@@ -134,6 +134,14 @@ class RekapResource extends Resource
                 Tables\Columns\CheckboxColumn::make('surat_izin_lintas')
                     ->label('Surat Izin Lintas')
                     ->searchable(),
+
+                Tables\Columns\ImageColumn::make('surats.surat')
+                ->label('Foto Surat')
+                ->url(fn ($record) => asset('storage/' . $record->surat)),
+
+                Tables\Columns\ImageColumn::make('fotos.foto')
+                ->label('Foto Kendaraan')
+                ->url(fn ($record) => asset('storage/' . $record->foto)),
             ])
             ->filters([
                 // Add any necessary filters for data refinement

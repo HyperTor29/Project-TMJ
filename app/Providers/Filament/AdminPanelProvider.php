@@ -91,7 +91,7 @@ class AdminPanelProvider extends PanelProvider
                     NavigationGroup::make('Laporan')
                     ->items([
                         ...FormResource::getNavigationItems(),
-                        ...DetailLolosResource::getNavigationItems(),
+                        // ...DetailLolosResource::getNavigationItems(),
                         ...RekapResource::getNavigationItems(),
                     ]),
 
