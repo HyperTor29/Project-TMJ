@@ -24,7 +24,7 @@ class RekapResource extends Resource
     {
         return $table
             ->columns([
-                // Columns from Form model (FormResource)
+                // Columns from Form model
                 Tables\Columns\TextColumn::make('tanggal')
                     ->label('Tanggal')
                     ->searchable()
@@ -75,91 +75,83 @@ class RekapResource extends Resource
                     ->searchable()
                     ->sortable(),
 
-                // Columns from DetailLolos model (DetailLolosResource)
-                Tables\Columns\TextColumn::make('id')
-                    ->label('Id')
-                    ->searchable()
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('pukul')
+                // Columns from DetailLolos model
+                Tables\Columns\TextColumn::make('DetailLolos.pukul')
                     ->label('Pukul')
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('Gardu.gardu')
+                Tables\Columns\TextColumn::make('DetailLolos.Gardu.gardu')
                     ->label('Gardu')
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('nomor_resi_awal')
+                Tables\Columns\TextColumn::make('DetailLolos.nomor_resi_awal')
                     ->label('Nomor Resi Awal')
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('nomor_resi_akhir')
+                Tables\Columns\TextColumn::make('DetailLolos.nomor_resi_akhir')
                     ->label('Nomor Resi Akhir')
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('Gerbang.name')
+                Tables\Columns\TextColumn::make('DetailLolos.Gerbang.name')
                     ->label('Gerbang')
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('jumlah_kdr')
+                Tables\Columns\TextColumn::make('DetailLolos.jumlah_kdr')
                     ->label('Jumlah Kendaraan')
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('GolKdr.golongan')
+                Tables\Columns\TextColumn::make('DetailLolos.GolKdr.golongan')
                     ->label('Golongan Kendaraan')
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('nomor_kendaraan')
+                Tables\Columns\TextColumn::make('DetailLolos.nomor_kendaraan')
                     ->label('Nomor Kendaraan')
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('Instansi.instansi')
+                Tables\Columns\TextColumn::make('DetailLolos.Instansi.instansi')
                     ->label('Instansi')
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('penanggung_jawab')
+                Tables\Columns\TextColumn::make('DetailLolos.penanggung_jawab')
                     ->label('Penanggung Jawab')
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\CheckboxColumn::make('surat_izin_lintas')
-                    ->label('Surat Izin Lintas')
-                    ->searchable(),
+                Tables\Columns\CheckboxColumn::make('DetailLolos.surat_izin_lintas')
+                    ->label('Surat Izin Lintas'),
 
-                Tables\Columns\ImageColumn::make('surats.surat')
-                ->label('Foto Surat')
-                ->url(fn ($record) => asset('storage/' . $record->surat)),
+                Tables\Columns\ImageColumn::make('DetailLolos.surats.surat')
+                    ->label('Foto Surat')
+                    ->url(fn ($record) => asset('storage/' . $record->surat)),
 
-                Tables\Columns\ImageColumn::make('fotos.foto')
-                ->label('Foto Kendaraan')
-                ->url(fn ($record) => asset('storage/' . $record->foto)),
+                Tables\Columns\ImageColumn::make('DetailLolos.fotos.foto')
+                    ->label('Foto Kendaraan')
+                    ->url(fn ($record) => asset('storage/' . $record->foto)),
             ])
             ->filters([
-                // Add any necessary filters for data refinement
+                // Add necessary filters
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 
     public static function getRelations(): array
     {
         return [
-            // Define any necessary relations here
+            // Define any relations if needed
         ];
     }
 
