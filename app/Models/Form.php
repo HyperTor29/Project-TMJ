@@ -25,6 +25,8 @@ class Form extends Model
 
     ];
 
+    protected $table = 'forms';
+
     public function setNameAttribute($value)
     {
         $this->attributes['Nama'] = $value;
@@ -45,7 +47,7 @@ class Form extends Model
 
     public function detailLolos()
     {
-        return $this->hasMany(DetailLolos::class);
+        return $this->hasMany(DetailLolos::class, 'form_id', 'id');
     }
 
     public function user()

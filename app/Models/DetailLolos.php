@@ -29,6 +29,8 @@ class DetailLolos extends Model
         'user_id',
     ];
 
+    protected $table = 'detail_lolos';
+
     public function Gardu() {
         return $this->belongsTo(Gardu::class);
     }
@@ -57,7 +59,7 @@ class DetailLolos extends Model
 
     public function form()
     {
-        return $this->belongsTo(Form::class);
+        return $this->belongsTo(Form::class, 'form_id', 'id');
     }
 
     public function user()

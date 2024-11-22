@@ -86,6 +86,10 @@ class RekapResource extends Resource
                     ->searchable()
                     ->sortable(),
 
+                // Tables\Columns\ViewColumn::make('Detail Lolos')
+                //     ->label('Detail Lolos')
+                //     ->view('filament.tables.detail-lolos-view'),
+
                 // Columns from DetailLolos model
                 Tables\Columns\TextColumn::make('DetailLolos.pukul')
                     ->label('Pukul')
