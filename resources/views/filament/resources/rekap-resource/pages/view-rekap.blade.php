@@ -4,8 +4,11 @@
         <div class="flex justify-between items-center">
             <h2 class="text-2xl font-bold border-b pb-2">Detail Rekapan</h2>
             <a href="{{ static::getResource()::getUrl('index') }}"
-               class="px-4 py-2 bg-gray-800 text-white text-sm font-medium rounded-lg hover:bg-gray-700">
-                Kembali
+               class="flex items-center space-x-2 px-4 py-2 bg-gray-800 text-black text-sm font-medium rounded-lg shadow-md hover:bg-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+                <span>Kembali</span>
             </a>
         </div>
 
@@ -122,11 +125,18 @@
 
             <!-- Modal -->
             <div x-show="open"
-                 x-transition
-                 class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50">
-                <div class="bg-white rounded-lg overflow-hidden shadow-lg">
-                    <img :src="imageUrl" alt="Gambar Besar" class="max-w-full max-h-screen">
-                    <button class="absolute top-4 right-4 text-white text-lg" @click="open = false">&times;</button>
+                x-transition
+                class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 p-4">
+                <div class="relative bg-white rounded-lg overflow-hidden shadow-lg max-w-full max-h-full">
+                    <!-- Tombol Silang -->
+                    <button class="absolute top-2 right-2 text-gray-700 bg-gray-100 rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-200"
+                            @click="open = false">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    <!-- Gambar -->
+                    <img :src="imageUrl" alt="Gambar Besar" class="block max-w-full max-h-[80vh] mx-auto">
                 </div>
             </div>
         </div>
