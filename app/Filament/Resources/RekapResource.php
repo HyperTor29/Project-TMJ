@@ -35,7 +35,7 @@ class RekapResource extends Resource
     {
         return $table
             ->columns([
-                // Columns from Form model
+                // Columns Form model
                 Tables\Columns\TextColumn::make('tanggal')
                     ->label('Tanggal')
                     ->searchable()
@@ -86,11 +86,7 @@ class RekapResource extends Resource
                     ->searchable()
                     ->sortable(),
 
-                // Tables\Columns\ViewColumn::make('Detail Lolos')
-                //     ->label('Detail Lolos')
-                //     ->view('filament.tables.detail-lolos-view'),
-
-                // Columns from DetailLolos model
+                // Columns DetailLolos model
                 Tables\Columns\TextColumn::make('DetailLolos.pukul')
                     ->label('Pukul')
                     ->searchable()
@@ -157,6 +153,11 @@ class RekapResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('view')
+                    ->label('View')
+                    ->icon('heroicon-o-eye')
+                    ->url(fn ($record) => static::getUrl('view', ['record' => $record->id])),
+
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -174,6 +175,7 @@ class RekapResource extends Resource
     {
         return [
             'index' => Pages\ListRekaps::route('/'),
+            'view' => Pages\ViewRekap::route('/view/{record}'),
         ];
     }
 }

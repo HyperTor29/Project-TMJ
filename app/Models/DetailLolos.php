@@ -49,12 +49,12 @@ class DetailLolos extends Model
 
     public function surats(): HasMany
     {
-        return $this->hasMany(Surat::class);
+        return $this->hasMany(Surat::class, 'detail_lolos_id');
     }
 
     public function fotos(): HasMany
     {
-        return $this->hasMany(DetailFoto::class);
+        return $this->hasMany(DetailFoto::class, 'detail_lolos_id');
     }
 
     public function form()
