@@ -57,7 +57,7 @@
         </div>
 
         <!-- Detail Lolos -->
-        <div class="bg-white shadow rounded-lg p-6">
+        <div class="bg-white shadow rounded-lg p-6" x-data="{ open: false, imageUrl: '' }">
             <h3 class="text-xl font-semibold mb-4">Detail Kejadian</h3>
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
@@ -95,7 +95,8 @@
                                     @if ($detail->surats->isNotEmpty())
                                         @foreach ($detail->surats as $surat)
                                             <img src="{{ asset('storage/' . $surat->surat) }}" alt="Foto Surat"
-                                                class="w-16 h-16 object-cover rounded-lg mb-2">
+                                                class="w-16 h-16 object-cover rounded-lg cursor-pointer"
+                                                @click="open = true; imageUrl = '{{ asset('storage/' . $surat->surat) }}'">
                                         @endforeach
                                     @else
                                         <span>-</span>
@@ -106,7 +107,8 @@
                                     @if ($detail->fotos->isNotEmpty())
                                         @foreach ($detail->fotos as $foto)
                                             <img src="{{ asset('storage/' . $foto->foto) }}" alt="Foto Kendaraan"
-                                                class="w-16 h-16 object-cover rounded-lg mb-2">
+                                                class="w-16 h-16 object-cover rounded-lg cursor-pointer"
+                                                @click="open = true; imageUrl = '{{ asset('storage/' . $foto->foto) }}'">
                                         @endforeach
                                     @else
                                         <span>-</span>
@@ -116,6 +118,16 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Modal -->
+            <div x-show="open"
+                 x-transition
+                 class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50">
+                <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+                    <img :src="imageUrl" alt="Gambar Besar" class="max-w-full max-h-screen">
+                    <button class="absolute top-4 right-4 text-white text-lg" @click="open = false">&times;</button>
+                </div>
             </div>
         </div>
     </div>

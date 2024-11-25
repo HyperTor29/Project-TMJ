@@ -22,7 +22,7 @@ class RekapResource extends Resource
 
     protected static ?string $navigationGroup = 'Laporan';
 
-    protected static ?string $navigationLabel = 'Rekapan';
+    protected static ?string $navigationLabel = 'Rekap Data';
 
     protected static ?int $navigationSort = 23;
 
@@ -87,72 +87,72 @@ class RekapResource extends Resource
                     ->sortable(),
 
                 // Columns DetailLolos model
-                Tables\Columns\TextColumn::make('DetailLolos.pukul')
-                    ->label('Pukul')
-                    ->searchable()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('DetailLolos.pukul')
+                //     ->label('Pukul')
+                //     ->searchable()
+                //     ->sortable(),
 
-                Tables\Columns\TextColumn::make('DetailLolos.Gardu.gardu')
-                    ->label('Gardu')
-                    ->searchable()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('DetailLolos.Gardu.gardu')
+                //     ->label('Gardu')
+                //     ->searchable()
+                //     ->sortable(),
 
-                Tables\Columns\TextColumn::make('DetailLolos.nomor_resi_awal')
-                    ->label('Nomor Resi Awal')
-                    ->searchable()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('DetailLolos.nomor_resi_awal')
+                //     ->label('Nomor Resi Awal')
+                //     ->searchable()
+                //     ->sortable(),
 
-                Tables\Columns\TextColumn::make('DetailLolos.nomor_resi_akhir')
-                    ->label('Nomor Resi Akhir')
-                    ->searchable()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('DetailLolos.nomor_resi_akhir')
+                //     ->label('Nomor Resi Akhir')
+                //     ->searchable()
+                //     ->sortable(),
 
-                Tables\Columns\TextColumn::make('DetailLolos.Gerbang.name')
-                    ->label('Gerbang')
-                    ->searchable()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('DetailLolos.Gerbang.name')
+                //     ->label('Gerbang')
+                //     ->searchable()
+                //     ->sortable(),
 
-                Tables\Columns\TextColumn::make('DetailLolos.jumlah_kdr')
-                    ->label('Jumlah Kendaraan')
-                    ->searchable()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('DetailLolos.jumlah_kdr')
+                //     ->label('Jumlah Kendaraan')
+                //     ->searchable()
+                //     ->sortable(),
 
-                Tables\Columns\TextColumn::make('DetailLolos.GolKdr.golongan')
-                    ->label('Golongan Kendaraan')
-                    ->searchable()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('DetailLolos.GolKdr.golongan')
+                //     ->label('Golongan Kendaraan')
+                //     ->searchable()
+                //     ->sortable(),
 
-                Tables\Columns\TextColumn::make('DetailLolos.nomor_kendaraan')
-                    ->label('Nomor Kendaraan')
-                    ->searchable()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('DetailLolos.nomor_kendaraan')
+                //     ->label('Nomor Kendaraan')
+                //     ->searchable()
+                //     ->sortable(),
 
-                Tables\Columns\TextColumn::make('DetailLolos.Instansi.instansi')
-                    ->label('Instansi')
-                    ->searchable()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('DetailLolos.Instansi.instansi')
+                //     ->label('Instansi')
+                //     ->searchable()
+                //     ->sortable(),
 
-                Tables\Columns\TextColumn::make('DetailLolos.penanggung_jawab')
-                    ->label('Penanggung Jawab')
-                    ->searchable()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('DetailLolos.penanggung_jawab')
+                //     ->label('Penanggung Jawab')
+                //     ->searchable()
+                //     ->sortable(),
 
-                Tables\Columns\CheckboxColumn::make('DetailLolos.surat_izin_lintas')
-                    ->label('Surat Izin Lintas'),
+                // Tables\Columns\CheckboxColumn::make('DetailLolos.surat_izin_lintas')
+                //     ->label('Surat Izin Lintas'),
 
-                Tables\Columns\ImageColumn::make('DetailLolos.surats.surat')
-                    ->label('Foto Surat')
-                    ->url(fn ($record) => asset('storage/' . $record->surat)),
+                // Tables\Columns\ImageColumn::make('DetailLolos.surats.surat')
+                //     ->label('Foto Surat')
+                //     ->url(fn ($record) => asset('storage/' . $record->surat)),
 
-                Tables\Columns\ImageColumn::make('DetailLolos.fotos.foto')
-                    ->label('Foto Kendaraan')
-                    ->url(fn ($record) => asset('storage/' . $record->foto)),
+                // Tables\Columns\ImageColumn::make('DetailLolos.fotos.foto')
+                //     ->label('Foto Kendaraan')
+                //     ->url(fn ($record) => asset('storage/' . $record->foto)),
             ])
             ->filters([
                 // Add necessary filters
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
                 Tables\Actions\Action::make('view')
                     ->label('View')
                     ->icon('heroicon-o-eye')
