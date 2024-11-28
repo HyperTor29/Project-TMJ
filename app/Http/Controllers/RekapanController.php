@@ -2,47 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Form; // Model Form
-use App\Models\DetailLolos; // Model DetailLolos
+use App\Models\Form;
+use App\Models\DetailLolos;
 use Illuminate\Http\Request;
 
 class RekapanController extends Controller
 {
-    // Menampilkan halaman rekapan
     public function show($id)
     {
-        // Ambil data Form beserta DetailLolos terkait
         $record = Form::with('detailLolos')->findOrFail($id);
-
-        // Pastikan menggunakan route yang benar untuk print di bagian view
         return view('filament.resources.rekap-resource.pages.view-rekap', compact('record'));
     }
 
-    // Aksi untuk menerima detail lolos (accept)
-    public function accept($formId, $detailLolosId)
+    public function accept(Request $request, $formId)
     {
-        $forms = Form::findOrFail($formId);
-        $detail_lolos = DetailLolos::findOrFail($detailLolosId);
+        $detailLolosIds = $request->input('detailLolosIds');
 
-        // Lakukan aksi penerimaan pada detail
-        $detail_lolos->status = 'accepted';
-        $detail_lolos->save();
+        // Menangani setiap detail lolos yang dipilih
+        foreach ($detailLolosIds as $detailLolosId) {
+            $detailLolos = DetailLolos::findOrFail($detailLolosId);
+            // Lakukan aksi "Accept" pada $detailLolos
+            $detailLolos->status = 'Accepted';  // Misalnya status diubah menjadi Accepted
+            $detailLolos->save();
+        }
 
-        // Redirect dengan pesan sukses
-        return redirect()->route('rekapan.show', $formId)->with('success', 'Detail Lolos diterima');
+        return redirect()->route('rekaps.index')->with('success', 'Data telah diterima.');
     }
 
-    // Aksi untuk menolak detail lolos (reject)
-    public function reject($formId, $detailLolosId)
+    public function reject(Request $request, $formId)
     {
-        $forms = Form::findOrFail($formId);
-        $detail_lolos = DetailLolos::findOrFail($detailLolosId);
+        $detailLolosIds = $request->input('detailLolosIds');
 
-        // Lakukan aksi penolakan pada detail
-        $detail_lolos->status = 'rejected';
-        $detail_lolos->save();
+        // Menangani setiap detail lolos yang dipilih
+        foreach ($detailLolosIds as $detailLolosId) {
+            $detailLolos = DetailLolos::findOrFail($detailLolosId);
+            // Lakukan aksi "Reject" pada $detailLolos
+            $detailLolos->status = 'Rejected';  // Misalnya status diubah menjadi Rejected
+            $detailLolos->save();
+        }
 
-        // Redirect dengan pesan sukses
-        return redirect()->route('rekapan.show', $formId)->with('error', 'Detail Lolos ditolak');
+        return redirect()->route('rekaps.index')->with('success', 'Data telah ditolak.');
     }
 }

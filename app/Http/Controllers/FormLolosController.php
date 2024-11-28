@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\FormLolos; // Pastikan model FormLolos ada dan sesuai
+use App\Models\FormLolos;
 
 class FormLolosController extends Controller
 {
