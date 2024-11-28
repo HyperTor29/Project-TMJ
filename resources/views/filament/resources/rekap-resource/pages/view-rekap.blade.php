@@ -3,7 +3,7 @@
         <!-- Header dengan Tombol Kembali -->
         <div class="flex justify-between items-center">
             <h2 class="text-2xl font-bold border-b pb-2">Detail Rekapan</h2>
-            <a href="{{ static::getResource()::getUrl('index') }}"
+            <a href="{{ route('filament.resources.rekap.index') }}"
                class="flex items-center space-x-2 px-4 py-2 bg-gray-800 text-black text-sm font-medium rounded-lg shadow-md hover:bg-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
@@ -135,10 +135,37 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
-                    <!-- Gambar -->
-                    <img :src="imageUrl" alt="Gambar Besar" class="block max-w-full max-h-[80vh] mx-auto">
+                    <!-- Gambar Foto -->
+                    <img :src="imageUrl" alt="Foto Detail" class="w-full h-auto max-h-screen">
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Tombol Accept dan Reject -->
+    <div class="flex justify-end space-x-4 mt-4">
+        <!-- Tombol Accept -->
+        <form action="{{ route('rekapan.accept', ['formId' => $record->id, 'detailLolosId' => $record->DetailLolos->first()->id ?? 0]) }}" method="POST">
+            @csrf
+            <button type="submit" class="px-4 py-2 bg-green-600 text-black font-semibold rounded-lg shadow-md hover:bg-green-500">
+                Accept
+            </button>
+        </form>
+        <!-- Tombol Reject -->
+        <form action="{{ route('rekapan.reject', ['formId' => $record->id, 'detailLolosId' => $record->DetailLolos->first()->id ?? 0]) }}" method="POST">
+            @csrf
+            <button type="submit" class="px-4 py-2 bg-red-600 text-black font-semibold rounded-lg shadow-md hover:bg-red-500">
+                Reject
+            </button>
+        </form>
+    </div>
+
+    <!-- Tombol Print -->
+    <div class="mt-6 text-center">
+        <a href="{{ route('form-lolos.print', ['id' => $record->id]) }}"
+            target="_blank"
+            class="px-6 py-3 bg-blue-600 text-black text-lg font-semibold rounded-md shadow-lg hover:bg-blue-700 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 border-2 border-black">
+            Cetak
+        </a>
     </div>
 </x-filament::page>

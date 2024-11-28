@@ -26,6 +26,7 @@ class DetailLolos extends Model
         'surat_izin_lintas',
         'surat',
         'foto',
+        'status',
         'user_id',
     ];
 

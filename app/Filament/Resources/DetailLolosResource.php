@@ -109,7 +109,10 @@ class DetailLolosResource extends Resource
                     ->image()
                     ->maxSize(5120)
                     ->required(),
-                ])
+                ]),
+
+                Forms\Components\Select::make('status')
+                ->label('Status')
             ]);
     }
 
@@ -184,6 +187,10 @@ class DetailLolosResource extends Resource
                 Tables\Columns\ImageColumn::make('fotos.foto')
                 ->label('Foto Kendaraan')
                 ->url(fn ($record) => asset('storage/' . $record->foto)),
+
+                Tables\Columns\TextColumn::make('status')
+                ->label('Status')
+                ->searchable()
             ])
             ->filters([
                 //

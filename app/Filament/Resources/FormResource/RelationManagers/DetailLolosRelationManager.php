@@ -93,6 +93,9 @@ class DetailLolosRelationManager extends RelationManager
                             ->maxSize(5120)
                             ->required(),
                     ]),
+
+                Forms\Components\Select::make('status')
+                    ->label('Status')
             ]);
     }
 
@@ -160,6 +163,9 @@ class DetailLolosRelationManager extends RelationManager
                 Tables\Columns\ImageColumn::make('fotos.foto')
                     ->label('Foto Kendaraan')
                     ->url(fn ($record) => asset('storage/' . $record->foto)),
+
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Status')
             ])
             ->filters([])
             ->headerActions([
