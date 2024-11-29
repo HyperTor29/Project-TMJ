@@ -13,4 +13,9 @@ class GolKdr extends Model
     protected $fillable = [
         'golongan',
     ];
+
+    public function tarif()
+    {
+        return $this->hasMany(Tarif::class);
+    }
 }

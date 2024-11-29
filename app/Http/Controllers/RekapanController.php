@@ -11,18 +11,19 @@ class RekapanController extends Controller
     public function show($id)
     {
         $record = Form::with('detailLolos')->findOrFail($id);
-        return view('filament.resources.rekap-resource.pages.view-rekap', compact('record'));
+
+        $jumlahKendaraan = $record->detailLolos->sum('jumlah_kdr');
+
+        return view('filament.resources.rekap-resource.pages.view-rekap', compact('record', 'jumlahKendaraan'));
     }
 
     public function accept(Request $request, $formId)
     {
         $detailLolosIds = $request->input('detailLolosIds');
 
-        // Menangani setiap detail lolos yang dipilih
         foreach ($detailLolosIds as $detailLolosId) {
             $detailLolos = DetailLolos::findOrFail($detailLolosId);
-            // Lakukan aksi "Accept" pada $detailLolos
-            $detailLolos->status = 'Accepted';  // Misalnya status diubah menjadi Accepted
+            $detailLolos->status = 'Accepted';
             $detailLolos->save();
         }
 
@@ -33,11 +34,9 @@ class RekapanController extends Controller
     {
         $detailLolosIds = $request->input('detailLolosIds');
 
-        // Menangani setiap detail lolos yang dipilih
         foreach ($detailLolosIds as $detailLolosId) {
             $detailLolos = DetailLolos::findOrFail($detailLolosId);
-            // Lakukan aksi "Reject" pada $detailLolos
-            $detailLolos->status = 'Rejected';  // Misalnya status diubah menjadi Rejected
+            $detailLolos->status = 'Rejected';
             $detailLolos->save();
         }
 

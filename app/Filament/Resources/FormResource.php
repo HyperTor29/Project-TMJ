@@ -38,6 +38,11 @@ class FormResource extends Resource
                 ->label('Tanggal')
                 ->required(),
 
+                Forms\Components\Select::make('shifts_id')
+                ->label('Shift')
+                ->relationship('Shifts', 'shift')
+                ->required(),
+
                 Forms\Components\Select::make('data_cs_id')
                 ->label('Nama CS')
                 ->relationship('DataCs', 'nama')
@@ -92,6 +97,11 @@ class FormResource extends Resource
                 //
                 Tables\Columns\TextColumn::make('tanggal')
                 ->label('Tanggal')
+                ->searchable()
+                ->sortable(),
+
+                Tables\Columns\TextColumn::make('Shifts.shift')
+                ->label('Shift')
                 ->searchable()
                 ->sortable(),
 

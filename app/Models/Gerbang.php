@@ -19,4 +19,9 @@ class Gerbang extends Model
     {
         $this->attributes['name'] = $value;
     }
+
+    public function tarif()
+    {
+        return $this->hasMany(Tarif::class);
+    }
 }

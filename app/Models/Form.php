@@ -12,6 +12,7 @@ class Form extends Model
 
     protected $fillable = [
         'tanggal',
+        'Shift',
         'Nama CS',
         'NIK CS',
         'Jabatan CS',
@@ -31,6 +32,11 @@ class Form extends Model
     {
         $this->attributes['Nama'] = $value;
         $this->attributes['Jabatan'] = $value;
+    }
+
+    public function Shifts()
+    {
+        return $this->belongsTo(Shift::class, 'shift_id');
     }
 
     public function DataCs() {

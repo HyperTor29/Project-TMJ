@@ -41,6 +41,16 @@ class RekapResource extends Resource
                     ->searchable()
                     ->sortable(),
 
+                Tables\Columns\TextColumn::make('Shifts.shift')
+                    ->label('Shift')
+                    ->searchable()
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('Shifts.shift')
+                    ->label('Shift')
+                    ->searchable()
+                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('DataCs.nama')
                     ->label('Nama CS')
                     ->searchable()

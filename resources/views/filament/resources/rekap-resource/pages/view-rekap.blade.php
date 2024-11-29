@@ -21,6 +21,10 @@
                     <dd class="text-gray-800">{{ $record->tanggal }}</dd>
                 </div>
                 <div>
+                    <dt class="font-medium text-gray-600">Shift</dt>
+                    <dd class="text-gray-800">{{ $record->Shifts->shift ?? '-' }}</dd>
+                </div>
+                <div>
                     <dt class="font-medium text-gray-600">Nama CS</dt>
                     <dd class="text-gray-800">{{ $record->DataCs->nama ?? '-' }}</dd>
                 </div>
@@ -70,6 +74,7 @@
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Gardu</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Nomor Resi Awal</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Nomor Resi Akhir</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Gerbang</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Jumlah Kendaraan</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Golongan Kendaraan</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Instansi</th>
@@ -86,6 +91,7 @@
                                 <td class="px-4 py-2 text-sm text-gray-800">{{ $detail->Gardu->gardu ?? '-' }}</td>
                                 <td class="px-4 py-2 text-sm text-gray-800">{{ $detail->nomor_resi_awal ?? '-' }}</td>
                                 <td class="px-4 py-2 text-sm text-gray-800">{{ $detail->nomor_resi_akhir ?? '-' }}</td>
+                                <td class="px-4 py-2 text-sm text-gray-800">{{ $detail->Gerbang->name ?? '-' }}</td>
                                 <td class="px-4 py-2 text-sm text-gray-800">{{ $detail->jumlah_kdr ?? '-' }}</td>
                                 <td class="px-4 py-2 text-sm text-gray-800">{{ $detail->GolKdr->golongan ?? '-' }}</td>
                                 <td class="px-4 py-2 text-sm text-gray-800">{{ $detail->Instansi->instansi ?? '-' }}</td>
@@ -121,6 +127,47 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Menampilkan Jumlah Kendaraan -->
+            <div class="bg-white shadow rounded-lg p-6 mt-6">
+                <h3 class="text-xl font-semibold mb-4">Jumlah Kendaraan</h3>
+                <div class="text-gray-800">
+                    Total Jumlah Kendaraan: <strong>{{ $record->DetailLolos->sum('jumlah_kdr') }}</strong>
+                </div>
+            </div>
+
+            <!-- Menampilkan Perhitungan Total Biaya -->
+            <div class="bg-white shadow rounded-lg p-6 mt-6">
+                <h3 class="text-xl font-semibold mb-4">Perhitungan Total Biaya</h3>
+                <div class="text-gray-800">
+                    @php
+                        $totalBiaya = 0;
+                    @endphp
+                    @foreach ($record->DetailLolos as $detail_lolos)
+                        @php
+                            $tarif = \App\Models\Tarif::whereHas('GolKdr', function($query) use ($detail_lolos) {
+                                $query->where('golongan', $detail_lolos->GolKdr->golongan);
+                            })
+                            ->whereHas('Gerbang', function($query) use ($detail_lolos) {
+                                $query->where('name', $detail_lolos->Gerbang->name);
+                            })
+                            ->first();
+
+                            $biaya = $tarif ? $tarif->tarif * $detail_lolos->jumlah_kdr : 0;
+                            $totalBiaya += $biaya;
+                        @endphp
+                        <div>
+                            <strong>{{ $detail_lolos->GolKdr->golongan }}</strong> -
+                            <strong>{{ $detail_lolos->Gerbang->name }}</strong>:
+                            <span class="font-semibold">Rp {{ number_format($biaya, 0, ',', '.') }}</span>
+                        </div>
+                    @endforeach
+                    <div class="mt-4">
+                        <strong>Total Biaya: </strong>
+                        <span class="font-semibold text-xl">Rp {{ number_format($totalBiaya, 0, ',', '.') }}</span>
+                    </div>
+                </div>
             </div>
 
             <!-- Modal -->
