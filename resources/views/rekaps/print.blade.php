@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Rekapan</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,10 +11,27 @@
         }
         .container {
             width: 100%;
-            padding: 20px;
+            padding: 10px;
+            background-color: #fff;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
         h2 {
+            font-size: 24px;
+            font-weight: bold;
             text-align: center;
+            margin: 0;
+        }
+        .logo img {
+            width: 150px;
+            height: auto;
+        }
+        .date-info {
+            text-align: right;
         }
         table {
             width: 100%;
@@ -26,22 +42,63 @@
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
+            font-size: 14px;
         }
         th {
             background-color: #f2f2f2;
         }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
         }
         .btn-print {
             margin-top: 20px;
             text-align: right;
         }
+        .btn-print button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-print button:hover {
+            background-color: #45a049;
+        }
+        .signature-section {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+        }
+        .signature-box {
+            width: 200px;
+            height: 50px;
+            border-top: 1px solid black;
+            margin-top: 40px;
+            text-align: center;
+            line-height: 40px;
+        }
+        .signature-label {
+            font-size: 14px;
+            margin-top: 10px;
+        }
         @media print {
             .btn-print {
                 display: none;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            @page {
+                margin: 0;
+                size: auto;
+            }
+            .container {
+                padding: 10px;
+                width: 100%;
             }
         }
     </style>
@@ -50,16 +107,18 @@
 
 <div class="container">
     <div class="header">
-        <h2>Laporan Detail Rekapan</h2>
-        <div>
-            <button onclick="window.print()" class="btn-print">
-                Cetak
-            </button>
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <div class="date-info">
+            <p>Semarang, {{ date('d F Y') }}</p>
         </div>
     </div>
 
+    <h2>FORM LOLOS/IZIN LINTAS</h2>
+
     <!-- Informasi Petugas -->
-    <h3>Informasi Petugas</h3>
+    <div class="section-title">Informasi Petugas</div>
     <table>
         <tr>
             <th>Tanggal</th>
@@ -108,7 +167,7 @@
     </table>
 
     <!-- Detail Kejadian -->
-    <h3>Detail Kejadian</h3>
+    <div class="section-title">Detail Kejadian</div>
     <table>
         <thead>
             <tr>
@@ -143,11 +202,27 @@
     </table>
 
     <!-- Total Biaya -->
-    <h3>Total Biaya</h3>
+    <div class="section-title">Total Biaya</div>
     <p>
         Total Biaya: Rp {{ number_format($totalBiaya ?? 0, 0, ',', '.') }}
     </p>
 
+    <!-- Tanda Tangan -->
+    <div class="signature-section">
+        <div>
+            <div class="signature-box"></div>
+            <p class="signature-label">Petugas</p>
+        </div>
+        <div>
+            <div class="signature-box"></div>
+            <p class="signature-label">Pimpinan</p>
+        </div>
+    </div>
+
+    <!-- Tombol Print -->
+    <div class="btn-print">
+        <button onclick="window.print()">Cetak</button>
+    </div>
 </div>
 
 </body>
