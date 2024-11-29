@@ -144,26 +144,40 @@
                     @php
                         $totalBiaya = 0;
                     @endphp
-                    @foreach ($record->DetailLolos as $detail_lolos)
-                        @php
-                            $tarif = \App\Models\Tarif::whereHas('GolKdr', function($query) use ($detail_lolos) {
-                                $query->where('golongan', $detail_lolos->GolKdr->golongan);
-                            })
-                            ->whereHas('Gerbang', function($query) use ($detail_lolos) {
-                                $query->where('name', $detail_lolos->Gerbang->name);
-                            })
-                            ->first();
+                    <div class="space-y-4">
+                        @foreach ($record->DetailLolos as $detail_lolos)
+                            @php
+                                $tarif = \App\Models\Tarif::whereHas('GolKdr', function($query) use ($detail_lolos) {
+                                    $query->where('golongan', $detail_lolos->GolKdr->golongan);
+                                })
+                                ->whereHas('Gerbang', function($query) use ($detail_lolos) {
+                                    $query->where('name', $detail_lolos->Gerbang->name);
+                                })
+                                ->first();
 
-                            $biaya = $tarif ? $tarif->tarif * $detail_lolos->jumlah_kdr : 0;
-                            $totalBiaya += $biaya;
-                        @endphp
-                        <div>
-                            <strong>{{ $detail_lolos->GolKdr->golongan }}</strong> -
-                            <strong>{{ $detail_lolos->Gerbang->name }}</strong>:
-                            <span class="font-semibold">Rp {{ number_format($biaya, 0, ',', '.') }}</span>
-                        </div>
-                    @endforeach
-                    <div class="mt-4">
+                                $biaya = $tarif ? $tarif->tarif * $detail_lolos->jumlah_kdr : 0;
+                                $totalBiaya += $biaya;
+                            @endphp
+
+                            <div class="p-4 bg-gray-100 rounded-lg shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <strong class="text-lg">{{ $detail_lolos->GolKdr->golongan }}</strong> -
+                                        <strong class="text-lg">{{ $detail_lolos->Gerbang->name }}</strong>
+                                    </div>
+                                    <div class="text-sm text-gray-600">
+                                        Jumlah Kendaraan: <strong>{{ $detail_lolos->jumlah_kdr }}</strong>
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <span class="text-sm text-gray-500">Biaya: </span>
+                                    <span class="font-semibold">Rp {{ number_format($biaya, 0, ',', '.') }}</span>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div class="mt-6 p-4 bg-gray-200 rounded-lg">
                         <strong>Total Biaya: </strong>
                         <span class="font-semibold text-xl">Rp {{ number_format($totalBiaya, 0, ',', '.') }}</span>
                     </div>
