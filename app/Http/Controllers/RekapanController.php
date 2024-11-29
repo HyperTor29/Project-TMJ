@@ -42,4 +42,13 @@ class RekapanController extends Controller
 
         return redirect()->route('rekaps.index')->with('success', 'Data telah ditolak.');
     }
+
+    public function print($id)
+    {
+        $form = Form::findOrFail($id);
+
+        $detailLolos = DetailLolos::where('form_id', $id)->get();
+
+        return view('rekaps.print', compact('form', 'detailLolos'));
+    }
 }

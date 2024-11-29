@@ -206,7 +206,7 @@
     <!-- Tombol Accept, Reject, dan Print -->
     <div class="flex justify-end space-x-4 mt-6">
         <!-- Tombol Print -->
-        <a href="{{ route('form-lolos.print', ['id' => $record->id]) }}"
+        <a href="{{ route('rekapan.print', ['id' => $record->id]) }}"
             target="_blank"
             class="px-6 py-3 bg-blue-600 text-black text-lg font-semibold rounded-md shadow-lg hover:bg-blue-700 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 border-2 border-black">
             Cetak
