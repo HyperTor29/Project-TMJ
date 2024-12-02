@@ -4,6 +4,12 @@ namespace App\Providers\Filament;
 
 use App\Filament\Auth\Login;
 use Filament\Http\Middleware\Authenticate;
+use Filament\Navigation\NavigationBuilder;
+use Filament\Navigation\NavigationGroup;
+use Filament\Navigation\NavigationItem;
+use App\Filament\Pages\Dashboard as PagesDashboard;
+use App\Filament\Resources\FormResource;
+use App\Filament\Resources\RekapResource;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
@@ -18,43 +24,26 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use App\Filament\Resources\AsmenResource;
-use App\Filament\Resources\DataCsResource;
-use App\Filament\Resources\DataCssResource;
-use App\Filament\Resources\DetailLolosResource;
-use App\Filament\Resources\FormResource;
-use App\Filament\Resources\GarduResource;
-use App\Filament\Resources\GerbangResource;
-use App\Filament\Resources\GolKdrResource;
-use App\Filament\Resources\InstansiResource;
-use App\Filament\Resources\RekapResource;
-use App\Filament\Resources\ShiftResource;
-use App\Filament\Resources\TarifResource;
-use App\Filament\Resources\UserResource;
-use Filament\Navigation\NavigationBuilder;
-use Filament\Navigation\NavigationGroup;
-use Filament\Navigation\NavigationItem;
-use Filament\Pages\Dashboard as PagesDashboard;
 
-class AdminPanelProvider extends PanelProvider
+class UserPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
             ->default()
             ->sidebarCollapsibleOnDesktop(true)
-            ->id('admin')
-            ->path('admin')
+            ->id('user')
+            ->path('user')
             ->login(Login::class)
             ->colors([
                 'primary' => Color::Amber,
             ])
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+            ->discoverResources(in: app_path('Filament/User/Resources'), for: 'App\\Filament\\User\\Resources')
+            ->discoverPages(in: app_path('Filament/User/Pages'), for: 'App\\Filament\\User\\Pages')
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            ->discoverWidgets(in: app_path('Filament/User/Widgets'), for: 'App\\Filament\\User\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
             ])
@@ -78,35 +67,14 @@ class AdminPanelProvider extends PanelProvider
                     ->items([
                         NavigationItem::make('dashboard')
                         ->label(fn (): string => __('filament-panels::pages/dashboard.title'))
-                        ->url(fn (): string => PagesDashboard::getUrl())
+                        ->url(fn (): string => Pages\Dashboard::getUrl())
                         ->isActiveWhen(fn () => request()->routeIs('filament.admin.pages.dashboard')),
-                    ]),
-                    NavigationGroup::make('Data Pegawai')
-                    ->items([
-                        ...DataCsResource::getNavigationItems(),
-                        ...DataCssResource::getNavigationItems(),
-                        ...AsmenResource::getNavigationItems(),
                     ]),
 
                     NavigationGroup::make('Laporan')
                     ->items([
                         ...FormResource::getNavigationItems(),
                         ...RekapResource::getNavigationItems(),
-                    ]),
-
-                    NavigationGroup::make('Operasional')
-                    ->items([
-                        ...GarduResource::getNavigationItems(),
-                        ...GerbangResource::getNavigationItems(),
-                        ...GolKdrResource::getNavigationItems(),
-                        ...InstansiResource::getNavigationItems(),
-                        ...ShiftResource::getNavigationItems(),
-                        ...TarifResource::getNavigationItems(),
-                    ]),
-
-                    NavigationGroup::make('Setting')
-                    ->items([
-                        ...UserResource::getNavigationItems(),
                 ]),
             ]);
         });
