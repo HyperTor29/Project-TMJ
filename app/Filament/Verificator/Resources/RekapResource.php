@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\User\Resources;
+namespace App\Filament\Verificator\Resources;
 
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -22,8 +22,6 @@ class RekapResource extends Resource
     protected static ?string $navigationGroup = 'Laporan';
 
     protected static ?string $navigationLabel = 'Rekap Data';
-
-    protected static ?int $navigationSort = 12;
 
     public static function getEloquentQuery(): Builder
     {

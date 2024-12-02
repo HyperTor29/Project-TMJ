@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\User\Resources;
+namespace App\Filament\Verificator\Resources;
 
-use App\Filament\User\Resources\DetailLolosResource\Pages;
+use App\Filament\Verificator\Resources\DetailLolosResource\Pages;
 use App\Models\DetailLolos;
 use Filament\Forms;
 use Filament\Forms\Form;

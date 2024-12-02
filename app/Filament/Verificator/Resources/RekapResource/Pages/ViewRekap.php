@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\User\Resources\RekapResource\Pages;
+namespace App\Filament\Verificator\Resources\RekapResource\Pages;
 
 use Filament\Resources\Pages\Page;
 use App\Models\Form;

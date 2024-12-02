@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\User\Resources;
+namespace App\Filament\Verificator\Resources;
 
-use App\Filament\User\Resources\FormResource\Pages;
-use App\Filament\User\Resources\FormResource\RelationManagers;
+use App\Filament\Verificator\Resources\FormResource\Pages;
+use App\Filament\Verificator\Resources\FormResource\RelationManagers;
 use App\Models\Form;
 use Filament\Forms;
 use Filament\Resources\Resource;
