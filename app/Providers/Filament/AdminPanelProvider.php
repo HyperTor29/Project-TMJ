@@ -79,6 +79,7 @@ class AdminPanelProvider extends PanelProvider
                         NavigationItem::make('dashboard')
                         ->label(fn (): string => __('filament-panels::pages/dashboard.title'))
                         ->url(fn (): string => PagesDashboard::getUrl())
+                        ->icon('heroicon-o-home')
                         ->isActiveWhen(fn () => request()->routeIs('filament.admin.pages.dashboard')),
                     ]),
                     NavigationGroup::make('Data Pegawai')

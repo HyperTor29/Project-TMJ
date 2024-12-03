@@ -4,6 +4,11 @@ namespace App\Providers\Filament;
 
 use App\Filament\Auth\Login;
 use Filament\Http\Middleware\Authenticate;
+use Filament\Navigation\NavigationBuilder;
+use Filament\Navigation\NavigationGroup;
+use Filament\Navigation\NavigationItem;
+use App\Filament\Resources\FormResource;
+use App\Filament\Resources\RekapResource;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
@@ -54,6 +59,24 @@ class ValidatorPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->navigation(function (NavigationBuilder $builder): NavigationBuilder {
+                return $builder->groups([
+                    NavigationGroup::make()
+                    ->items([
+                        NavigationItem::make('dashboard')
+                        ->label(fn (): string => __('filament-panels::pages/dashboard.title'))
+                        ->url(fn (): string => Pages\Dashboard::getUrl())
+                        ->icon('heroicon-o-home')
+                        ->isActiveWhen(fn () => request()->routeIs('filament.admin.pages.dashboard')),
+                    ]),
+
+                    NavigationGroup::make('Laporan')
+                    ->items([
+                        ...FormResource::getNavigationItems(),
+                        ...RekapResource::getNavigationItems(),
+                ]),
             ]);
+        });
     }
 }

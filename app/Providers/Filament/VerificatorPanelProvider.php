@@ -68,6 +68,7 @@ class VerificatorPanelProvider extends PanelProvider
                         NavigationItem::make('dashboard')
                         ->label(fn (): string => __('filament-panels::pages/dashboard.title'))
                         ->url(fn (): string => Pages\Dashboard::getUrl())
+                        ->icon('heroicon-o-home')
                         ->isActiveWhen(fn () => request()->routeIs('filament.admin.pages.dashboard')),
                     ]),
 

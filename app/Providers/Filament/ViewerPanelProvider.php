@@ -4,6 +4,21 @@ namespace App\Providers\Filament;
 
 use App\Filament\Auth\Login;
 use Filament\Http\Middleware\Authenticate;
+use Filament\Navigation\NavigationBuilder;
+use Filament\Navigation\NavigationGroup;
+use Filament\Navigation\NavigationItem;
+use App\Filament\Pages\PagesDashboard;
+use App\Filament\Viewer\Resources\DataCsResource;
+use App\Filament\Viewer\Resources\DataCssResource;
+use App\Filament\Viewer\Resources\AsmenResource;
+use App\Filament\Viewer\Resources\FormResource;
+use App\Filament\Viewer\Resources\RekapResource;
+use App\Filament\Viewer\Resources\GarduResource;
+use App\Filament\Viewer\Resources\GerbangResource;
+use App\Filament\Viewer\Resources\GolKdrResource;
+use App\Filament\Viewer\Resources\InstansiResource;
+use App\Filament\Viewer\Resources\ShiftResource;
+use App\Filament\Viewer\Resources\TarifResource;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
@@ -24,6 +39,8 @@ class ViewerPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->default()
+            ->sidebarCollapsibleOnDesktop(true)
             ->id('viewer')
             ->path('viewer')
             ->login(Login::class)
@@ -52,6 +69,41 @@ class ViewerPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->navigation(function (NavigationBuilder $builder): NavigationBuilder {
+                return $builder->groups([
+                    NavigationGroup::make()
+                    ->items([
+                        NavigationItem::make('dashboard')
+                        ->label(fn (): string => __('filament-panels::pages/dashboard.title'))
+                        ->url(fn (): string => Pages\Dashboard::getUrl())
+                        ->icon('heroicon-o-home')
+                        ->isActiveWhen(fn () => request()->routeIs('filament.admin.pages.dashboard')),
+                    ]),
+                    NavigationGroup::make('Data Pegawai')
+                    ->items([
+                        ...DataCsResource::getNavigationItems(),
+                        ...DataCssResource::getNavigationItems(),
+                        ...AsmenResource::getNavigationItems(),
+                    ]),
+
+                    NavigationGroup::make('Laporan')
+                    ->items([
+                        ...FormResource::getNavigationItems(),
+                        ...RekapResource::getNavigationItems(),
+                    ]),
+
+                    NavigationGroup::make('Operasional')
+                    ->items([
+                        ...GarduResource::getNavigationItems(),
+                        ...GerbangResource::getNavigationItems(),
+                        ...GolKdrResource::getNavigationItems(),
+                        ...InstansiResource::getNavigationItems(),
+                        ...ShiftResource::getNavigationItems(),
+                        ...TarifResource::getNavigationItems(),
+                ]),
             ]);
+        });
     }
 }
+
