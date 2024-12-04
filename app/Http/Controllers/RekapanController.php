@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Form;
 use App\Models\DetailLolos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RekapanController extends Controller
 {
