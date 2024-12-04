@@ -17,7 +17,26 @@ class DetailLolosRelationManager extends RelationManager
     public static function getEloquentQuery(): Builder
     {
         $query = parent::getEloquentQuery();
-        return $query->where('user_id', Auth::id());
+
+        if (in_array(Auth::user()->role->name, ['Admin', 'Validator', 'Viewer', 'Verificator'])) {
+            return $query;
+        }
+
+        return $query->where(function ($query) {
+            $query->where('user_id', Auth::id())
+                ->orWhereHas('dataCs', function ($query) {
+                    $query->where('user_id', Auth::id())
+                        ->orWhere('nama', Auth::user()->name);
+                })
+                ->orWhereHas('dataCss', function ($query) {
+                    $query->where('user_id', Auth::id())
+                        ->orWhere('nama', Auth::user()->name);
+                })
+                ->orWhereHas('asmen', function ($query) {
+                    $query->where('user_id', Auth::id())
+                        ->orWhere('nama', Auth::user()->name);
+                });
+        });
     }
 
     public function form(Forms\Form $form): Forms\Form

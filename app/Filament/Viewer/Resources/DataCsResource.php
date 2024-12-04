@@ -25,31 +25,31 @@ class DataCsResource extends Resource
 
     protected static ?int $navigationSort = 11;
 
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                //
-                Forms\Components\TextInput::make('nama')
-                ->label('Nama')
-                ->minLength(2)
-                ->maxLength(255)
-                ->required(),
+    // public static function form(Form $form): Form
+    // {
+    //     return $form
+    //         ->schema([
+    //             //
+    //             Forms\Components\TextInput::make('nama')
+    //             ->label('Nama')
+    //             ->minLength(2)
+    //             ->maxLength(255)
+    //             ->required(),
 
-                Forms\Components\TextInput::make('nik')
-                ->label('NIK')
-                ->numeric()
-                ->minLength(2)
-                ->maxLength(16)
-                ->required(),
+    //             Forms\Components\TextInput::make('nik')
+    //             ->label('NIK')
+    //             ->numeric()
+    //             ->minLength(2)
+    //             ->maxLength(16)
+    //             ->required(),
 
-                Forms\Components\TextInput::make('jabatan')
-                ->label('Jabatan')
-                ->minLength(2)
-                ->maxLength(255)
-                ->required(),
-            ]);
-    }
+    //             Forms\Components\TextInput::make('jabatan')
+    //             ->label('Jabatan')
+    //             ->minLength(2)
+    //             ->maxLength(255)
+    //             ->required(),
+    //         ]);
+    // }
 
     public static function table(Table $table): Table
     {
@@ -78,9 +78,9 @@ class DataCsResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 

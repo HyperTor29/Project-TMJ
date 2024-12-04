@@ -24,7 +24,27 @@ class FormResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->where('user_id', Auth::id());
+        $query = parent::getEloquentQuery();
+
+        if (in_array(Auth::user()->role->name, ['Admin', 'Validator', 'Viewer'])) {
+            return $query;
+        }
+
+        return $query->where(function ($query) {
+            $query->where('user_id', Auth::id())
+                ->orWhereHas('dataCs', function ($query) {
+                    $query->where('user_id', Auth::id())
+                        ->orWhere('nama', Auth::user()->name);
+                })
+                ->orWhereHas('dataCss', function ($query) {
+                    $query->where('user_id', Auth::id())
+                        ->orWhere('nama', Auth::user()->name);
+                })
+                ->orWhereHas('asmen', function ($query) {
+                    $query->where('user_id', Auth::id())
+                        ->orWhere('nama', Auth::user()->name);
+                });
+        });
     }
 
     public static function form(Forms\Form $form): Forms\Form
