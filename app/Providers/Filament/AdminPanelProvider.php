@@ -31,6 +31,7 @@ use App\Filament\Resources\RekapResource;
 use App\Filament\Resources\ShiftResource;
 use App\Filament\Resources\TarifResource;
 use App\Filament\Resources\UserResource;
+use App\Filament\Resources\RoleResource;
 use Filament\Navigation\NavigationBuilder;
 use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationItem;
@@ -108,6 +109,7 @@ class AdminPanelProvider extends PanelProvider
                     NavigationGroup::make('Setting')
                     ->items([
                         ...UserResource::getNavigationItems(),
+                        ...RoleResource::getNavigationItems(),
                 ]),
             ]);
         });

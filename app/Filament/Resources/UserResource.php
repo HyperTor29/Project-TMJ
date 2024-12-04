@@ -39,7 +39,12 @@ class UserResource extends Resource
                     ->unique(User::class, 'email', ignoreRecord: true)
                     ->required(),
 
-                    Forms\Components\TextInput::make('password')
+                Forms\Components\Select::make('role')
+                    ->label('Role')
+                    ->relationship('Role', 'name')
+                    ->required(),
+
+                Forms\Components\TextInput::make('password')
                     ->label('Password')
                     ->password()
                     ->dehydrated(fn (?string $state): bool => filled($state))
@@ -59,6 +64,11 @@ class UserResource extends Resource
 
                 Tables\Columns\TextColumn::make('email')
                     ->label('Email')
+                    ->searchable()
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('Role.name')
+                    ->label('Role')
                     ->searchable()
                     ->sortable(),
             ])

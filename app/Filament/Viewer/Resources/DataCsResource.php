@@ -75,12 +75,12 @@ class DataCsResource extends Resource
                 //
             ])
             ->actions([
-                // Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                // Tables\Actions\BulkActionGroup::make([
-                //     Tables\Actions\DeleteBulkAction::make(),
-                // ]),
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ]);
     }
 
@@ -95,6 +95,8 @@ class DataCsResource extends Resource
     {
         return [
             'index' => Pages\ListDataCs::route('/'),
+            'create' => Pages\CreateDataCs::route('/create'),
+            'edit' => Pages\EditDataCs::route('/{record}/edit'),
         ];
     }
 }

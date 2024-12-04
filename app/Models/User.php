@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasFactory, Notifiable, HasApiTokens;
 
@@ -20,6 +23,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'role_id',
         'password',
         'api_token',
     ];
@@ -55,5 +59,40 @@ class User extends Authenticatable
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = Hash::make($password);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        $user = Auth::user();
+        $roles = $user->role->name;
+
+        if ($panel->getId() === 'admin' && $roles === 'Admin') {
+            return true;
+        }
+
+        else if ($panel->getId() === 'user' && $roles === 'User') {
+            return true;
+        }
+
+        else if ($panel->getId() === 'verificator' && $roles === 'Verificator') {
+            return true;
+        }
+
+        else if ($panel->getId() === 'validator' && $roles === 'Validator') {
+            return true;
+        }
+
+        else if ($panel->getId() === 'viewer' && $roles === 'Viewer') {
+            return true;
+        }
+
+        else {
+            return false;
+        }
     }
 }
