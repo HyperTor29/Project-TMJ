@@ -3,189 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Lolos/Izin Lintas</title>
     <style>
+        @page {
+            margin: 2.5cm;
+            size: A4;
+        }
+
         body {
             font-family: Arial, sans-serif;
+            line-height: 1.6;
             margin: 0;
             padding: 0;
         }
+
         .container {
-            width: 100%;
-            padding: 10px;
-            background-color: #fff;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
         }
+
         .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            text-align: center;
             margin-bottom: 20px;
         }
-        h2 {
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            margin: 0;
-        }
-        .logo img {
-            width: 150px;
-            height: auto;
-        }
-        .date-info {
-            text-align: right;
-        }
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-            font-size: 14px;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .section-title {
+
+        .header h1 {
             font-size: 18px;
             font-weight: bold;
-            margin-top: 20px;
+            margin: 0;
+            padding: 10px 0;
         }
-        .btn-print {
-            margin-top: 20px;
-            text-align: right;
+
+        .toll-gate {
+            margin-bottom: 15px;
         }
-        .btn-print button {
-            padding: 8px 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
+
+        .date-section {
+            margin-bottom: 20px;
         }
-        .btn-print button:hover {
-            background-color: #45a049;
+
+        .personnel-info {
+            margin-bottom: 20px;
         }
-        .signature-section {
-            margin-top: 30px;
+
+        .personnel-item {
+            margin-bottom: 10px;
+        }
+
+        .personnel-item span {
+            display: inline-block;
+            min-width: 100px;
+        }
+
+        .main-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 12px;
+        }
+
+        .main-table th,
+        .main-table td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .main-table th {
+            background-color: #fff;
+            font-weight: normal;
+        }
+
+        .total-row {
+            font-weight: bold;
+        }
+
+        .signatures {
             display: flex;
             justify-content: space-between;
-            text-align: center;
+            margin-top: 50px;
+            page-break-inside: avoid;
         }
+
         .signature-box {
-            width: 200px;
-            height: 50px;
-            border-top: 1px solid black;
-            margin-top: 40px;
             text-align: center;
-            line-height: 40px;
+            width: 200px;
         }
-        .signature-label {
-            font-size: 14px;
-            margin-top: 10px;
+
+        .signature-line {
+            border-bottom: 1px solid #000;
+            margin: 50px 0 10px 0;
         }
+
         @media print {
-            .btn-print {
-                display: none;
-            }
             body {
+                width: 100%;
                 margin: 0;
                 padding: 0;
             }
-            @page {
-                margin: 0;
-                size: auto;
-            }
+
             .container {
-                padding: 10px;
                 width: 100%;
+                padding: 0;
+            }
+
+            .main-table {
+                page-break-inside: avoid;
+            }
+
+            .signatures {
+                margin-top: 30px;
             }
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <div class="header">
-        <div class="logo">
-            <img src="logo.png" alt="Logo">
+    <div class="container">
+        <div class="header">
+            <h1>FORM LOLOS/ IZIN LINTAS</h1>
         </div>
-        <div class="date-info">
-            <p>Semarang, {{ date('d F Y') }}</p>
+
+        <div class="toll-gate">
+            Gerbang Tol: {{ $form->Gerbang->name ?? '........................' }}
         </div>
-    </div>
 
-    <h2>FORM LOLOS/IZIN LINTAS</h2>
+        <div class="date-section">
+            Pada hari ini {{ \Carbon\Carbon::parse($form->tanggal)->isoFormat('dddd') }}
+            Tanggal {{ \Carbon\Carbon::parse($form->tanggal)->isoFormat('D') }}
+            Bulan {{ \Carbon\Carbon::parse($form->tanggal)->isoFormat('MMMM') }}
+            Tahun {{ \Carbon\Carbon::parse($form->tanggal)->isoFormat('YYYY') }}<br>
+            bertanda tangan dibawah ini:
+        </div>
 
-    <!-- Informasi Petugas -->
-    <div class="section-title">Informasi Petugas</div>
-    <table>
-        <tr>
-            <th>Tanggal</th>
-            <td>{{ $form->tanggal ?? '-' }}</td>
-        </tr>
-        <tr>
-            <th>Shift</th>
-            <td>{{ $form->Shifts->shift ?? '-' }}</td>
-        </tr>
-        <tr>
-            <th>Nama CS</th>
-            <td>{{ $form->DataCs->nama ?? '-' }}</td>
-        </tr>
-        <tr>
-            <th>NIK CS</th>
-            <td>{{ $form->DataCs->nik ?? '-' }}</td>
-        </tr>
-        <tr>
-            <th>Jabatan CS</th>
-            <td>{{ $form->DataCs->jabatan ?? '-' }}</td>
-        </tr>
-        <tr>
-            <th>Nama CSS</th>
-            <td>{{ $form->DataCss->nama ?? '-' }}</td>
-        </tr>
-        <tr>
-            <th>NIK CSS</th>
-            <td>{{ $form->DataCss->nik ?? '-' }}</td>
-        </tr>
-        <tr>
-            <th>Jabatan CSS</th>
-            <td>{{ $form->DataCss->jabatan ?? '-' }}</td>
-        </tr>
-        <tr>
-            <th>Nama Asmen</th>
-            <td>{{ $form->Asmen->nama ?? '-' }}</td>
-        </tr>
-        <tr>
-            <th>NIK Asmen</th>
-            <td>{{ $form->Asmen->nik ?? '-' }}</td>
-        </tr>
-        <tr>
-            <th>Jabatan Asmen</th>
-            <td>{{ $form->Asmen->jabatan ?? '-' }}</td>
-        </tr>
-    </table>
+        <div class="personnel-info">
+            <div class="personnel-item">
+                1. Nama    : {{ $form->DataCs->nama ?? '........................' }}<br>
+                   NIK     : {{ $form->DataCs->nik ?? '........................' }}<br>
+                   Jabatan : {{ $form->DataCs->jabatan ?? '........................' }}
+            </div>
+            <div class="personnel-item">
+                2. Nama    : {{ $form->DataCss->nama ?? '........................' }}<br>
+                   NIK     : {{ $form->DataCss->nik ?? '........................' }}<br>
+                   Jabatan : {{ $form->DataCss->jabatan ?? '........................' }}
+            </div>
+            <div class="personnel-item">
+                3. Nama    : {{ $form->Asmen->nama ?? '........................' }}<br>
+                   NIK     : {{ $form->Asmen->nik ?? '........................' }}<br>
+                   Jabatan : {{ $form->Asmen->jabatan ?? '........................' }}
+            </div>
+        </div>
 
-    <!-- Detail Kejadian -->
-    <div class="section-title">Detail Kejadian</div>
-    <table>
-        <thead>
-            <tr>
-                <th>Pukul</th>
-                <th>Gardu</th>
-                <th>Nomor Resi Awal</th>
-                <th>Nomor Resi Akhir</th>
-                <th>Gerbang</th>
-                <th>Jumlah Kendaraan</th>
-                <th>Golongan Kendaraan</th>
-                <th>Instansi</th>
-                <th>Penanggung Jawab</th>
-                <th>Surat Izin Lintas</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($detailLolos as $detail)
+        <div class="shift-info">
+            Menerangkan bahwa pada Shift {{ $form->Shifts->shift ?? '........................' }} Telah terjadi Lolos/Izin Lintas Kendaraan sebagai berikut:
+        </div>
+
+        <table class="main-table">
+            <thead>
                 <tr>
+                    <th>No</th>
+                    <th>Pukul</th>
+                    <th>Gardu</th>
+                    <th>Nomor Resi Awal</th>
+                    <th>Nomor Resi Akhir</th>
+                    <th>Gerbang Asal</th>
+                    <th>Jumlah Kendaraan</th>
+                    <th>Gol. Kendaraan</th>
+                    <th>Nomor Kendaraan</th>
+                    <th>Instansi</th>
+                    <th>Nama Penanggung Jawab</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($detailLolos as $index => $detail)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
                     <td>{{ $detail->pukul }}</td>
                     <td>{{ $detail->Gardu->gardu ?? '-' }}</td>
                     <td>{{ $detail->nomor_resi_awal ?? '-' }}</td>
@@ -193,37 +186,42 @@
                     <td>{{ $detail->Gerbang->name ?? '-' }}</td>
                     <td>{{ $detail->jumlah_kdr ?? '-' }}</td>
                     <td>{{ $detail->GolKdr->golongan ?? '-' }}</td>
+                    <td>{{ $detail->nomor_kendaraan ?? '-' }}</td>
                     <td>{{ $detail->Instansi->instansi ?? '-' }}</td>
                     <td>{{ $detail->penanggung_jawab ?? '-' }}</td>
-                    <td>{{ $detail->surat_izin_lintas ? 'Ya' : 'Tidak' }}</td>
+
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+                @endforeach
+                <tr class="total-row">
+                    <td colspan="5">Total Kendaraan</td>
+                    <td colspan="7">{{ $detailLolos->sum('jumlah_kdr') }}</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <!-- Total Biaya -->
-    <div class="section-title">Total Biaya</div>
-    <p>
-        Total Biaya: Rp {{ number_format($totalBiaya ?? 0, 0, ',', '.') }}
-    </p>
+        <div class="signatures">
+            <div class="signature-box">
+                <div>Customer Service Supervisor</div>
+                <div>{{ $form->DataCss->nama ?? '' }}</div>
+                <div class="signature-line"></div>
+                <div>NIK. {{ $form->DataCss->nik ?? '' }}</div>
+            </div>
 
-    <!-- Tanda Tangan -->
-    <div class="signature-section">
-        <div>
-            <div class="signature-box"></div>
-            <p class="signature-label">Petugas</p>
-        </div>
-        <div>
-            <div class="signature-box"></div>
-            <p class="signature-label">Pimpinan</p>
+            <div class="signature-box">
+                <div>Customer Service</div>
+                <div>{{ $form->DataCs->nama ?? '' }}</div>
+                <div class="signature-line"></div>
+                <div>NIK. {{ $form->DataCs->nik ?? '' }}</div>
+            </div>
+
+            <div class="signature-box">
+                <div>Assistant Manager<br>Transaction</div>
+                <div>{{ $form->Asmen->nama ?? '' }}</div>
+                <div class="signature-line"></div>
+                <div>NIK. {{ $form->Asmen->nik ?? '' }}</div>
+            </div>
         </div>
     </div>
-
-    <!-- Tombol Print -->
-    <div class="btn-print">
-        <button onclick="window.print()">Cetak</button>
-    </div>
-</div>
-
 </body>
 </html>
+

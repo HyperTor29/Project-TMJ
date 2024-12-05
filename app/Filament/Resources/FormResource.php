@@ -54,9 +54,11 @@ class FormResource extends Resource
         return $form
             ->schema([
                 //
-                Forms\Components\Datepicker::make('tanggal')
+                Forms\Components\DatePicker::make('tanggal')
                 ->label('Tanggal')
-                ->required(),
+                ->required()
+                ->format('d/m/Y')
+                ->locale('id'),
 
                 Forms\Components\Select::make('shifts_id')
                 ->label('Shift')

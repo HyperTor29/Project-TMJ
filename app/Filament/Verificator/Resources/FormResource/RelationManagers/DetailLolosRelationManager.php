@@ -162,6 +162,10 @@ class DetailLolosRelationManager extends RelationManager
                     ->sortable()
                     ->searchable(),
 
+                Tables\Columns\TextColumn::make('nomor_kendaraan')
+                    ->label('Nomor Kendaraan')
+                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('Instansi.instansi')
                     ->label('Instansi')
                     ->sortable()
