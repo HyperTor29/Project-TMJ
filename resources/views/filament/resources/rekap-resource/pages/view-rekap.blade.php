@@ -3,7 +3,7 @@
         <!-- Header dengan Tombol Kembali -->
         <div class="flex justify-between items-center">
             <h2 class="text-2xl font-bold border-b pb-2">Detail Rekapan</h2>
-            <a href="{{ route('rekaps.index') }}"
+            <a href="{{ url()->previous() }}"
                class="flex items-center space-x-2 px-4 py-2 bg-gray-800 text-black text-sm font-medium rounded-lg shadow-md hover:bg-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
