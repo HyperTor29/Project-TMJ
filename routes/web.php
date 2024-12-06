@@ -10,6 +10,5 @@ Route::get('/rekapan/{id}', [RekapanController::class, 'show'])->name('rekapan.s
 Route::post('/rekapan/{formId}/accept', [RekapanController::class, 'accept'])->name('rekapan.accept');
 Route::post('/rekapan/{formId}/reject', [RekapanController::class, 'reject'])->name('rekapan.reject');
 Route::get('rekapan/{id}/print', [RekapanController::class, 'print'])->name('rekapan.print');
-
-
-
+Route::get('/rekapan/{id}', [RekapanController::class, 'accept'])->name('filament.resources.rekap-resource.pages.view-rekap');
+Route::get('/rekapan/{id}', [RekapanController::class, 'reject'])->name('filament.resources.rekap-resource.pages.view-rekap');
