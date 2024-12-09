@@ -3,15 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AsmenResource\Pages;
-use App\Filament\Resources\AsmenResource\RelationManagers;
 use App\Models\Asmen;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Widgets\CustomStatsOverview;
 
 class AsmenResource extends Resource
 {
@@ -24,6 +22,13 @@ class AsmenResource extends Resource
     protected static ?string $navigationGroup = 'Data Pegawai';
 
     protected static ?int $navigationSort = 13;
+
+    protected static function getHeaderWidgets(): array
+    {
+        return [
+            CustomStatsOverview::class,
+        ];
+    }
 
     public static function form(Form $form): Form
     {

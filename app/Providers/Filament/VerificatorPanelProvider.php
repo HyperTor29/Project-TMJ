@@ -35,6 +35,7 @@ class VerificatorPanelProvider extends PanelProvider
             ->id('verificator')
             ->path('verificator')
             ->login(Login::class)
+            ->viteTheme('resources/css/filament/verificator/theme.css')
             ->colors([
                 'primary' => Color::Amber,
             ])

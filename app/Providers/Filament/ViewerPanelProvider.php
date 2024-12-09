@@ -44,6 +44,7 @@ class ViewerPanelProvider extends PanelProvider
             ->id('viewer')
             ->path('viewer')
             ->login(Login::class)
+            ->viteTheme('resources/css/filament/viewer/theme.css')
             ->colors([
                 'primary' => Color::Amber,
             ])

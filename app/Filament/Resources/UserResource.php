@@ -10,6 +10,7 @@ use Filament\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use App\Filament\Widgets\CustomStatsOverview;
 
 class UserResource extends Resource
 {
@@ -20,6 +21,13 @@ class UserResource extends Resource
     protected static ?string $navigationLabel = 'Akun';
 
     protected static ?string $navigationGroup = 'Setting';
+
+    protected static function getHeaderWidgets(): array
+    {
+        return [
+            CustomStatsOverview::class,
+        ];
+    }
 
     public static function form(Form $form): Form
     {

@@ -35,6 +35,7 @@ class UserPanelProvider extends PanelProvider
             ->id('user')
             ->path('user')
             ->login(Login::class)
+            ->viteTheme('resources/css/filament/user/theme.css')
             ->colors([
                 'primary' => Color::Amber,
             ])

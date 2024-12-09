@@ -3,15 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\DataCsResource\Pages;
-use App\Filament\Resources\DataCsResource\RelationManagers;
 use App\Models\DataCs;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Widgets\CustomStatsOverview;
 
 class DataCsResource extends Resource
 {
@@ -24,6 +22,13 @@ class DataCsResource extends Resource
     protected static ?string $navigationGroup = 'Data Pegawai';
 
     protected static ?int $navigationSort = 11;
+
+    protected static function getHeaderWidgets(): array
+    {
+        return [
+            CustomStatsOverview::class,
+        ];
+    }
 
     public static function form(Form $form): Form
     {
