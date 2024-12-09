@@ -2,16 +2,12 @@
 
 namespace App\Filament\Viewer\Resources;
 
-use App\Filament\Resources\GerbangResource\Pages;
-use App\Filament\Resources\GerbangResource\RelationManagers;
+use App\Filament\Viewer\Resources\GerbangResource\Pages;
 use App\Models\Gerbang;
-use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+
 
 class GerbangResource extends Resource
 {
@@ -24,24 +20,6 @@ class GerbangResource extends Resource
     protected static ?string $navigationGroup = 'Operasional';
 
     protected static ?int $navigationSort = 32;
-
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                //
-                Forms\Components\TextInput::make('kode')
-                ->label('Kode')
-                ->numeric()
-                ->required(),
-
-                Forms\Components\TextInput::make('name')
-                ->label('Nama')
-                ->minLength(2)
-                ->maxLength(255)
-                ->required(),
-            ]);
-    }
 
     public static function table(Table $table): Table
     {
@@ -62,12 +40,10 @@ class GerbangResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                //
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                //
             ]);
     }
 
@@ -82,8 +58,6 @@ class GerbangResource extends Resource
     {
         return [
             'index' => Pages\ListGerbangs::route('/'),
-            'create' => Pages\CreateGerbang::route('/create'),
-            'edit' => Pages\EditGerbang::route('/{record}/edit'),
         ];
     }
 }

@@ -2,16 +2,11 @@
 
 namespace App\Filament\Viewer\Resources;
 
-use App\Filament\Resources\TarifResource\Pages;
-use App\Filament\Resources\TarifResource\RelationManagers;
+use App\Filament\Viewer\Resources\TarifResource\Pages;
 use App\Models\Tarif;
-use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TarifResource extends Resource
 {
@@ -24,29 +19,6 @@ class TarifResource extends Resource
     protected static ?string $navigationGroup = 'Operasional';
 
     protected static ?int $navigationSort = 36;
-
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                //
-                Forms\Components\Select::make('gerbang_id')
-                ->label('Gerbang')
-                ->relationship('Gerbang', 'name')
-                ->required(),
-
-                Forms\Components\Select::make('gol_kdr_id')
-                ->label('Golongan Kendaraan')
-                ->relationship('GolKdr', 'golongan')
-                ->required(),
-
-                Forms\Components\TextInput::make('tarif')
-                ->label('Tarif')
-                ->numeric()
-                ->prefix('IDR')
-                ->required(),
-            ]);
-    }
 
     public static function table(Table $table): Table
     {
@@ -72,12 +44,10 @@ class TarifResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                //
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                //
             ]);
     }
 
@@ -92,8 +62,6 @@ class TarifResource extends Resource
     {
         return [
             'index' => Pages\ListTarifs::route('/'),
-            'create' => Pages\CreateTarif::route('/create'),
-            'edit' => Pages\EditTarif::route('/{record}/edit'),
         ];
     }
 }

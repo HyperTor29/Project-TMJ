@@ -2,10 +2,9 @@
 
 namespace App\Filament\Viewer\Resources;
 
-use App\Filament\Resources\FormResource\Pages;
-use App\Filament\Resources\FormResource\RelationManagers;
+use App\Filament\Viewer\Resources\FormResource\Pages;
+use App\Filament\Viewer\Resources\FormResource\RelationManagers;
 use App\Models\Form;
-use Filament\Forms;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -47,69 +46,6 @@ class FormResource extends Resource
                         ->orWhere('nama', Auth::user()->name);
                 });
         });
-    }
-
-    public static function form(Forms\Form $form): Forms\Form
-    {
-        return $form
-            ->schema([
-                //
-                Forms\Components\DatePicker::make('tanggal')
-                ->label('Tanggal')
-                ->required()
-                ->format('d/m/Y')
-                ->locale('id'),
-
-                Forms\Components\Select::make('shifts_id')
-                ->label('Shift')
-                ->relationship('Shifts', 'shift')
-                ->required(),
-
-                Forms\Components\Select::make('data_cs_id')
-                ->label('Nama CS')
-                ->relationship('DataCs', 'nama')
-                ->required(),
-
-                Forms\Components\Select::make('data_cs_id')
-                ->label('NIK CS')
-                ->relationship('DataCs', 'nik')
-                ->required(),
-
-                Forms\Components\Select::make('data_cs_id')
-                ->label('Jabatan CS')
-                ->relationship('DataCs', 'jabatan')
-                ->required(),
-
-                Forms\Components\Select::make('data_css_id')
-                ->label('Nama CSS')
-                ->relationship('DataCss', 'nama')
-                ->required(),
-
-                Forms\Components\Select::make('data_css_id')
-                ->label('NIK CSS')
-                ->relationship('DataCss', 'nik')
-                ->required(),
-
-                Forms\Components\Select::make('data_css_id')
-                ->label('Jabatan CSS')
-                ->relationship('DataCss', 'jabatan')
-                ->required(),
-
-                Forms\Components\Select::make('asmen_id')
-                ->label('Nama Asmen')
-                ->relationship('Asmen', 'nama')
-                ->required(),
-
-                Forms\Components\Select::make('asmen_id')
-                ->label('NIK Asmen')
-                ->relationship('Asmen', 'nik')
-                ->required(),
-
-                Forms\Components\Select::make('asmen_id')
-                ->label('Jabatan Asmen')
-                ->relationship('Asmen', 'jabatan')
-                ->required()
-            ]);
     }
 
     public static function table(Table $table): Table
@@ -176,12 +112,10 @@ class FormResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                //
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                //
             ]);
     }
 
@@ -196,7 +130,6 @@ class FormResource extends Resource
     {
         return [
             'index' => Pages\ListForms::route('/'),
-            'create' => Pages\CreateForm::route('/create'),
             'edit' => Pages\EditForm::route('/{record}/edit'),
         ];
     }

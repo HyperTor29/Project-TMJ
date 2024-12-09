@@ -2,16 +2,11 @@
 
 namespace App\Filament\Viewer\Resources;
 
-use App\Filament\Resources\ShiftResource\Pages;
-use App\Filament\Resources\ShiftResource\RelationManagers;
+use App\Filament\Viewer\Resources\ShiftResource\Pages;
 use App\Models\Shift;
-use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ShiftResource extends Resource
 {
@@ -24,31 +19,6 @@ class ShiftResource extends Resource
     protected static ?string $navigationGroup = 'Operasional';
 
     protected static ?int $navigationSort = 35;
-
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                //
-                Forms\Components\TextInput::make('shift')
-                ->label('Shift')
-                ->minLength(1)
-                ->maxLength(1)
-                ->required(),
-
-                Forms\Components\TextInput::make('jam_masuk')
-                ->label('Jam Masuk')
-                ->minLength(2)
-                ->maxLength(16)
-                ->required(),
-
-                Forms\Components\TextInput::make('jam_keluar')
-                ->label('Jam Keluar')
-                ->minLength(2)
-                ->maxLength(16)
-                ->required(),
-            ]);
-    }
 
     public static function table(Table $table): Table
     {
@@ -74,12 +44,10 @@ class ShiftResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                //
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                //
             ]);
     }
 
@@ -94,8 +62,6 @@ class ShiftResource extends Resource
     {
         return [
             'index' => Pages\ListShifts::route('/'),
-            'create' => Pages\CreateShift::route('/create'),
-            'edit' => Pages\EditShift::route('/{record}/edit'),
         ];
     }
 }

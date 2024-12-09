@@ -2,16 +2,11 @@
 
 namespace App\Filament\Viewer\Resources;
 
-use App\Filament\Resources\GarduResource\Pages;
-use App\Filament\Resources\GarduResource\RelationManagers;
+use App\Filament\Viewer\Resources\GarduResource\Pages;
 use App\Models\Gardu;
-use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class GarduResource extends Resource
 {
@@ -24,24 +19,6 @@ class GarduResource extends Resource
     protected static ?string $navigationGroup = 'Operasional';
 
     protected static ?int $navigationSort = 31;
-
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                //
-                Forms\Components\TextInput::make('gardu')
-                ->label('Gardu')
-                ->numeric()
-                ->required(),
-
-                Forms\Components\TextInput::make('jenis_gardu')
-                ->label('Jenis Gardu')
-                ->minLength(2)
-                ->maxLength(255)
-                ->required(),
-            ]);
-    }
 
     public static function table(Table $table): Table
     {
@@ -62,12 +39,10 @@ class GarduResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                //
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                //
             ]);
     }
 
@@ -82,8 +57,6 @@ class GarduResource extends Resource
     {
         return [
             'index' => Pages\ListGardus::route('/'),
-            'create' => Pages\CreateGardu::route('/create'),
-            'edit' => Pages\EditGardu::route('/{record}/edit'),
         ];
     }
 }

@@ -2,16 +2,11 @@
 
 namespace App\Filament\Viewer\Resources;
 
-use App\Filament\Resources\GolKdrResource\Pages;
-use App\Filament\Resources\GolKdrResource\RelationManagers;
+use App\Filament\Viewer\Resources\GolKdrResource\Pages;
 use App\Models\GolKdr;
-use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class GolKdrResource extends Resource
 {
@@ -24,20 +19,6 @@ class GolKdrResource extends Resource
     protected static ?string $navigationGroup = 'Operasional';
 
     protected static ?int $navigationSort = 33;
-
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                //
-                Forms\Components\TextInput::make('golongan')
-                ->label('Golongan')
-                ->numeric()
-                ->minLength(1)
-                ->maxLength(5)
-                ->required(),
-            ]);
-    }
 
     public static function table(Table $table): Table
     {
@@ -53,12 +34,10 @@ class GolKdrResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                //
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                //
             ]);
     }
 
@@ -73,8 +52,6 @@ class GolKdrResource extends Resource
     {
         return [
             'index' => Pages\ListGolKdrs::route('/'),
-            'create' => Pages\CreateGolKdr::route('/create'),
-            'edit' => Pages\EditGolKdr::route('/{record}/edit'),
         ];
     }
 }

@@ -2,16 +2,11 @@
 
 namespace App\Filament\Viewer\Resources;
 
-use App\Filament\Resources\AsmenResource\Pages;
-use App\Filament\Resources\AsmenResource\RelationManagers;
+use App\Filament\Viewer\Resources\AsmenResource\Pages;
 use App\Models\Asmen;
-use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AsmenResource extends Resource
 {
@@ -24,32 +19,6 @@ class AsmenResource extends Resource
     protected static ?string $navigationGroup = 'Data Pegawai';
 
     protected static ?int $navigationSort = 13;
-
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                //
-                Forms\Components\TextInput::make('nama')
-                ->label('Nama')
-                ->minLength(2)
-                ->maxLength(255)
-                ->required(),
-
-                Forms\Components\TextInput::make('nik')
-                ->label('NIK')
-                ->numeric()
-                ->minLength(2)
-                ->maxLength(16)
-                ->required(),
-
-                Forms\Components\TextInput::make('jabatan')
-                ->label('Jabatan')
-                ->minLength(2)
-                ->maxLength(255)
-                ->required(),
-            ]);
-    }
 
     public static function table(Table $table): Table
     {
@@ -75,12 +44,10 @@ class AsmenResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                //
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                //
             ]);
     }
 
@@ -95,8 +62,6 @@ class AsmenResource extends Resource
     {
         return [
             'index' => Pages\ListAsmens::route('/'),
-            'create' => Pages\CreateAsmen::route('/create'),
-            'edit' => Pages\EditAsmen::route('/{record}/edit'),
         ];
     }
 }

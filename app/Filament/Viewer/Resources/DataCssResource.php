@@ -2,16 +2,11 @@
 
 namespace App\Filament\Viewer\Resources;
 
-use App\Filament\Resources\DataCssResource\Pages;
-use App\Filament\Resources\DataCssResource\RelationManagers;
+use App\Filament\Viewer\Resources\DataCssResource\Pages;
 use App\Models\DataCss;
-use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class DataCssResource extends Resource
 {
@@ -24,32 +19,6 @@ class DataCssResource extends Resource
     protected static ?string $navigationGroup = 'Data Pegawai';
 
     protected static ?int $navigationSort = 12;
-
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                //
-                Forms\Components\TextInput::make('nama')
-                ->label('Nama')
-                ->minLength(2)
-                ->maxLength(255)
-                ->required(),
-
-                Forms\Components\TextInput::make('nik')
-                ->label('NIK')
-                ->numeric()
-                ->minLength(2)
-                ->maxLength(16)
-                ->required(),
-
-                Forms\Components\TextInput::make('jabatan')
-                ->label('Jabatan')
-                ->minLength(2)
-                ->maxLength(255)
-                ->required(),
-            ]);
-    }
 
     public static function table(Table $table): Table
     {
@@ -75,12 +44,10 @@ class DataCssResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                //
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                //
             ]);
     }
 
@@ -95,8 +62,6 @@ class DataCssResource extends Resource
     {
         return [
             'index' => Pages\ListDataCsses::route('/'),
-            'create' => Pages\CreateDataCss::route('/create'),
-            'edit' => Pages\EditDataCss::route('/{record}/edit'),
         ];
     }
 }
