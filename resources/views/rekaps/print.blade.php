@@ -35,25 +35,8 @@
             padding: 10px 0;
         }
 
-        .toll-gate {
-            margin-bottom: 15px;
-        }
-
-        .date-section {
+        .content-section {
             margin-bottom: 20px;
-        }
-
-        .personnel-info {
-            margin-bottom: 20px;
-        }
-
-        .personnel-item {
-            margin-bottom: 10px;
-        }
-
-        .personnel-item span {
-            display: inline-block;
-            min-width: 100px;
         }
 
         .main-table {
@@ -79,42 +62,114 @@
             font-weight: bold;
         }
 
+        /* Updated signatures section */
         .signatures {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 50px;
+            display: grid;
+            grid-template-areas:
+                "supervisor . service"
+                ". manager .";
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
             page-break-inside: avoid;
         }
 
         .signature-box {
             text-align: center;
             width: 200px;
+            margin: 0 auto;
+        }
+
+        .signature-box.supervisor {
+            grid-area: supervisor;
+        }
+
+        .signature-box.service {
+            grid-area: service;
+        }
+
+        .signature-box.manager {
+            grid-area: manager;
+        }
+
+        .signature-title {
+            margin-bottom: 60px;
+        }
+
+        .signature-name {
+            margin-bottom: 0;
         }
 
         .signature-line {
             border-bottom: 1px solid #000;
-            margin: 50px 0 10px 0;
+            width: 200px;
+            margin: 0 auto;
         }
 
+        .signature-nik {
+            margin-top: 5px;
+        }
+
+        /* Print specific styles */
         @media print {
-            body {
-                width: 100%;
-                margin: 0;
-                padding: 0;
+            .page-break {
+                page-break-before: always;
             }
 
-            .container {
-                width: 100%;
-                padding: 0;
+            .print-button {
+                display: none;
             }
 
             .main-table {
+                page-break-inside: auto;
+            }
+
+            .main-table tr {
                 page-break-inside: avoid;
             }
 
             .signatures {
-                margin-top: 30px;
+                margin-top: 50px;
             }
+
+            /* Style for the photo attachments */
+            .lampiran {
+                margin-top: 30px;
+                page-break-before: always;
+            }
+
+            .lampiran h3 {
+                text-align: center;
+                font-size: 16px;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+
+            .photo-attachments {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                margin-top: 20px;
+            }
+
+            .photo-attachments img {
+                width: 200px;
+                height: 200px;
+                object-fit: cover;
+                margin: 5px;
+                border: 1px solid #000;
+                border-radius: 5px;
+            }
+
+            .photo-number {
+                text-align: center;
+                margin-top: 5px;
+            }
+        }
+
+        .print-button {
+            text-align: right;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -124,38 +179,40 @@
             <h1>FORM LOLOS/ IZIN LINTAS</h1>
         </div>
 
-        <div class="toll-gate">
-            Gerbang Tol: {{ $form->Gerbang->name ?? '........................' }}
-        </div>
-
-        <div class="date-section">
-            Pada hari ini {{ \Carbon\Carbon::parse($form->tanggal)->isoFormat('dddd') }}
-            Tanggal {{ \Carbon\Carbon::parse($form->tanggal)->isoFormat('D') }}
-            Bulan {{ \Carbon\Carbon::parse($form->tanggal)->isoFormat('MMMM') }}
-            Tahun {{ \Carbon\Carbon::parse($form->tanggal)->isoFormat('YYYY') }}<br>
-            bertanda tangan dibawah ini:
-        </div>
-
-        <div class="personnel-info">
-            <div class="personnel-item">
-                1. Nama    : {{ $form->DataCs->nama ?? '........................' }}<br>
-                   NIK     : {{ $form->DataCs->nik ?? '........................' }}<br>
-                   Jabatan : {{ $form->DataCs->jabatan ?? '........................' }}
+        <div class="content-section">
+            <div class="toll-gate">
+                Gerbang Tol: {{ $form->Gerbang->name ?? '........................' }}
             </div>
-            <div class="personnel-item">
-                2. Nama    : {{ $form->DataCss->nama ?? '........................' }}<br>
-                   NIK     : {{ $form->DataCss->nik ?? '........................' }}<br>
-                   Jabatan : {{ $form->DataCss->jabatan ?? '........................' }}
-            </div>
-            <div class="personnel-item">
-                3. Nama    : {{ $form->Asmen->nama ?? '........................' }}<br>
-                   NIK     : {{ $form->Asmen->nik ?? '........................' }}<br>
-                   Jabatan : {{ $form->Asmen->jabatan ?? '........................' }}
-            </div>
-        </div>
 
-        <div class="shift-info">
-            Menerangkan bahwa pada Shift {{ $form->Shifts->shift ?? '........................' }} Telah terjadi Lolos/Izin Lintas Kendaraan sebagai berikut:
+            <div class="date-section">
+                Pada hari ini {{ \Carbon\Carbon::parse($form->tanggal)->locale('id')->isoFormat('dddd') }}
+                tanggal {{ \Carbon\Carbon::parse($form->tanggal)->locale('id')->isoFormat('D') }}
+                bulan {{ \Carbon\Carbon::parse($form->tanggal)->locale('id')->isoFormat('MMMM') }}
+                tahun {{ \Carbon\Carbon::parse($form->tanggal)->isoFormat('YYYY') }}<br>
+                bertanda tangan dibawah ini:
+            </div>
+
+            <div class="personnel-info">
+                <div class="personnel-item">
+                    1. Nama    : {{ $form->DataCs->nama ?? '........................' }}<br>
+                       NIK     : {{ $form->DataCs->nik ?? '........................' }}<br>
+                       Jabatan : {{ $form->DataCs->jabatan ?? '........................' }}
+                </div>
+                <div class="personnel-item">
+                    2. Nama    : {{ $form->DataCss->nama ?? '........................' }}<br>
+                       NIK     : {{ $form->DataCss->nik ?? '........................' }}<br>
+                       Jabatan : {{ $form->DataCss->jabatan ?? '........................' }}
+                </div>
+                <div class="personnel-item">
+                    3. Nama    : {{ $form->Asmen->nama ?? '........................' }}<br>
+                       NIK     : {{ $form->Asmen->nik ?? '........................' }}<br>
+                       Jabatan : {{ $form->Asmen->jabatan ?? '........................' }}
+                </div>
+            </div>
+
+            <div class="shift-info">
+                Menerangkan bahwa pada Shift {{ $form->Shifts->shift ?? '........................' }} Telah terjadi Lolos/Izin Lintas Kendaraan sebagai berikut:
+            </div>
         </div>
 
         <table class="main-table">
@@ -172,7 +229,6 @@
                     <th>Nomor Kendaraan</th>
                     <th>Instansi</th>
                     <th>Nama Penanggung Jawab</th>
-
                 </tr>
             </thead>
             <tbody>
@@ -189,39 +245,69 @@
                     <td>{{ $detail->nomor_kendaraan ?? '-' }}</td>
                     <td>{{ $detail->Instansi->instansi ?? '-' }}</td>
                     <td>{{ $detail->penanggung_jawab ?? '-' }}</td>
-
                 </tr>
                 @endforeach
                 <tr class="total-row">
-                    <td colspan="5">Total Kendaraan</td>
-                    <td colspan="7">{{ $detailLolos->sum('jumlah_kdr') }}</td>
+                    <td colspan="6">Total Kendaraan</td>
+                    <td colspan="5">{{ $detailLolos->sum('jumlah_kdr') }}</td>
                 </tr>
             </tbody>
         </table>
 
         <div class="signatures">
-            <div class="signature-box">
-                <div>Customer Service Supervisor</div>
-                <div>{{ $form->DataCss->nama ?? '' }}</div>
+            <div class="signature-box supervisor">
+                <div class="signature-title">Customer Service Supervisor</div>
+                <div class="signature-name">{{ $form->DataCss->nama ?? '' }}</div>
                 <div class="signature-line"></div>
-                <div>NIK. {{ $form->DataCss->nik ?? '' }}</div>
+                <div class="signature-nik">NIK. {{ $form->DataCss->nik ?? '' }}</div>
             </div>
 
-            <div class="signature-box">
-                <div>Customer Service</div>
-                <div>{{ $form->DataCs->nama ?? '' }}</div>
+            <div class="signature-box service">
+                <div class="signature-title">Customer Service</div>
+                <div class="signature-name">{{ $form->DataCs->nama ?? '' }}</div>
                 <div class="signature-line"></div>
-                <div>NIK. {{ $form->DataCs->nik ?? '' }}</div>
+                <div class="signature-nik">NIK. {{ $form->DataCs->nik ?? '' }}</div>
             </div>
 
-            <div class="signature-box">
-                <div>Assistant Manager<br>Transaction</div>
-                <div>{{ $form->Asmen->nama ?? '' }}</div>
+            <div class="signature-box manager">
+                <div class="signature-title">Asmen Lalu Lintas</div>
+                <div class="signature-name">{{ $form->Asmen->nama ?? '' }}</div>
                 <div class="signature-line"></div>
-                <div>NIK. {{ $form->Asmen->nik ?? '' }}</div>
+                <div class="signature-nik">NIK. {{ $form->Asmen->nik ?? '' }}</div>
             </div>
+        </div>
+
+        <!-- Lampiran Section -->
+        <div class="lampiran">
+            <h3>LAMPIRAN</h3>
+            <div class="photo-attachments">
+                @foreach($detailLolos as $index => $detail)
+                    <!-- Foto Surat -->
+                    @if ($detail->surats->isNotEmpty())
+                        @foreach ($detail->surats as $surat)
+                            <div class="photo-item">
+                                <img src="{{ asset('storage/' . $surat->surat) }}" alt="Foto Surat">
+                                <div class="photo-number">Nomor {{ $index + 1 }}: Foto Surat</div>
+                            </div>
+                        @endforeach
+                    @endif
+
+                    <!-- Foto Kendaraan -->
+                    @if ($detail->fotos->isNotEmpty())
+                        @foreach ($detail->fotos as $foto)
+                            <div class="photo-item">
+                                <img src="{{ asset('storage/' . $foto->foto) }}" alt="Foto Kendaraan">
+                                <div class="photo-number">Nomor {{ $index + 1 }}: Foto Kendaraan</div>
+                            </div>
+                        @endforeach
+                    @endif
+                @endforeach
+            </div>
+        </div>
+
+        <div class="print-button">
+            <button onclick="window.print()">Print</button>
         </div>
     </div>
 </body>
 </html>
-

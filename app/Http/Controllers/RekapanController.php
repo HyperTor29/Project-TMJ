@@ -20,28 +20,42 @@ class RekapanController extends Controller
 
     public function accept(Request $request, $formId)
     {
-        $detailLolosIds = $request->input('detailLolosIds');
+        $detailLolosIds = $request->input('detailLolosIds', []);
 
-        foreach ($detailLolosIds as $detailLolosId) {
-            $detailLolos = DetailLolos::findOrFail($detailLolosId);
-            $detailLolos->status = 'Accepted';
-            $detailLolos->save();
-        }
+        DetailLolos::whereIn('id', $detailLolosIds)->update(['status' => 'Accepted']);
 
-        return redirect()->route('rekaps.index')->with('success', 'Data telah diterima.');
+        // Add any additional logic here (e.g., notifications, logging)
+
+        return redirect()->back()->with('success', 'All items have been accepted.');
     }
 
     public function reject(Request $request, $formId)
     {
-        $detailLolosIds = $request->input('detailLolosIds');
+        $detailLolosIds = $request->input('detailLolosIds', []);
 
-        foreach ($detailLolosIds as $detailLolosId) {
-            $detailLolos = DetailLolos::findOrFail($detailLolosId);
-            $detailLolos->status = 'Rejected';
-            $detailLolos->save();
-        }
+        DetailLolos::whereIn('id', $detailLolosIds)->update(['status' => 'Rejected']);
 
-        return redirect()->route('rekaps.index')->with('success', 'Data telah ditolak.');
+        // Add any additional logic here (e.g., notifications, logging)
+
+        return redirect()->back()->with('success', 'All items have been rejected.');
+    }
+
+    public function acceptSingle(Request $request, $id, $detailId)
+    {
+        $detailLolos = DetailLolos::findOrFail($detailId);
+        $detailLolos->status = 'Accepted';
+        $detailLolos->save();
+
+        return redirect()->back()->with('success', 'All items have been accepted.');
+    }
+
+    public function rejectSingle(Request $request, $id, $detailId)
+    {
+        $detailLolos = DetailLolos::findOrFail($detailId);
+        $detailLolos->status = 'Rejected';
+        $detailLolos->save();
+
+        return redirect()->back()->with('success', 'All items have been rejected.');
     }
 
     public function print($id)
@@ -53,3 +67,4 @@ class RekapanController extends Controller
         return view('rekaps.print', compact('form', 'detailLolos'));
     }
 }
+

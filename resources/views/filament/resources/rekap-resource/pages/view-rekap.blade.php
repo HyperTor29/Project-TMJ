@@ -83,6 +83,7 @@
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-400">Surat Izin Lintas</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-400">Foto Surat</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-400">Foto Kendaraan</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-400">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-600">
@@ -128,6 +129,22 @@
                                     @else
                                         <span>-</span>
                                     @endif
+                                </td>
+                                <td class="px-4 py-2 text-sm text-gray-800 dark:text-gray-200">
+                                    <div class="flex space-x-2">
+                                        <form action="{{ route('rekapan.accept-single', ['id' => $record->id, 'detailId' => $detail->id]) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="px-4 py-2 bg-green-600 text-black text-sm font-medium rounded-md shadow hover:bg-green-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-300">
+                                                Accept
+                                            </button>
+                                        </form>
+                                        <form action="{{ route('rekapan.reject-single', ['id' => $record->id, 'detailId' => $detail->id]) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="px-4 py-2 bg-red-600 text-black text-sm font-medium rounded-md shadow hover:bg-red-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-300">
+                                                Reject
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -225,7 +242,7 @@
                 </a>
 
                 <!-- Tombol Accept -->
-                <form action="{{ route('rekapan.accept', ['formId' => $record->id]) }}" method="POST" onsubmit="return confirm('Apakah anda yakin ingin menerima semua?');">
+                <form action="{{ route('rekapan.accept', $record->id) }}" method="POST" onsubmit="return confirm('Apakah anda yakin ingin menerima semua?');">
                     @csrf
                     @foreach ($record->DetailLolos as $detail)
                         <input type="hidden" name="detailLolosIds[]" value="{{ $detail->id }}">
@@ -236,7 +253,7 @@
                 </form>
 
                 <!-- Tombol Reject -->
-                <form action="{{ route('rekapan.reject', ['formId' => $record->id]) }}" method="POST" onsubmit="return confirm('Apakah anda yakin ingin menolak semua?');">
+                <form action="{{ route('rekapan.reject', $record->id) }}" method="POST" onsubmit="return confirm('Apakah anda yakin ingin menolak semua?');">
                     @csrf
                     @foreach ($record->DetailLolos as $detail)
                         <input type="hidden" name="detailLolosIds[]" value="{{ $detail->id }}">

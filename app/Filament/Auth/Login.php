@@ -51,4 +51,6 @@ class Login extends AuthLogin
             'password'  => $data['password'],
         ];
     }
+
+    protected static string $view = 'filament.auth.login';
 }
