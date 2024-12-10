@@ -34,7 +34,7 @@ class ValidatorPanelProvider extends PanelProvider
             ->id('validator')
             ->path('validator')
             ->login(Login::class)
-            ->viteTheme('resources/css/filament/validator/theme.css')
+            // ->viteTheme('resources/css/filament/validator/theme.css')
             ->colors([
                 'primary' => Color::Amber,
             ])

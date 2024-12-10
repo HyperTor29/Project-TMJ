@@ -4,7 +4,7 @@
         <div class="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
             <h2 class="text-2xl font-bold">Detail Rekapan</h2>
             <a href="{{ url()->previous() }}"
-               class="flex items-center space-x-2 px-4 py-2 bg-gray-800 text-white text-sm font-medium rounded-lg shadow-md hover:bg-gray-300 transition duration-300">
+               class="flex items-center space-x-2 px-4 py-2 bg-gray-800 text-black text-sm font-medium rounded-lg shadow-md hover:bg-gray-300 transition duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                 </svg>
@@ -146,7 +146,7 @@
                                             <!-- Tombol Accept -->
                                             <form action="{{ route('rekapan.accept-single', ['id' => $record->id, 'detailId' => $detail->id]) }}" method="POST">
                                                 @csrf
-                                                <button type="submit" class="px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md shadow hover:bg-green-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-300">
+                                                <button type="submit" class="px-4 py-2 bg-green-600 text-black text-sm font-medium rounded-md shadow hover:bg-green-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-300">
                                                     Accept
                                                 </button>
                                             </form>
@@ -154,7 +154,7 @@
                                             <!-- Tombol Reject -->
                                             <form action="{{ route('rekapan.reject-single', ['id' => $record->id, 'detailId' => $detail->id]) }}" method="POST">
                                                 @csrf
-                                                <button type="submit" class="px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md shadow hover:bg-red-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-300">
+                                                <button type="submit" class="px-4 py-2 bg-red-600 text-black text-sm font-medium rounded-md shadow hover:bg-red-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-300">
                                                     Reject
                                                 </button>
                                             </form>
@@ -252,7 +252,7 @@
                 <!-- Tombol Print -->
                 <a href="{{ route('rekapan.print', ['id' => $record->id]) }}"
                     target="_blank"
-                    class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md shadow hover:bg-blue-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    class="px-4 py-2 bg-blue-600 text-black text-sm font-medium rounded-md shadow hover:bg-blue-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300">
                     Print
                 </a>
 
@@ -262,7 +262,7 @@
                     @foreach ($record->DetailLolos as $detail)
                         <input type="hidden" name="detailLolosIds[]" value="{{ $detail->id }}">
                     @endforeach
-                    <button type="submit" class="px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md shadow hover:bg-green-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-300">
+                    <button type="submit" class="px-4 py-2 bg-green-600 text-black text-sm font-medium rounded-md shadow hover:bg-green-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-300">
                         Accept All
                     </button>
                 </form>
@@ -273,7 +273,7 @@
                     @foreach ($record->DetailLolos as $detail)
                         <input type="hidden" name="detailLolosIds[]" value="{{ $detail->id }}">
                     @endforeach
-                    <button type="submit" class="px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md shadow hover:bg-red-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-300">
+                    <button type="submit" class="px-4 py-2 bg-red-600 text-black text-sm font-medium rounded-md shadow hover:bg-red-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-300">
                         Reject All
                     </button>
                 </form>
