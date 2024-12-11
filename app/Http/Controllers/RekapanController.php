@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Form;
 use App\Models\DetailLolos;
 use Illuminate\Http\Request;
+use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 
 class RekapanController extends Controller
@@ -24,9 +25,13 @@ class RekapanController extends Controller
 
         DetailLolos::whereIn('id', $detailLolosIds)->update(['status' => 'Accepted']);
 
-        // Add any additional logic here (e.g., notifications, logging)
+        Notification::make()
+            ->title('Accept All Success')
+            ->success()
+            ->body('All details have been accepted successfully.')
+            ->send();
 
-        return redirect()->back()->with('success', 'All items have been accepted.');
+        return redirect()->back();
     }
 
     public function reject(Request $request, $formId)
@@ -35,9 +40,13 @@ class RekapanController extends Controller
 
         DetailLolos::whereIn('id', $detailLolosIds)->update(['status' => 'Rejected']);
 
-        // Add any additional logic here (e.g., notifications, logging)
+        Notification::make()
+            ->title('Reject All Success')
+            ->danger()
+            ->body('All details have been rejected successfully.')
+            ->send();
 
-        return redirect()->back()->with('success', 'All items have been rejected.');
+        return redirect()->back();
     }
 
     public function acceptSingle(Request $request, $id, $detailId)
@@ -45,8 +54,13 @@ class RekapanController extends Controller
         $detailLolos = DetailLolos::findOrFail($detailId);
         $detailLolos->status = 'Accepted';
         $detailLolos->save();
+        Notification::make()
+            ->title('Accept Success')
+            ->success()
+            ->body('The detail has been accepted successfully.')
+            ->send();
 
-        return redirect()->back()->with('success', 'All items have been accepted.');
+        return redirect()->back();
     }
 
     public function rejectSingle(Request $request, $id, $detailId)
@@ -54,8 +68,13 @@ class RekapanController extends Controller
         $detailLolos = DetailLolos::findOrFail($detailId);
         $detailLolos->status = 'Rejected';
         $detailLolos->save();
+        Notification::make()
+            ->title('Reject Success')
+            ->danger()
+            ->body('The detail has been rejected successfully.')
+            ->send();
 
-        return redirect()->back()->with('success', 'All items have been rejected.');
+        return redirect()->back();
     }
 
     public function print($id)

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <style>
         :root {
@@ -39,7 +40,7 @@
         }
 
         .filament-login {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.8);
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             overflow: hidden;
@@ -69,6 +70,7 @@
 
         .input-field {
             margin-bottom: 20px;
+            position: relative;
         }
 
         .input-field label {
@@ -92,6 +94,15 @@
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+        }
+
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--primary-color);
         }
 
         .remember-me {
@@ -155,11 +166,14 @@
                     <div class="input-field">
                         <label for="password">Password</label>
                         <input type="password" name="password" id="password" required>
+                        <span class="password-toggle" id="toggle-password">
+                            <i class="fas fa-eye-slash"></i>
+                        </span>
                     </div>
 
                     <div class="remember-me">
                         <input type="checkbox" name="remember" id="remember">
-                        <label for="remember">Remember me</label>
+                        <label for="remember">Ingat Password</label>
                     </div>
 
                     <button type="submit" class="login-button">Login</button>
@@ -167,5 +181,23 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const togglePassword = document.getElementById('toggle-password');
+        const passwordField = document.getElementById('password');
+
+        let passwordVisible = false;
+
+        togglePassword.addEventListener('click', function() {
+            passwordVisible = !passwordVisible;
+            if (passwordVisible) {
+            passwordField.type = 'text';
+            togglePassword.innerHTML = '<i class="fas fa-eye"></i>';
+            } else {
+            passwordField.type = 'password';
+            togglePassword.innerHTML = '<i class="fas fa-eye-slash"></i>';
+            }
+        });
+    </script>
 </body>
 </html>

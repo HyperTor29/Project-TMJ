@@ -41,6 +41,8 @@ class ViewerPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->sidebarCollapsibleOnDesktop(true)
+            ->darkMode(false)
+            ->brandLogo(asset('images/GambarTMJ.jpg'))
             ->id('viewer')
             ->path('viewer')
             ->login(Login::class)

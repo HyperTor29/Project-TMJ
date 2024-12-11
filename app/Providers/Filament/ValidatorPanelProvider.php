@@ -31,6 +31,8 @@ class ValidatorPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->sidebarCollapsibleOnDesktop(true)
+            ->darkMode(false)
+            ->brandLogo(asset('images/GambarTMJ.jpg'))
             ->id('validator')
             ->path('validator')
             ->login(Login::class)

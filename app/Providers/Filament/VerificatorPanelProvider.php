@@ -32,6 +32,8 @@ class VerificatorPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->sidebarCollapsibleOnDesktop(true)
+            ->darkMode(false)
+            ->brandLogo(asset('images/GambarTMJ.jpg'))
             ->id('verificator')
             ->path('verificator')
             ->login(Login::class)

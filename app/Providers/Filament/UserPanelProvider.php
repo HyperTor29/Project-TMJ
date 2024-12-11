@@ -32,6 +32,8 @@ class UserPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->sidebarCollapsibleOnDesktop(true)
+            ->darkMode(false)
+            ->brandLogo(asset('images/GambarTMJ.jpg'))
             ->id('user')
             ->path('user')
             ->login(Login::class)

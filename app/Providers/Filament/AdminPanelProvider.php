@@ -44,6 +44,8 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->sidebarCollapsibleOnDesktop(true)
+            ->darkMode(false)
+            ->brandLogo(asset('images/GambarTMJ.jpg'))
             ->id('admin')
             ->path('admin')
             ->login(Login::class)
