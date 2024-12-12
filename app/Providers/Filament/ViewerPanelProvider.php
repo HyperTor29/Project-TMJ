@@ -7,7 +7,7 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Navigation\NavigationBuilder;
 use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationItem;
-use App\Filament\Pages\PagesDashboard;
+use Filament\Pages\Dashboard as PagesDashboard;
 use App\Filament\Viewer\Resources\DataCsResource;
 use App\Filament\Viewer\Resources\DataCssResource;
 use App\Filament\Viewer\Resources\AsmenResource;
@@ -46,7 +46,7 @@ class ViewerPanelProvider extends PanelProvider
             ->id('viewer')
             ->path('viewer')
             ->login(Login::class)
-            // ->viteTheme('resources/css/filament/viewer/theme.css')
+            ->viteTheme('resources/css/filament/viewer/theme.css')
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -79,10 +79,11 @@ class ViewerPanelProvider extends PanelProvider
                     ->items([
                         NavigationItem::make('dashboard')
                         ->label(fn (): string => __('filament-panels::pages/dashboard.title'))
-                        ->url(fn (): string => Pages\Dashboard::getUrl())
+                        ->url(fn (): string => PagesDashboard::getUrl())
                         ->icon('heroicon-o-home')
-                        ->isActiveWhen(fn () => request()->routeIs('filament.admin.pages.dashboard')),
+                        ->isActiveWhen(fn () => request()->routeIs('filament.viewer.pages.dashboard')),
                     ]),
+
                     NavigationGroup::make('Data Pegawai')
                     ->items([
                         ...DataCsResource::getNavigationItems(),

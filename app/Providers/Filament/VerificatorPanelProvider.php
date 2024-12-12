@@ -7,7 +7,7 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Navigation\NavigationBuilder;
 use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationItem;
-use App\Filament\Pages\Dashboard as PagesDashboard;
+use Filament\Pages\Dashboard as PagesDashboard;
 use App\Filament\Resources\FormResource;
 use App\Filament\Resources\RekapResource;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -37,7 +37,7 @@ class VerificatorPanelProvider extends PanelProvider
             ->id('verificator')
             ->path('verificator')
             ->login(Login::class)
-            // ->viteTheme('resources/css/filament/verificator/theme.css')
+            ->viteTheme('resources/css/filament/verificator/theme.css')
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -70,9 +70,9 @@ class VerificatorPanelProvider extends PanelProvider
                     ->items([
                         NavigationItem::make('dashboard')
                         ->label(fn (): string => __('filament-panels::pages/dashboard.title'))
-                        ->url(fn (): string => Pages\Dashboard::getUrl())
+                        ->url(fn (): string => PagesDashboard::getUrl())
                         ->icon('heroicon-o-home')
-                        ->isActiveWhen(fn () => request()->routeIs('filament.admin.pages.dashboard')),
+                        ->isActiveWhen(fn () => request()->routeIs('filament.verificator.pages.dashboard')),
                     ]),
 
                     NavigationGroup::make('Laporan')
