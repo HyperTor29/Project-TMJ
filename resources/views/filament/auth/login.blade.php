@@ -172,7 +172,7 @@
                     </div>
 
                     <div class="remember-me">
-                        <input type="checkbox" name="remember" id="remember">
+                        <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                         <label for="remember">Ingat Password</label>
                     </div>
 
@@ -191,11 +191,11 @@
         togglePassword.addEventListener('click', function() {
             passwordVisible = !passwordVisible;
             if (passwordVisible) {
-            passwordField.type = 'text';
-            togglePassword.innerHTML = '<i class="fas fa-eye"></i>';
+                passwordField.type = 'text';
+                togglePassword.innerHTML = '<i class="fas fa-eye"></i>';
             } else {
-            passwordField.type = 'password';
-            togglePassword.innerHTML = '<i class="fas fa-eye-slash"></i>';
+                passwordField.type = 'password';
+                togglePassword.innerHTML = '<i class="fas fa-eye-slash"></i>';
             }
         });
     </script>

@@ -16,8 +16,9 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('login', 'password');
+        $remember = $request->has('remember');
 
-        if (Filament::auth()->attempt(['name' => $credentials['login'], 'password' => $credentials['password']], $request->filled('remember'))) {
+        if (Filament::auth()->attempt(['name' => $credentials['login'], 'password' => $credentials['password']], $request->filled('remember'), $remember)) {
             session()->regenerate();
 
             $user = Filament::auth()->user();
