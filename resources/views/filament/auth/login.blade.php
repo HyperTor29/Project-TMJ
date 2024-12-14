@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login - Tertib Lolos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <style>
@@ -12,6 +12,9 @@
             --primary-hover: #45a049;
             --text-color: #333;
             --background-color: #f0f0f0;
+            --input-bg: rgba(255, 255, 255, 0.9);
+            --input-border: rgba(76, 175, 80, 0.5);
+            --input-focus-shadow: rgba(76, 175, 80, 0.4);
         }
 
         * {
@@ -40,36 +43,68 @@
         }
 
         .filament-login {
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             transition: all 0.3s ease;
         }
 
         .filament-login:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
 
         .login-header {
             background-color: var(--primary-color);
             color: white;
             text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .login-header h2 {
-            font-size: 28px;
-            font-weight: 600;
+        .login-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 80%);
+            transform: rotate(30deg);
+        }
+
+        .app-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .app-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-text {
+            font-size: 18px;
+            font-weight: 400;
+            position: relative;
+            z-index: 1;
         }
 
         .login-form {
-            padding: 30px;
+            padding: 40px 30px;
         }
 
         .input-field {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             position: relative;
         }
 
@@ -77,60 +112,63 @@
             display: block;
             font-size: 14px;
             color: var(--text-color);
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: 500;
+            transition: all 0.3s ease;
         }
 
         .input-field input {
             width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid var(--input-border);
             font-size: 16px;
-            transition: border-color 0.3s ease;
+            transition: all 0.3s ease;
+            background-color: var(--input-bg);
         }
 
         .input-field input:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+            box-shadow: 0 0 0 4px var(--input-focus-shadow);
+        }
+
+        .input-field input:focus + label {
+            color: var(--primary-color);
         }
 
         .password-toggle {
             position: absolute;
             top: 50%;
-            right: 10px;
+            right: 15px;
             transform: translateY(-50%);
             cursor: pointer;
             color: var(--primary-color);
+            transition: all 0.3s ease;
         }
 
-        .remember-me {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            color: var(--text-color);
-            margin-bottom: 20px;
-        }
-
-        .remember-me input {
-            margin-right: 8px;
+        .password-toggle:hover {
+            color: var(--primary-hover);
         }
 
         .login-button {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             background-color: var(--primary-color);
             color: white;
-            border-radius: 8px;
+            border-radius: 10px;
             border: none;
-            font-size: 16px;
+            font-size: 18px;
+            font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .login-button:hover {
             background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
         }
 
         @media (max-width: 480px) {
@@ -139,12 +177,26 @@
             }
 
             .login-form {
-                padding: 20px;
+                padding: 30px 20px;
             }
 
-            .login-header h2 {
-                font-size: 24px;
+            .app-name {
+                font-size: 22px;
             }
+
+            .welcome-text {
+                font-size: 16px;
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .app-logo {
+            animation: float 4s ease-in-out infinite;
         }
     </style>
 </head>
@@ -152,28 +204,25 @@
     <div class="filament-login-container">
         <div class="filament-login">
             <div class="login-header">
-                <h2>Selamat Datang</h2>
+                <img src="{{ asset('images/GambarTMJ.jpg') }}" alt="Tertib Lolos Logo" class="app-logo">
+                <h1 class="app-name">Tertib Lolos</h1>
+                <p class="welcome-text">Selamat Datang</p>
             </div>
             <div class="login-form">
                 <form method="POST" action="{{ route('filament.auth.login') }}">
                     @csrf
 
                     <div class="input-field">
-                        <label for="login">Nama</label>
                         <input type="text" name="login" id="login" value="{{ old('login') }}" required autofocus autocomplete="off">
+                        <label for="login">Nama</label>
                     </div>
 
                     <div class="input-field">
-                        <label for="password">Password</label>
                         <input type="password" name="password" id="password" required>
+                        <label for="password">Password</label>
                         <span class="password-toggle" id="toggle-password">
                             <i class="fas fa-eye-slash"></i>
                         </span>
-                    </div>
-
-                    <div class="remember-me">
-                        <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                        <label for="remember">Ingat Password</label>
                     </div>
 
                     <button type="submit" class="login-button">Login</button>
@@ -198,6 +247,20 @@
                 togglePassword.innerHTML = '<i class="fas fa-eye-slash"></i>';
             }
         });
+
+        // Add floating label effect
+        const inputs = document.querySelectorAll('.input-field input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.previousElementSibling.classList.add('active');
+            });
+            input.addEventListener('blur', () => {
+                if (input.value === '') {
+                    input.previousElementSibling.classList.remove('active');
+                }
+            });
+        });
     </script>
 </body>
 </html>
+

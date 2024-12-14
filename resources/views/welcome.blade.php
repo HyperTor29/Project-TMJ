@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PT Trans Marga Jateng</title>
+    <title>Tertib Lolos - PT Trans Marga Jateng</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
@@ -51,11 +51,12 @@
     <header x-data="{ isOpen: false }" class="sticky top-0 z-50 w-full border-b bg-white shadow-sm">
         <div class="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
             <a href="{{ url('/') }}" class="flex items-center space-x-2">
-                <img src="{{ asset('images/GambarTMJ.jpg') }}" alt="PT Trans Marga Jateng Logo" class="h-10 w-auto" width="80" height="60">
+                <img src="{{ asset('images/GambarTMJ.jpg') }}" alt="Tertib Lolos Logo" class="h-10 w-auto" width="80" height="60">
+                <span class="text-xl font-bold text-navy-blue">Tertib Lolos</span>
             </a>
             <nav class="hidden md:flex gap-6 items-center">
                 <a class="text-sm font-medium text-navy-blue hover:text-green-600 transition-colors duration-200" href="#tentang">Tentang</a>
-                <a class="text-sm font-medium text-navy-blue hover:text-green-600 transition-colors duration-200" href="#layanan">Layanan</a>
+                <a class="text-sm font-medium text-navy-blue hover:text-green-600 transition-colors duration-200" href="#fitur">Fitur</a>
                 <a class="text-sm font-medium text-navy-blue hover:text-green-600 transition-colors duration-200" href="#kontak">Kontak</a>
                 <div x-data="{ open: false }" class="relative">
                     <button @click="open = !open" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 border-navy-blue text-navy-blue hover:bg-navy-blue hover:text-white">
@@ -85,7 +86,7 @@
         <div x-show="isOpen" class="md:hidden">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="#tentang" class="block px-3 py-2 rounded-md text-base font-medium text-navy-blue hover:text-white hover:bg-navy-blue">Tentang</a>
-                <a href="#layanan" class="block px-3 py-2 rounded-md text-base font-medium text-navy-blue hover:text-white hover:bg-navy-blue">Layanan</a>
+                <a href="#fitur" class="block px-3 py-2 rounded-md text-base font-medium text-navy-blue hover:text-white hover:bg-navy-blue">Fitur</a>
                 <a href="#kontak" class="block px-3 py-2 rounded-md text-base font-medium text-navy-blue hover:text-white hover:bg-navy-blue">Kontak</a>
                 <div x-data="{ open: false }" class="relative">
                     <button @click="open = !open" class="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-navy-blue hover:text-white hover:bg-navy-blue">
@@ -109,10 +110,10 @@
                 <div class="flex flex-col items-center space-y-4 text-center">
                     <div class="space-y-2 max-w-3xl mx-auto">
                         <h1 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none text-navy-blue animate-fade-in">
-                            Selamat Datang di PT Trans Marga Jateng
+                            Selamat Datang di Tertib Lolos
                         </h1>
                         <p class="mx-auto max-w-[700px] text-navy-blue md:text-xl animate-fade-in">
-                            Menghubungkan Jawa Tengah melalui infrastruktur transportasi yang berkelanjutan dan inovatif.
+                            Sistem manajemen perizinan kendaraan pintar untuk kelancaran lalu lintas di gerbang tol PT Trans Marga Jateng.
                         </p>
                     </div>
                     <a href="#kontak" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 bg-navy-blue text-white hover:bg-blue-800 animate-fade-in">
@@ -122,22 +123,22 @@
             </div>
         </section>
 
-        <section id="layanan" class="w-full py-12 md:py-24 lg:py-32 bg-white">
+        <section id="fitur" class="w-full py-12 md:py-24 lg:py-32 bg-white">
             <div class="container mx-auto px-4 md:px-6 max-w-7xl">
-                <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-8 text-center text-navy-blue">Layanan Kami</h2>
+                <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-8 text-center text-navy-blue">Fitur Utama</h2>
                 <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
                     @foreach ([
-                        ['title' => 'Pengelolaan Jalan Tol', 'content' => 'Pengelolaan dan pemeliharaan jalan tol yang efisien di seluruh Jawa Tengah.', 'border' => 'border-green-500', 'icon' => 'road'],
-                        ['title' => 'Pengembangan Infrastruktur', 'content' => 'Perencanaan dan pelaksanaan proyek infrastruktur transportasi baru.', 'border' => 'border-yellow-400', 'icon' => 'building'],
-                        ['title' => 'Manajemen Lalu Lintas', 'content' => 'Sistem canggih untuk kelancaran arus lalu lintas dan peningkatan keselamatan jalan.', 'border' => 'border-green-500', 'icon' => 'traffic-cone']
-                    ] as $service)
-                        <div class="w-full max-w-sm rounded-lg border bg-card text-card-foreground shadow-sm {{ $service['border'] }} transition-transform hover:scale-105">
+                        ['title' => 'Manajemen Perizinan', 'content' => 'Proses perizinan kendaraan yang efisien dan terstruktur untuk kelancaran lalu lintas di gerbang tol.', 'border' => 'border-green-500', 'icon' => 'check-square'],
+                        ['title' => 'Verifikasi Real-time', 'content' => 'Sistem verifikasi cepat dan akurat untuk memastikan keabsahan izin kendaraan yang melintas.', 'border' => 'border-yellow-400', 'icon' => 'shield-check'],
+                        ['title' => 'Pelaporan & Analisis', 'content' => 'Laporan komprehensif dan analisis data untuk pengambilan keputusan yang lebih baik.', 'border' => 'border-green-500', 'icon' => 'bar-chart-2']
+                    ] as $feature)
+                        <div class="w-full max-w-sm rounded-lg border bg-card text-card-foreground shadow-sm {{ $feature['border'] }} transition-transform hover:scale-105">
                             <div class="flex flex-col space-y-1.5 p-6">
-                                <i data-lucide="{{ $service['icon'] }}" class="w-8 h-8 mb-2 text-navy-blue"></i>
-                                <h3 class="text-2xl font-semibold leading-none tracking-tight text-navy-blue">{{ $service['title'] }}</h3>
+                                <i data-lucide="{{ $feature['icon'] }}" class="w-8 h-8 mb-2 text-navy-blue"></i>
+                                <h3 class="text-2xl font-semibold leading-none tracking-tight text-navy-blue">{{ $feature['title'] }}</h3>
                             </div>
                             <div class="p-6 pt-0 text-navy-blue">
-                                {{ $service['content'] }}
+                                {{ $feature['content'] }}
                             </div>
                         </div>
                     @endforeach
@@ -148,18 +149,17 @@
         <section id="tentang" class="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
             <div class="container mx-auto px-4 md:px-6 max-w-7xl">
                 <div class="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
-                    <img src="{{ asset('images/GambarTol.jpeg') }}" alt="Tentang PT Trans Marga Jateng" class="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last shadow-lg">
+                    <img src="{{ asset('images/GambarTol.jpeg') }}" alt="Gerbang Tol PT Trans Marga Jateng" class="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last shadow-lg">
                     <div class="flex flex-col justify-center space-y-4">
-                        <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl text-navy-blue">Tentang Kami</h2>
+                        <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl text-navy-blue">Tentang Tertib Lolos</h2>
                         <p class="max-w-[600px] text-navy-blue md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                            PT Trans Marga Jateng berdedikasi untuk mengembangkan dan mengelola infrastruktur transportasi berkualitas tinggi
-                            di Jawa Tengah. Dengan fokus pada inovasi dan keberlanjutan, kami berusaha meningkatkan konektivitas dan
-                            mendorong pertumbuhan ekonomi di wilayah ini.
+                            Tertib Lolos adalah sistem manajemen perizinan kendaraan inovatif yang dikembangkan oleh PT Trans Marga Jateng.
+                            Dirancang untuk mengoptimalkan alur lalu lintas di gerbang tol, sistem ini menjamin keamanan, efisiensi, dan
+                            keteraturan dalam proses perizinan kendaraan yang melintas.
                         </p>
                     </div>
                 </div>
-            </div>
-        </section>
+            </div</section>
 
         <section id="kontak" class="w-full py-12 md:py-24 lg:py-32 bg-white">
             <div class="container mx-auto px-4 md:px-6 max-w-7xl">
@@ -176,26 +176,9 @@
                         </div>
                         <div class="flex items-center space-x-2 text-navy-blue">
                             <i data-lucide="mail"></i>
-                            <span>info@transmargajateng.co.id</span>
+                            <span>admin@transmargajateng.com</span>
                         </div>
                     </div>
-                    <form class="space-y-4">
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-navy-blue">Nama</label>
-                            <input type="text" id="name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-navy-blue focus:ring focus:ring-navy-blue focus:ring-opacity-50">
-                        </div>
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-navy-blue">Email</label>
-                            <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-navy-blue focus:ring focus:ring-navy-blue focus:ring-opacity-50">
-                        </div>
-                        <div>
-                            <label for="message" class="block text-sm font-medium text-navy-blue">Pesan</label>
-                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-navy-blue focus:ring focus:ring-navy-blue focus:ring-opacity-50"></textarea>
-                        </div>
-                        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-navy-blue hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-navy-blue">
-                            Kirim Pesan
-                        </button>
-                    </form>
                 </div>
             </div>
         </section>
@@ -205,7 +188,7 @@
         <div class="container mx-auto px-4 md:px-6 max-w-7xl">
             <div class="flex flex-col items-center justify-between gap-4 md:flex-row">
                 <p class="text-sm">
-                    © {{ date('Y') }} PT Trans Marga Jateng. Hak Cipta Dilindungi.
+                    © {{ date('Y') }} Tertib Lolos - PT Trans Marga Jateng. Hak Cipta Dilindungi.
                 </p>
             </div>
         </div>
@@ -216,3 +199,4 @@
     </script>
 </body>
 </html>
+
