@@ -24,6 +24,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use App\Filament\User\Widgets\CustomStatsOverview;
 
 class UserPanelProvider extends PanelProvider
 {
@@ -82,5 +83,12 @@ class UserPanelProvider extends PanelProvider
                 ]),
             ]);
         });
+    }
+
+    protected function getWidgets(): array
+    {
+        return [
+            CustomStatsOverview::class,
+        ];
     }
 }

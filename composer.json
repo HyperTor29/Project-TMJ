@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "blade-ui-kit/blade-icons": "*",
         "doctrine/dbal": "^4.2",
         "filament/filament": "*",
         "filament/infolists": "*",
