@@ -4,7 +4,6 @@ namespace App\Filament\Validator\Widgets;
 
 use Filament\Widgets\ChartWidget;
 use App\Models\DetailLolos;
-use App\Models\Tarif;
 
 class BiayaChartWidget extends ChartWidget
 {
@@ -13,25 +12,22 @@ class BiayaChartWidget extends ChartWidget
 
     protected function getData(): array
     {
-        $biayaData = DetailLolos::selectRaw('MONTH(created_at) as month')
-            ->with(['GolKdr', 'Gerbang'])
-            ->get()
-            ->groupBy(fn($item) => $item->created_at ? $item->created_at->format('m') : 'unknown')
-            ->map(function ($details) {
-                return $details->sum(function ($detail) {
-                    $tarif = Tarif::whereHas('GolKdr', fn($q) => $q->where('golongan', $detail->GolKdr->golongan ?? null))
-                        ->whereHas('Gerbang', fn($q) => $q->where('name', $detail->Gerbang->name ?? null))
-                        ->first();
-
-                    return $tarif ? $tarif->tarif * $detail->jumlah_kdr : 0;
-                });
+        $biayaData = DetailLolos::selectRaw('MONTH(detail_lolos.created_at) as month, SUM(detail_lolos.jumlah_kdr * IFNULL(tarifs.tarif, 0)) as total')
+            ->leftJoin('tarifs', function ($join) {
+                $join->on('tarifs.gol_kdr_id', '=', 'detail_lolos.gol_kdr_id')
+                    ->on('tarifs.gerbang_id', '=', 'detail_lolos.gerbang_id');
             })
+            ->whereNull('detail_lolos.deleted_at')
+            ->groupByRaw('MONTH(detail_lolos.created_at)')
+            ->orderByRaw('MONTH(detail_lolos.created_at)')
+            ->pluck('total', 'month')
             ->toArray();
+
 
         return [
             'datasets' => [
                 [
-                    'label' => 'Total Biaya',
+                    'label' => 'Total Biaya (Rp)',
                     'data' => $this->fillMissingMonths($biayaData),
                     'borderWidth' => 2,
                 ],
@@ -45,11 +41,19 @@ class BiayaChartWidget extends ChartWidget
         return 'line';
     }
 
+    /**
+     */
     private function fillMissingMonths(array $data): array
     {
-        return array_map(fn($i) => $data[$i] ?? 0, range(1, 12));
+        $fullData = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $fullData[] = isset($data[$i]) ? round($data[$i]) : 0;
+        }
+        return $fullData;
     }
 
+    /**
+     */
     private function getMonthLabels(): array
     {
         return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

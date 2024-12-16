@@ -31,7 +31,7 @@ class KendaraanChartWidget extends ChartWidget
 
     protected function getType(): string
     {
-        return 'line';
+        return 'bar';
     }
 
     private function fillMissingMonths(array $data): array

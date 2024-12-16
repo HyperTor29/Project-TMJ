@@ -36,7 +36,7 @@ class FormsChartWidget extends ChartWidget
 
     private function fillMissingMonths(array $data): array
     {
-        return array_map(fn($i) => $data[$i] ?? 0, range(1, 12));
+        return array_map(fn($i) => isset($data[$i]) ? floor($data[$i]) : 0, range(1, 12));
     }
 
     private function getMonthLabels(): array
