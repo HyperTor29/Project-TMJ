@@ -30,25 +30,23 @@ class RekapResource extends Resource
     {
         $query = parent::getEloquentQuery();
 
-        // Cek apakah pengguna memiliki role 'admin', 'validator', atau 'viewer'
         if (in_array(Auth::user()->role->name, ['Admin', 'Validator', 'Viewer'])) {
             return $query;
         }
 
-        // Jika bukan admin/validator/viewer, filter berdasarkan user_id pembuat dan relasi terkait
         return $query->where(function ($query) {
             $query->where('user_id', Auth::id())
                 ->orWhereHas('dataCs', function ($query) {
                     $query->where('user_id', Auth::id())
-                        ->orWhere('nama', Auth::user()->name);  // Cek jika nama dalam DataCs cocok dengan user
+                        ->orWhere('nama', Auth::user()->name);
                 })
                 ->orWhereHas('dataCss', function ($query) {
                     $query->where('user_id', Auth::id())
-                        ->orWhere('nama', Auth::user()->name);  // Cek jika nama dalam DataCss cocok dengan user
+                        ->orWhere('nama', Auth::user()->name);
                 })
                 ->orWhereHas('asmen', function ($query) {
                     $query->where('user_id', Auth::id())
-                        ->orWhere('nama', Auth::user()->name);  // Cek jika nama dalam Asmen cocok dengan user
+                        ->orWhere('nama', Auth::user()->name);
                 });
         });
     }
