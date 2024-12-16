@@ -68,4 +68,10 @@ class DetailLolos extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function Shifts()
+
+    {
+        return $this->belongsTo(Shift::class, 'shift_id');
+    }
+
 }

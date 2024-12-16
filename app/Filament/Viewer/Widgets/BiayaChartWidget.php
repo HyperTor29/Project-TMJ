@@ -8,7 +8,7 @@ use App\Models\DetailLolos;
 class BiayaChartWidget extends ChartWidget
 {
     protected static ?string $heading = 'Total Biaya per Bulan';
-    protected static ?int $sort = 4;
+    protected static ?int $sort = 3;
 
     protected function getData(): array
     {
