@@ -18,7 +18,7 @@ class DetailLolosRelationManager extends RelationManager
     {
         $query = parent::getEloquentQuery();
 
-        if (in_array(Auth::user()->role->name, ['Admin', 'Validator', 'Viewer'])) {
+        if (in_array(Auth::user()->role->name, ['Admin', 'User', 'Validator', 'Viewer'])) {
             return $query;
         }
 
@@ -45,7 +45,7 @@ class DetailLolosRelationManager extends RelationManager
             ->schema([
                 Forms\Components\TimePicker::make('pukul')
                     ->label('Pukul')
-                    // ->default(now()->setTimezone('Asia/Jakarta'))
+                    ->default(now()->setTimezone('Asia/Jakarta'))
                     ->required(),
 
                 Forms\Components\Select::make('gardu_id')
@@ -113,8 +113,8 @@ class DetailLolosRelationManager extends RelationManager
                             ->required(),
                     ]),
 
-                Forms\Components\Select::make('status')
-                    ->label('Status')
+                // Forms\Components\Select::make('status')
+                //     ->label('Status')
             ]);
     }
 

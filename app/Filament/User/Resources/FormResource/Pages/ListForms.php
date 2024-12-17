@@ -16,4 +16,9 @@ class ListForms extends ListRecords
             Actions\CreateAction::make(),
         ];
     }
+
+    public function getTitle(): string
+    {
+        return "Form Isian";
+    }
 }
