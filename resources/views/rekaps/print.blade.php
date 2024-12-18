@@ -15,6 +15,7 @@
             line-height: 1.6;
             margin: 0;
             padding: 0;
+            color: #333;
         }
 
         .container {
@@ -24,53 +25,100 @@
         }
 
         .header {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
+        }
+
+        .logo {
+            width: 80px;
+            height: auto;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .header-text {
+            flex-grow: 1;
             text-align: center;
-            margin-bottom: 20px;
         }
 
         .header h1 {
-            font-size: 18px;
+            font-size: 24px;
             font-weight: bold;
             margin: 0;
             padding: 10px 0;
+            letter-spacing: 1px;
         }
 
         .content-section {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .toll-gate {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px;
+            background-color: #f8f8f8;
+            border-radius: 4px;
+        }
+
+        .date-section {
+            margin: 20px 0;
+            line-height: 1.8;
+        }
+
+        .personnel-info {
+            margin: 25px 0;
+        }
+
+        .personnel-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
         }
 
         .main-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin: 25px 0;
             font-size: 12px;
+            background-color: #fff;
         }
 
         .main-table th,
         .main-table td {
-            border: 1px solid #000;
-            padding: 8px;
+            border: 1px solid #333;
+            padding: 10px;
             text-align: left;
         }
 
         .main-table th {
-            background-color: #fff;
-            font-weight: normal;
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        .main-table tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
 
         .total-row {
             font-weight: bold;
+            background-color: #f4f4f4;
         }
 
-        /* Updated signatures section */
         .signatures {
             display: grid;
             grid-template-areas:
                 "supervisor . service"
                 ". manager .";
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 20px;
-            margin-top: 30px;
+            gap: 30px;
+            margin-top: 50px;
             page-break-inside: avoid;
         }
 
@@ -78,109 +126,116 @@
             text-align: center;
             width: 200px;
             margin: 0 auto;
-        }
-
-        .signature-box.supervisor {
-            grid-area: supervisor;
-        }
-
-        .signature-box.service {
-            grid-area: service;
-        }
-
-        .signature-box.manager {
-            grid-area: manager;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
         }
 
         .signature-title {
-            margin-bottom: 60px;
+            margin-bottom: 70px;
+            font-weight: bold;
+            color: #444;
         }
 
         .signature-name {
-            margin-bottom: 0;
+            margin-bottom: 5px;
+            font-weight: bold;
         }
 
         .signature-line {
-            border-bottom: 1px solid #000;
+            border-bottom: 1px solid #333;
             width: 200px;
-            margin: 0 auto;
+            margin: 10px auto;
         }
 
         .signature-nik {
             margin-top: 5px;
+            color: #666;
         }
 
-        /* Print specific styles */
-        @media print {
-            .page-break {
-                page-break-before: always;
-            }
+        .lampiran {
+            margin-top: 40px;
+            page-break-before: always;
+        }
 
-            .print-button {
-                display: none;
-            }
+        .lampiran h3 {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+        }
 
-            .main-table {
-                page-break-inside: auto;
-            }
+        .photo-attachments {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
 
-            .main-table tr {
-                page-break-inside: avoid;
-            }
+        .photo-item {
+            text-align: center;
+        }
 
-            .signatures {
-                margin-top: 50px;
-            }
+        .photo-item img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
 
-            /* Style for the photo attachments */
-            .lampiran {
-                margin-top: 30px;
-                page-break-before: always;
-            }
-
-            .lampiran h3 {
-                text-align: center;
-                font-size: 16px;
-                font-weight: bold;
-                margin-bottom: 20px;
-            }
-
-            .photo-attachments {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-around;
-                margin-top: 20px;
-            }
-
-            .photo-attachments img {
-                width: 200px;
-                height: 200px;
-                object-fit: cover;
-                margin: 5px;
-                border: 1px solid #000;
-                border-radius: 5px;
-            }
-
-            .photo-number {
-                text-align: center;
-                margin-top: 5px;
-            }
+        .photo-number {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
         }
 
         .print-button {
             text-align: right;
-            margin-top: 20px;
+            margin-top: 30px;
+        }
+
+        .print-button button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .print-button button:hover {
+            background-color: #0056b3;
+        }
+
+        @media print {
+            .print-button {
+                display: none;
+            }
+
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>FORM LOLOS/ IZIN LINTAS</h1>
+        <img src="{{ asset('images/GambarTMJ.jpg') }}" alt="Tertib Lolos Logo" class="h-10 w-auto" width="80" height="50">
+            <div class="header-text">
+                <h1>FORM LOLOS/ IZIN LINTAS</h1>
+            </div>
         </div>
 
         <div class="content-section">
-            <div class="toll-gate">
+            <div class="toll-gate" style="text-align: center; margin-top: 10px;">
                 Gerbang Tol: {{ $form->Gerbang->name ?? '........................' }}
             </div>
 

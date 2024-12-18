@@ -1,11 +1,15 @@
 <x-filament::page>
+    @php
+        $userRole = Auth::user()->role->name;
+    @endphp
+
     <div class="space-y-6 dark:bg-gray-900 dark:text-white">
         <!-- Header dengan Tombol Kembali -->
         <div class="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
             <h2 class="text-2xl font-bold">Detail Rekapan</h2>
             <a href="{{ url()->previous() }}"
-               class="flex items-center space-x-2 px-4 py-2 bg-gray-800 text-black text-sm font-medium rounded-lg shadow-md hover:bg-gray-300 transition duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+               class="flex items-center px-4 py-2 bg-white text-black text-sm font-medium rounded-md shadow hover:bg-blue-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                 </svg>
                 <span>Kembali</span>
@@ -17,47 +21,47 @@
             <h3 class="text-xl font-semibold mb-4">Informasi Petugas</h3>
             <dl class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
-                    <dt class="font-medium text-gray-600 dark:text-gray-400">Tanggal</dt>
+                    <dt class="font-bold text-gray-600 dark:text-gray-400">Tanggal</dt>
                     <dd class="text-gray-800 dark:text-gray-200">{{ $record->tanggal }}</dd>
                 </div>
                 <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
-                    <dt class="font-medium text-gray-600 dark:text-gray-400">Shift</dt>
+                    <dt class="font-bold text-gray-600 dark:text-gray-400">Shift</dt>
                     <dd class="text-gray-800 dark:text-gray-200">{{ $record->Shifts->shift ?? '-' }}</dd>
                 </div>
                 <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
-                    <dt class="font-medium text-gray-600 dark:text-gray-400">Nama CS</dt>
+                    <dt class="font-bold text-gray-600 dark:text-gray-400">Nama CS</dt>
                     <dd class="text-gray-800 dark:text-gray-200">{{ $record->DataCs->nama ?? '-' }}</dd>
                 </div>
                 <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
-                    <dt class="font-medium text-gray-600 dark:text-gray-400">NIK CS</dt>
+                    <dt class="font-bold text-gray-600 dark:text-gray-400">NIK CS</dt>
                     <dd class="text-gray-800 dark:text-gray-200">{{ $record->DataCs->nik ?? '-' }}</dd>
                 </div>
                 <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
-                    <dt class="font-medium text-gray-600 dark:text-gray-400">Jabatan CS</dt>
+                    <dt class="font-bold text-gray-600 dark:text-gray-400">Jabatan CS</dt>
                     <dd class="text-gray-800 dark:text-gray-200">{{ $record->DataCs->jabatan ?? '-' }}</dd>
                 </div>
                 <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
-                    <dt class="font-medium text-gray-600 dark:text-gray-400">Nama CSS</dt>
+                    <dt class="font-bold text-gray-600 dark:text-gray-400">Nama CSS</dt>
                     <dd class="text-gray-800 dark:text-gray-200">{{ $record->DataCss->nama ?? '-' }}</dd>
                 </div>
                 <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
-                    <dt class="font-medium text-gray-600 dark:text-gray-400">NIK CSS</dt>
+                    <dt class="font-bold text-gray-600 dark:text-gray-400">NIK CSS</dt>
                     <dd class="text-gray-800 dark:text-gray-200">{{ $record->DataCss->nik ?? '-' }}</dd>
                 </div>
                 <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
-                    <dt class="font-medium text-gray-600 dark:text-gray-400">Jabatan CSS</dt>
+                    <dt class="font-bold text-gray-600 dark:text-gray-400">Jabatan CSS</dt>
                     <dd class="text-gray-800 dark:text-gray-200">{{ $record->DataCss->jabatan ?? '-' }}</dd>
                 </div>
                 <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
-                    <dt class="font-medium text-gray-600 dark:text-gray-400">Nama Asmen</dt>
+                    <dt class="font-bold text-gray-600 dark:text-gray-400">Nama Asmen</dt>
                     <dd class="text-gray-800 dark:text-gray-200">{{ $record->Asmen->nama ?? '-' }}</dd>
                 </div>
                 <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
-                    <dt class="font-medium text-gray-600 dark:text-gray-400">NIK Asmen</dt>
+                    <dt class="font-bold text-gray-600 dark:text-gray-400">NIK Asmen</dt>
                     <dd class="text-gray-800 dark:text-gray-200">{{ $record->Asmen->nik ?? '-' }}</dd>
                 </div>
                 <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
-                    <dt class="font-medium text-gray-600 dark:text-gray-400">Jabatan Asmen</dt>
+                    <dt class="font-bold text-gray-600 dark:text-gray-400">Jabatan Asmen</dt>
                     <dd class="text-gray-800 dark:text-gray-200">{{ $record->Asmen->jabatan ?? '-' }}</dd>
                 </div>
             </dl>
@@ -70,26 +74,25 @@
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                     <thead class="bg-gray-100 dark:bg-gray-700">
                         <tr>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-400">Pukul</th>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-400">Gardu</th>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-400">Nomor Resi Awal</th>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-400">Nomor Resi Akhir</th>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-400">Gerbang</th>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-400">Jumlah Kendaraan</th>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-400">Golongan Kendaraan</th>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-400">Nomor Kendaraan</th>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-400">Instansi</th>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-400">Penanggung Jawab</th>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-400">Surat Izin Lintas</th>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-400">Foto Surat</th>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-400">Foto Kendaraan</th>
-                            @php
-                                $userRole = Auth::user()->role->name;
-                            @endphp
+                            <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Pukul</th>
+                            <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Gardu</th>
+                            <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Nomor Resi Awal</th>
+                            <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Nomor Resi Akhir</th>
+                            <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Gerbang</th>
+                            <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Jumlah Kendaraan</th>
+                            <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Golongan Kendaraan</th>
+                            <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Nomor Kendaraan</th>
+                            <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Instansi</th>
+                            <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Penanggung Jawab</th>
+                            <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Surat Izin Lintas</th>
+                            <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Foto Surat</th>
+                            <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Foto Kendaraan</th>
 
                             @if(in_array($userRole, ['Admin', 'Verificator', 'Validator']))
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-400">Aksi</th>
+                                <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Aksi</th>
                             @endif
+
+                            <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Status</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-600">
@@ -136,13 +139,9 @@
                                         <span>-</span>
                                     @endif
                                 </td>
-                                <td class="px-4 py-2 text-sm text-gray-800 dark:text-gray-200">
-                                    <div class="flex space-x-2">
-                                        @php
-                                            $userRole = Auth::user()->role->name;
-                                        @endphp
-
-                                        @if(in_array($userRole, ['Admin', 'Verificator', 'Validator']))
+                                @if(in_array($userRole, ['Admin', 'Verificator', 'Validator']))
+                                    <td class="px-4 py-2 text-sm text-gray-800 dark:text-gray-200">
+                                        <div class="flex space-x-2">
                                             <!-- Tombol Accept -->
                                             <form action="{{ route('rekapan.accept-single', ['id' => $record->id, 'detailId' => $detail->id]) }}" method="POST">
                                                 @csrf
@@ -158,9 +157,10 @@
                                                     Reject
                                                 </button>
                                             </form>
-                                        @endif
-                                    </div>
-                                </td>
+                                        </div>
+                                    </td>
+                                @endif
+                                <td class="px-4 py-2 text-sm text-gray-800 dark:text-gray-200">{{ $detail->status }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -244,15 +244,12 @@
     <!-- Tombol Accept, Reject, dan Print -->
     <div class="mt-6 pb-6">
         <div class="flex flex-wrap justify-end gap-2">
-            @php
-                $userRole = Auth::user()->role->name;
-            @endphp
 
             @if(in_array($userRole, ['Admin', 'Verificator', 'Validator']))
                 <!-- Tombol Print -->
                 <a href="{{ route('rekapan.print', ['id' => $record->id]) }}"
                     target="_blank"
-                    class="px-4 py-2 bg-blue-600 text-black text-sm font-medium rounded-md shadow hover:bg-blue-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    class="px-4 py-2 bg-white text-black text-sm font-medium rounded-md shadow hover:bg-blue-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300">
                     Print
                 </a>
 

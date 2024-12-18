@@ -112,9 +112,6 @@ class DetailLolosRelationManager extends RelationManager
                             ->maxSize(5120)
                             ->required(),
                     ]),
-
-                Forms\Components\Select::make('status')
-                    ->label('Status')
             ]);
     }
 
