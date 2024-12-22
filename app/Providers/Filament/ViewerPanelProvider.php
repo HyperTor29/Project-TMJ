@@ -19,6 +19,7 @@ use App\Filament\Viewer\Resources\GolKdrResource;
 use App\Filament\Viewer\Resources\InstansiResource;
 use App\Filament\Viewer\Resources\ShiftResource;
 use App\Filament\Viewer\Resources\TarifResource;
+use App\Filament\Viewer\Resources\GerbangTujuanResource;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
@@ -101,6 +102,7 @@ class ViewerPanelProvider extends PanelProvider
                     ->items([
                         ...GarduResource::getNavigationItems(),
                         ...GerbangResource::getNavigationItems(),
+                        ...GerbangTujuanResource::getNavigationItems(),
                         ...GolKdrResource::getNavigationItems(),
                         ...InstansiResource::getNavigationItems(),
                         ...ShiftResource::getNavigationItems(),

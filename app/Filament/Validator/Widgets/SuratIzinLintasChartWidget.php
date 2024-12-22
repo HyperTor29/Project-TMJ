@@ -7,7 +7,7 @@ use App\Models\DetailLolos;
 
 class SuratIzinLintasChartWidget extends ChartWidget
 {
-    protected static ?string $heading = 'Surat Izin Lintas Kendaraan';
+    protected static ?string $heading = 'Persentase dengan Surat Izin Lintas';
     protected static ?int $sort = 3;
 
     protected function getData(): array
@@ -17,14 +17,18 @@ class SuratIzinLintasChartWidget extends ChartWidget
             ->pluck('total', 'surat_izin_lintas')
             ->toArray();
 
+        $totalKendaraan = array_sum($suratData);
+
+        $data = [
+            $totalKendaraan > 0 ? round(($suratData[1] ?? 0) / $totalKendaraan * 100, 2) : 0, // Ya
+            $totalKendaraan > 0 ? round(($suratData[0] ?? 0) / $totalKendaraan * 100, 2) : 0, // Tidak
+        ];
+
         return [
             'datasets' => [
                 [
-                    'label' => 'Jumlah Kendaraan',
-                    'data' => [
-                        $suratData[1] ?? 0, // Ya
-                        $suratData[0] ?? 0, // Tidak
-                    ],
+                    'label' => 'Persentase Kendaraan (%)',
+                    'data' => $data,
                     'backgroundColor' => ['#34D399', '#F87171'],
                 ],
             ],

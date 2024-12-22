@@ -7,13 +7,16 @@ use App\Models\DetailLolos;
 
 class KendaraanPerShiftChartWidget extends ChartWidget
 {
-    protected static ?string $heading = 'Jumlah Kendaraan per Shift';
+    protected static ?string $heading = 'Jumlah Total Kendaraan per Shift';
 
     protected function getData(): array
     {
-        $shiftData = DetailLolos::with('Shifts')->get()
-            ->groupBy(fn($item) => $item->Shifts->Shift ?? 'Unknown')
-            ->map(fn($items) => $items->sum('jumlah_kdr'))
+        $shiftData = DetailLolos::selectRaw('forms.shift_id as shift, SUM(detail_lolos.jumlah_kdr) as total_kendaraan')
+            ->join('forms', 'forms.id', '=', 'detail_lolos.form_id')
+            ->groupBy('forms.shift_id')
+            ->orderBy('forms.shift_id')
+            ->get()
+            ->pluck('total_kendaraan', 'shift')
             ->toArray();
 
         return [

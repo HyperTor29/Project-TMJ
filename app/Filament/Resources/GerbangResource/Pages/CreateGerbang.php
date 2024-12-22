@@ -12,6 +12,6 @@ class CreateGerbang extends CreateRecord
 
     public function getTitle(): string
     {
-        return "Create Daftar Gerbang";
+        return "Create Daftar Gerbang Asal";
     }
 }

@@ -13,6 +13,7 @@ class Form extends Model
 
     protected $fillable = [
         'tanggal',
+        'Gerbang Tujuan',
         'Shift',
         'Nama CS',
         'NIK CS',
@@ -33,6 +34,11 @@ class Form extends Model
     {
         $this->attributes['Nama'] = $value;
         $this->attributes['Jabatan'] = $value;
+    }
+
+    public function GerbangTujuan()
+    {
+        return $this->belongsTo(GerbangTujuan::class, 'gerbang_tujuan_id');
     }
 
     public function Shifts()

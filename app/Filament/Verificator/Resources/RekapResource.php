@@ -58,6 +58,11 @@ class RekapResource extends Resource
                     ->searchable()
                     ->sortable(),
 
+                Tables\Columns\TextColumn::make('GerbangTujuan.name')
+                    ->label('Gerbang Tol')
+                    ->searchable()
+                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('Shifts.shift')
                     ->label('Shift')
                     ->searchable()

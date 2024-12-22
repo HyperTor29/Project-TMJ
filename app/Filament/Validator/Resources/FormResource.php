@@ -56,6 +56,11 @@ class FormResource extends Resource
                 ->searchable()
                 ->sortable(),
 
+                Tables\Columns\TextColumn::make('GerbangTujuan.name')
+                ->label('Gerbang Tol')
+                ->searchable()
+                ->sortable(),
+
                 Tables\Columns\TextColumn::make('Shifts.shift')
                 ->label('Shift')
                 ->searchable()
@@ -110,7 +115,7 @@ class FormResource extends Resource
                 //
             ])
             ->actions([
-                // 
+                //
             ])
             ->bulkActions([
                 //

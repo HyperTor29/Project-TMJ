@@ -19,7 +19,7 @@ class GerbangResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-folder';
 
-    protected static ?string $navigationLabel = 'Daftar Gerbang';
+    protected static ?string $navigationLabel = 'Daftar Gerbang Asal';
 
     protected static ?string $navigationGroup = 'Operasional';
 

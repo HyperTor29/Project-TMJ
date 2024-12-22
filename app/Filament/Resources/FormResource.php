@@ -60,6 +60,11 @@ class FormResource extends Resource
                 ->format('d/m/Y')
                 ->locale('id'),
 
+                Forms\Components\Select::make('gerbang_tujuan_id')
+                ->label('Gerbang Tol')
+                ->relationship('GerbangTujuan', 'name')
+                ->required(),
+
                 Forms\Components\Select::make('shifts_id')
                 ->label('Shift')
                 ->relationship('Shifts', 'shift')
@@ -119,6 +124,11 @@ class FormResource extends Resource
                 //
                 Tables\Columns\TextColumn::make('tanggal')
                 ->label('Tanggal')
+                ->searchable()
+                ->sortable(),
+
+                Tables\Columns\TextColumn::make('GerbangTujuan.name')
+                ->label('Gerbang Tol')
                 ->searchable()
                 ->sortable(),
 

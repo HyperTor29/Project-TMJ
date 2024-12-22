@@ -58,6 +58,11 @@ class FormResource extends Resource
                 ->format('d/m/Y')
                 ->locale('id'),
 
+                Tables\Columns\TextColumn::make('GerbangTujuan.name')
+                ->label('Gerbang Tol')
+                ->searchable()
+                ->sortable(),
+
                 Forms\Components\Select::make('shifts_id')
                 ->label('Shift')
                 ->relationship('Shifts', 'shift')

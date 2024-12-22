@@ -23,7 +23,7 @@ class TarifResource extends Resource
 
     protected static ?string $navigationGroup = 'Operasional';
 
-    protected static ?int $navigationSort = 36;
+    protected static ?int $navigationSort = 37;
 
     public static function form(Form $form): Form
     {
@@ -31,8 +31,13 @@ class TarifResource extends Resource
             ->schema([
                 //
                 Forms\Components\Select::make('gerbang_id')
-                ->label('Gerbang')
+                ->label('Gerbang Asal')
                 ->relationship('Gerbang', 'name')
+                ->required(),
+
+                Forms\Components\Select::make('gerbang_tujuan_id')
+                ->label('Gerbang Tujuan')
+                ->relationship('GerbangTujuan', 'name')
                 ->required(),
 
                 Forms\Components\Select::make('gol_kdr_id')
@@ -54,7 +59,12 @@ class TarifResource extends Resource
             ->columns([
                 //
                 Tables\Columns\TextColumn::make('Gerbang.name')
-                ->label('Gerbang')
+                ->label('Gerbang Asal')
+                ->searchable()
+                ->sortable(),
+
+                Tables\Columns\TextColumn::make('GerbangTujuan.name')
+                ->label('Gerbang Tujuan')
                 ->searchable()
                 ->sortable(),
 

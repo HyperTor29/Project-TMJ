@@ -7,25 +7,34 @@ use App\Models\Form;
 
 class FormsChartWidget extends ChartWidget
 {
-    protected static ?string $heading = 'Formulir per Bulan';
+    protected static ?string $heading = 'Jumlah Total Formulir per Bulan';
 
     protected function getData(): array
     {
-        $formData = Form::selectRaw('MONTH(created_at) as month, COUNT(*) as total')
-            ->groupBy('month')
-            ->orderBy('month')
-            ->pluck('total', 'month')
-            ->toArray();
+        $formData = Form::selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, COUNT(*) as total')
+            ->groupByRaw('YEAR(created_at), MONTH(created_at)')
+            ->orderByRaw('YEAR(created_at), MONTH(created_at)')
+            ->get()
+            ->groupBy('year');
+
+        $datasets = [];
+        $labels = $this->getMonthLabels();
+        foreach ($formData as $year => $dataPerYear) {
+            $yearData = array_fill(0, 12, 0);
+            foreach ($dataPerYear as $data) {
+                $monthIndex = $data->month - 1;
+                $yearData[$monthIndex] = ceil($data->total / 10) * 10;
+            }
+            $datasets[] = [
+                'label' => "Formulir per Bulan - $year",
+                'data' => $yearData,
+                'borderWidth' => 2,
+            ];
+        }
 
         return [
-            'datasets' => [
-                [
-                    'label' => 'Formulir per Bulan',
-                    'data' => $this->fillMissingMonths($formData),
-                    'borderWidth' => 2,
-                ],
-            ],
-            'labels' => $this->getMonthLabels(),
+            'datasets' => $datasets,
+            'labels' => $labels,
         ];
     }
 
@@ -34,11 +43,8 @@ class FormsChartWidget extends ChartWidget
         return 'line';
     }
 
-    private function fillMissingMonths(array $data): array
-    {
-        return array_map(fn($i) => isset($data[$i]) ? floor($data[$i]) : 0, range(1, 12));
-    }
-
+    /**
+     */
     private function getMonthLabels(): array
     {
         return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

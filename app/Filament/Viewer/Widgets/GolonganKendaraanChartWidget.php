@@ -7,7 +7,7 @@ use App\Models\DetailLolos;
 
 class GolonganKendaraanChartWidget extends ChartWidget
 {
-    protected static ?string $heading = 'Jumlah Kendaraan per Golongan';
+    protected static ?string $heading = 'Jumlah Total Kendaraan per Golongan';
 
     protected function getData(): array
     {

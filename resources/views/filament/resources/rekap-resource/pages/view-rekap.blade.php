@@ -25,6 +25,10 @@
                     <dd class="text-gray-800 dark:text-gray-200">{{ $record->tanggal }}</dd>
                 </div>
                 <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
+                    <dt class="font-bold text-gray-600 dark:text-gray-400">Gerbang Tol</dt>
+                    <dd class="text-gray-800 dark:text-gray-200">{{ $record->GerbangTujuan->name ?? '-' }}</dd>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
                     <dt class="font-bold text-gray-600 dark:text-gray-400">Shift</dt>
                     <dd class="text-gray-800 dark:text-gray-200">{{ $record->Shifts->shift ?? '-' }}</dd>
                 </div>
@@ -78,7 +82,7 @@
                             <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Gardu</th>
                             <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Nomor Resi Awal</th>
                             <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Nomor Resi Akhir</th>
-                            <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Gerbang</th>
+                            <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Gerbang Asal</th>
                             <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Jumlah Kendaraan</th>
                             <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Golongan Kendaraan</th>
                             <th class="px-4 py-2 text-left text-sm font-bold text-gray-600 dark:text-gray-400">Nomor Kendaraan</th>
@@ -190,6 +194,9 @@
                                 })
                                 ->whereHas('Gerbang', function($query) use ($detail_lolos) {
                                     $query->where('name', $detail_lolos->Gerbang->name);
+                                })
+                                ->whereHas('GerbangTujuan', function($query) use ($record) {
+                                    $query->where('name', $record->GerbangTujuan->name);
                                 })
                                 ->first();
 

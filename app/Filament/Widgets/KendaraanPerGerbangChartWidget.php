@@ -7,7 +7,7 @@ use App\Models\DetailLolos;
 
 class KendaraanPerGerbangChartWidget extends ChartWidget
 {
-    protected static ?string $heading = 'Jumlah Kendaraan per Gerbang';
+    protected static ?string $heading = 'Jumlah Total Kendaraan per Gerbang';
     protected static ?int $sort = 5;
 
     protected function getData(): array

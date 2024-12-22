@@ -21,7 +21,6 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Filament\Resources\AsmenResource;
 use App\Filament\Resources\DataCsResource;
 use App\Filament\Resources\DataCssResource;
-use App\Filament\Resources\DetailLolosResource;
 use App\Filament\Resources\FormResource;
 use App\Filament\Resources\GarduResource;
 use App\Filament\Resources\GerbangResource;
@@ -32,6 +31,7 @@ use App\Filament\Resources\ShiftResource;
 use App\Filament\Resources\TarifResource;
 use App\Filament\Resources\UserResource;
 use App\Filament\Resources\RoleResource;
+use App\Filament\Resources\GerbangTujuanResource;
 use Filament\Navigation\NavigationBuilder;
 use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationItem;
@@ -86,6 +86,7 @@ class AdminPanelProvider extends PanelProvider
                         ->icon('heroicon-o-home')
                         ->isActiveWhen(fn () => request()->routeIs('filament.admin.pages.dashboard')),
                     ]),
+
                     NavigationGroup::make('Data Pegawai')
                     ->items([
                         ...DataCsResource::getNavigationItems(),
@@ -103,6 +104,7 @@ class AdminPanelProvider extends PanelProvider
                     ->items([
                         ...GarduResource::getNavigationItems(),
                         ...GerbangResource::getNavigationItems(),
+                        ...GerbangTujuanResource::getNavigationItems(),
                         ...GolKdrResource::getNavigationItems(),
                         ...InstansiResource::getNavigationItems(),
                         ...ShiftResource::getNavigationItems(),

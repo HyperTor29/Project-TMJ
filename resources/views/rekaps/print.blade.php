@@ -236,7 +236,7 @@
 
         <div class="content-section">
             <div class="toll-gate" style="text-align: center; margin-top: 10px;">
-                Gerbang Tol: {{ $form->Gerbang->name ?? '........................' }}
+                Gerbang Tol: {{ $form->GerbangTujuan->name ?? '........................' }}
             </div>
 
             <div class="date-section">

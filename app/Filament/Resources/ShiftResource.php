@@ -23,7 +23,7 @@ class ShiftResource extends Resource
 
     protected static ?string $navigationGroup = 'Operasional';
 
-    protected static ?int $navigationSort = 35;
+    protected static ?int $navigationSort = 36;
 
     public static function form(Form $form): Form
     {

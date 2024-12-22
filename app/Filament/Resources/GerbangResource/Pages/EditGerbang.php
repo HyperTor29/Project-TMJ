@@ -19,6 +19,6 @@ class EditGerbang extends EditRecord
 
     public function getTitle(): string
     {
-        return "Edit Daftar Gerbang";
+        return "Edit Daftar Gerbang Asal";
     }
 }

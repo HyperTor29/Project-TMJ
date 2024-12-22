@@ -20,6 +20,11 @@ class Tarif extends Model
         return $this->belongsTo(Gerbang::class, 'gerbang_id');
     }
 
+    public function GerbangTujuan()
+    {
+        return $this->belongsTo(GerbangTujuan::class, 'gerbang_tujuan_id');
+    }
+
     public function GolKdr() {
         return $this->belongsTo(GolKdr::class, 'gol_kdr_id');
     }

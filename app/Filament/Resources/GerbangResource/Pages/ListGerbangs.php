@@ -19,6 +19,6 @@ class ListGerbangs extends ListRecords
 
     public function getTitle(): string
     {
-        return "Daftar Gerbang";
+        return "Daftar Gerbang Asal";
     }
 }

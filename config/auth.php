@@ -49,6 +49,26 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'verificator' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'validator' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'viewer' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
     ],
 
     /*

@@ -18,7 +18,7 @@ class GolKdrResource extends Resource
 
     protected static ?string $navigationGroup = 'Operasional';
 
-    protected static ?int $navigationSort = 33;
+    protected static ?int $navigationSort = 34;
 
     public static function table(Table $table): Table
     {

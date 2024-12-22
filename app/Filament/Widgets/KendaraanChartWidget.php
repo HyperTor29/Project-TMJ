@@ -7,36 +7,39 @@ use App\Models\DetailLolos;
 
 class KendaraanChartWidget extends ChartWidget
 {
-    protected static ?string $heading = 'Jumlah Kendaraan per Bulan';
+    protected static ?string $heading = 'Jumlah Total Kendaraan per Bulan';
 
     protected function getData(): array
     {
-        $kendaraanData = DetailLolos::selectRaw('MONTH(created_at) as month, SUM(jumlah_kdr) as total')
-            ->groupBy('month')
-            ->orderBy('month')
-            ->pluck('total', 'month')
-            ->toArray();
+        $kendaraanData = DetailLolos::selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, SUM(jumlah_kdr) as total')
+            ->groupByRaw('YEAR(created_at), MONTH(created_at)')
+            ->orderByRaw('YEAR(created_at), MONTH(created_at)')
+            ->get()
+            ->groupBy('year');
+
+        $datasets = [];
+        $labels = $this->getMonthLabels();
+        foreach ($kendaraanData as $year => $dataPerYear) {
+            $yearData = array_fill(0, 12, 0);
+            foreach ($dataPerYear as $data) {
+                $yearData[$data->month - 1] = $data->total;
+            }
+            $datasets[] = [
+                'label' => "Jumlah Kendaraan - $year",
+                'data' => $yearData,
+                'borderWidth' => 2,
+            ];
+        }
 
         return [
-            'datasets' => [
-                [
-                    'label' => 'Jumlah Kendaraan',
-                    'data' => $this->fillMissingMonths($kendaraanData),
-                    'borderWidth' => 2,
-                ],
-            ],
-            'labels' => $this->getMonthLabels(),
+            'datasets' => $datasets,
+            'labels' => $labels,
         ];
     }
 
     protected function getType(): string
     {
         return 'bar';
-    }
-
-    private function fillMissingMonths(array $data): array
-    {
-        return array_map(fn($i) => $data[$i] ?? 0, range(1, 12));
     }
 
     private function getMonthLabels(): array
