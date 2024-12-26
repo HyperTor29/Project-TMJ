@@ -42,11 +42,6 @@ class DetailLolosRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
-                    ->label('ID')
-                    ->sortable()
-                    ->searchable(),
-
                 Tables\Columns\TextColumn::make('pukul')
                     ->label('Pukul')
                     ->sortable()

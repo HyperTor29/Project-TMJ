@@ -45,7 +45,7 @@ class DetailLolosRelationManager extends RelationManager
             ->schema([
                 Forms\Components\TimePicker::make('pukul')
                     ->label('Pukul')
-                    // ->default(now()->setTimezone('Asia/Jakarta'))
+                    ->default(now()->setTimezone('Asia/Jakarta'))
                     ->required(),
 
                 Forms\Components\Select::make('gardu_id')
@@ -122,11 +122,6 @@ class DetailLolosRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
-                    ->label('ID')
-                    ->sortable()
-                    ->searchable(),
-
                 Tables\Columns\TextColumn::make('pukul')
                     ->label('Pukul')
                     ->sortable()

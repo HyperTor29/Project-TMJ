@@ -8,14 +8,30 @@
         @page {
             margin: 2.5cm;
             size: A4;
+
+            /* Add page numbers using CSS counters */
+            @bottom-right {
+                content: counter(page);
+                font-size: 12px;
+                font-family: Arial, sans-serif;
+                margin-top: 30px;
+            }
         }
 
+        /* Add counter reset for pages */
         body {
+            counter-reset: page;
             font-family: Arial, sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 0;
             color: #333;
+        }
+
+        /* Add page break and counter increment for each page */
+        .page {
+            page-break-after: always;
+            counter-increment: page;
         }
 
         .container {
@@ -223,10 +239,14 @@
                 print-color-adjust: exact;
             }
         }
+        /* Ensure last page doesn't have unnecessary page break */
+        .container:last-child {
+            page-break-after: avoid;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container page">
         <div class="header">
         <img src="{{ asset('images/GambarTMJ.jpg') }}" alt="Tertib Lolos Logo" class="h-10 w-auto" width="80" height="50">
             <div class="header-text">
@@ -244,7 +264,7 @@
                 tanggal {{ \Carbon\Carbon::parse($form->tanggal)->locale('id')->isoFormat('D') }}
                 bulan {{ \Carbon\Carbon::parse($form->tanggal)->locale('id')->isoFormat('MMMM') }}
                 tahun {{ \Carbon\Carbon::parse($form->tanggal)->isoFormat('YYYY') }}<br>
-                bertanda tangan dibawah ini:
+                yang bertanda tangan dibawah ini:
             </div>
 
             <div class="personnel-info">
@@ -262,6 +282,11 @@
                     3. Nama    : {{ $form->Asmen->nama ?? '........................' }}<br>
                        NIK     : {{ $form->Asmen->nik ?? '........................' }}<br>
                        Jabatan : {{ $form->Asmen->jabatan ?? '........................' }}
+                </div>
+                <div class="personnel-item">
+                    4. Nama    : {{ $form->DataSecurity->nama ?? '........................' }}<br>
+                       NIK     : {{ $form->DataSecurity->nik ?? '........................' }}<br>
+                       Jabatan : {{ $form->DataSecurity->jabatan ?? '........................' }}
                 </div>
             </div>
 
@@ -331,38 +356,38 @@
                 <div class="signature-nik">NIK. {{ $form->Asmen->nik ?? '' }}</div>
             </div>
         </div>
+    </div>
 
-        <!-- Lampiran Section -->
-        <div class="lampiran">
-            <h3>LAMPIRAN</h3>
-            <div class="photo-attachments">
-                @foreach($detailLolos as $index => $detail)
-                    <!-- Foto Surat -->
-                    @if ($detail->surats->isNotEmpty())
-                        @foreach ($detail->surats as $surat)
-                            <div class="photo-item">
-                                <img src="{{ asset('storage/' . $surat->surat) }}" alt="Foto Surat">
-                                <div class="photo-number">Nomor {{ $index + 1 }}: Foto Surat</div>
-                            </div>
-                        @endforeach
-                    @endif
+    <div class="lampiran page">
+        <h3>LAMPIRAN</h3>
+        <div class="photo-attachments">
+            @foreach($detailLolos as $index => $detail)
+                <!-- Foto Surat -->
+                @if ($detail->surats->isNotEmpty())
+                    @foreach ($detail->surats as $surat)
+                        <div class="photo-item">
+                            <img src="{{ asset('storage/' . $surat->surat) }}" alt="Foto Surat">
+                            <div class="photo-number">Nomor {{ $index + 1 }}: Foto Surat</div>
+                        </div>
+                    @endforeach
+                @endif
 
-                    <!-- Foto Kendaraan -->
-                    @if ($detail->fotos->isNotEmpty())
-                        @foreach ($detail->fotos as $foto)
-                            <div class="photo-item">
-                                <img src="{{ asset('storage/' . $foto->foto) }}" alt="Foto Kendaraan">
-                                <div class="photo-number">Nomor {{ $index + 1 }}: Foto Kendaraan</div>
-                            </div>
-                        @endforeach
-                    @endif
-                @endforeach
-            </div>
+                <!-- Foto Kendaraan -->
+                @if ($detail->fotos->isNotEmpty())
+                    @foreach ($detail->fotos as $foto)
+                        <div class="photo-item">
+                            <img src="{{ asset('storage/' . $foto->foto) }}" alt="Foto Kendaraan">
+                            <div class="photo-number">Nomor {{ $index + 1 }}: Foto Kendaraan</div>
+                        </div>
+                    @endforeach
+                @endif
+            @endforeach
         </div>
+    </div>
 
-        <div class="print-button">
-            <button onclick="window.print()">Print</button>
-        </div>
+    <div class="print-button">
+        <button onclick="window.print()">Print</button>
     </div>
 </body>
 </html>
+

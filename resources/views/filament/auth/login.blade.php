@@ -248,7 +248,6 @@
             }
         });
 
-        // Add floating label effect
         const inputs = document.querySelectorAll('.input-field input');
         inputs.forEach(input => {
             input.addEventListener('focus', () => {

@@ -35,6 +35,10 @@ class DetailLolosRelationManager extends RelationManager
                 ->orWhereHas('asmen', function ($query) {
                     $query->where('user_id', Auth::id())
                         ->orWhere('nama', Auth::user()->name);
+                })
+                ->orWhereHas('dataSecurity', function ($query) {
+                    $query->where('user_id', Auth::id())
+                        ->orWhere('nama', Auth::user()->name);
                 });
         });
     }
@@ -45,48 +49,48 @@ class DetailLolosRelationManager extends RelationManager
             ->schema([
                 Forms\Components\TimePicker::make('pukul')
                     ->label('Pukul')
-                    ->default(now()->setTimezone('Asia/Jakarta'))
-                    ->required(),
+                    ->default(now()->setTimezone('Asia/Jakarta')),
+                    // ->required(),
 
                 Forms\Components\Select::make('gardu_id')
                     ->label('Gardu')
-                    ->relationship('Gardu', 'gardu')
-                    ->required(),
+                    ->relationship('Gardu', 'gardu'),
+                    // ->required(),
 
                 Forms\Components\TextInput::make('nomor_resi_awal')
-                    ->label('Nomor Resi Awal')
-                    ->required(),
+                    ->label('Nomor Resi Awal'),
+                    // ->required(),
 
                 Forms\Components\TextInput::make('nomor_resi_akhir')
-                    ->label('Nomor Resi Akhir')
-                    ->required(),
+                    ->label('Nomor Resi Akhir'),
+                    // ->required(),
 
                 Forms\Components\Select::make('gerbang_id')
                     ->label('Gerbang')
-                    ->relationship('Gerbang', 'name')
-                    ->required(),
+                    ->relationship('Gerbang', 'name'),
+                    // ->required(),
 
                 Forms\Components\TextInput::make('jumlah_kdr')
-                    ->label('Jumlah Kendaraan')
-                    ->required(),
+                    ->label('Jumlah Kendaraan'),
+                    // ->required(),
 
                 Forms\Components\Select::make('gol_kdr_id')
                     ->label('Golongan Kendaraan')
-                    ->relationship('GolKdr', 'golongan')
-                    ->required(),
+                    ->relationship('GolKdr', 'golongan'),
+                    // ->required(),
 
                 Forms\Components\TextInput::make('nomor_kendaraan')
-                    ->label('Nomor Kendaraan')
-                    ->required(),
+                    ->label('Nomor Kendaraan'),
+                    // ->required(),
 
                 Forms\Components\Select::make('instansi_id')
                     ->label('Instansi')
-                    ->relationship('Instansi', 'instansi')
-                    ->required(),
+                    ->relationship('Instansi', 'instansi'),
+                    // ->required(),
 
                 Forms\Components\TextInput::make('penanggung_jawab')
-                    ->label('Penanggung Jawab')
-                    ->required(),
+                    ->label('Penanggung Jawab'),
+                    // ->required(),
 
                 Forms\Components\Checkbox::make('surat_izin_lintas')
                     ->label('Surat Izin Lintas'),
@@ -99,22 +103,28 @@ class DetailLolosRelationManager extends RelationManager
                             ->label('Foto Surat')
                             ->image()
                             ->maxSize(5120)
-                            ->required(),
+                            ->storeFileNamesIn('surat')
+                            ->directory('surats')
+                            ->image()
+                            ->maxSize(5120)
+                            ->imageResizeMode('contain')
+                            ->imageResizeTargetWidth(800)
+                            ->imageResizeTargetHeight(null),
                     ]),
 
                 Forms\Components\Repeater::make('fotos')
-                    ->label('Foto')
+                    ->label('Foto Kendaraan')
                     ->relationship('fotos')
                     ->schema([
                         Forms\Components\FileUpload::make('foto')
-                            ->label('Foto Kendaraan')
+                            ->storeFileNamesIn('foto')
+                            ->directory('fotos')
                             ->image()
                             ->maxSize(5120)
-                            ->required(),
+                            ->imageResizeMode('contain')
+                            ->imageResizeTargetWidth(800)
+                            ->imageResizeTargetHeight(null),
                     ]),
-
-                // Forms\Components\Select::make('status')
-                //     ->label('Status')
             ]);
     }
 
@@ -122,11 +132,6 @@ class DetailLolosRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
-                    ->label('ID')
-                    ->sortable()
-                    ->searchable(),
-
                 Tables\Columns\TextColumn::make('pukul')
                     ->label('Pukul')
                     ->sortable()

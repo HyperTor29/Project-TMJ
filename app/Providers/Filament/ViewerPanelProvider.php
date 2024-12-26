@@ -9,6 +9,7 @@ use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationItem;
 use Filament\Pages\Dashboard as PagesDashboard;
 use App\Filament\Viewer\Resources\DataCsResource;
+use App\Filament\Viewer\Resources\DataSecurityResource;
 use App\Filament\Viewer\Resources\DataCssResource;
 use App\Filament\Viewer\Resources\AsmenResource;
 use App\Filament\Viewer\Resources\FormResource;
@@ -90,6 +91,7 @@ class ViewerPanelProvider extends PanelProvider
                         ...DataCsResource::getNavigationItems(),
                         ...DataCssResource::getNavigationItems(),
                         ...AsmenResource::getNavigationItems(),
+                        ...DataSecurityResource::getNavigationItems(),
                     ]),
 
                     NavigationGroup::make('Laporan')

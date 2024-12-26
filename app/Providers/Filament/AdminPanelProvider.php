@@ -32,6 +32,7 @@ use App\Filament\Resources\TarifResource;
 use App\Filament\Resources\UserResource;
 use App\Filament\Resources\RoleResource;
 use App\Filament\Resources\GerbangTujuanResource;
+use App\Filament\Resources\DataSecurityResource;
 use Filament\Navigation\NavigationBuilder;
 use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationItem;
@@ -92,6 +93,7 @@ class AdminPanelProvider extends PanelProvider
                         ...DataCsResource::getNavigationItems(),
                         ...DataCssResource::getNavigationItems(),
                         ...AsmenResource::getNavigationItems(),
+                        ...DataSecurityResource::getNavigationItems(),
                     ]),
 
                     NavigationGroup::make('Laporan')

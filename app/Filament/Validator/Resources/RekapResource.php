@@ -46,6 +46,10 @@ class RekapResource extends Resource
                 ->orWhereHas('asmen', function ($query) {
                     $query->where('user_id', Auth::id())
                         ->orWhere('nama', Auth::user()->name);
+                })
+                ->orWhereHas('dataSecurity', function ($query) {
+                    $query->where('user_id', Auth::id())
+                        ->orWhere('nama', Auth::user()->name);
                 });
         });
     }
@@ -120,6 +124,20 @@ class RekapResource extends Resource
                     ->searchable()
                     ->sortable(),
 
+                Tables\Columns\TextColumn::make('DataSecurity.nama')
+                    ->label('Nama Security')
+                    ->searchable()
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('DataSecurity.nik')
+                    ->label('NIK Security')
+                    ->searchable()
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('DataSecurity.jabatan')
+                    ->label('Jabatan Security')
+                    ->searchable()
+                    ->sortable()
             ])
             ->filters([
                 // Add necessary filters

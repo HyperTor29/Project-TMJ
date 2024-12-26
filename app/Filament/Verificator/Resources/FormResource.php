@@ -43,6 +43,10 @@ class FormResource extends Resource
                 ->orWhereHas('asmen', function ($query) {
                     $query->where('user_id', Auth::id())
                         ->orWhere('nama', Auth::user()->name);
+                })
+                ->orWhereHas('dataSecurity', function ($query) {
+                    $query->where('user_id', Auth::id())
+                        ->orWhere('nama', Auth::user()->name);
                 });
         });
     }
@@ -111,6 +115,21 @@ class FormResource extends Resource
                 Forms\Components\Select::make('asmen_id')
                 ->label('Jabatan Asmen')
                 ->relationship('Asmen', 'jabatan')
+                ->required(),
+
+                Forms\Components\Select::make('data_securities_id')
+                ->label('Nama Security')
+                ->relationship('DataSecurity', 'nama')
+                ->required(),
+
+                Forms\Components\Select::make('data_securities_id')
+                ->label('NIK Security')
+                ->relationship('DataSecurity', 'nik')
+                ->required(),
+
+                Forms\Components\Select::make('data_securities_id')
+                ->label('Jabatan Security')
+                ->relationship('DataSecurity', 'jabatan')
                 ->required()
             ]);
     }
@@ -172,6 +191,21 @@ class FormResource extends Resource
 
                 Tables\Columns\TextColumn::make('Asmen.jabatan')
                 ->label('Jabatan Asmen')
+                ->searchable()
+                ->sortable(),
+
+                Tables\Columns\TextColumn::make('DataSecurity.nama')
+                ->label('Nama Security')
+                ->searchable()
+                ->sortable(),
+
+                Tables\Columns\TextColumn::make('DataSecurity.nik')
+                ->label('NIK Security')
+                ->searchable()
+                ->sortable(),
+
+                Tables\Columns\TextColumn::make('DataSecurity.jabatan')
+                ->label('Jabatan Security')
                 ->searchable()
                 ->sortable()
             ])

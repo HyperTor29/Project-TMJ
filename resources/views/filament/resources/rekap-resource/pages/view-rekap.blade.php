@@ -68,6 +68,18 @@
                     <dt class="font-bold text-gray-600 dark:text-gray-400">Jabatan Asmen</dt>
                     <dd class="text-gray-800 dark:text-gray-200">{{ $record->Asmen->jabatan ?? '-' }}</dd>
                 </div>
+                <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
+                    <dt class="font-bold text-gray-600 dark:text-gray-400">Nama Security</dt>
+                    <dd class="text-gray-800 dark:text-gray-200">{{ $record->DataSecurity->nama ?? '-' }}</dd>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
+                    <dt class="font-bold text-gray-600 dark:text-gray-400">NIK Security</dt>
+                    <dd class="text-gray-800 dark:text-gray-200">{{ $record->DataSecurity->nik ?? '-' }}</dd>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
+                    <dt class="font-bold text-gray-600 dark:text-gray-400">Jabatan Security</dt>
+                    <dd class="text-gray-800 dark:text-gray-200">{{ $record->DataSecurity->jabatan ?? '-' }}</dd>
+                </div>
             </dl>
         </div>
 

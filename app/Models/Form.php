@@ -24,6 +24,9 @@ class Form extends Model
         'Nama Asmen',
         'NIK Asmen',
         'Jabatan Asmen',
+        'Nama Security',
+        'NIK Security',
+        'Jabatan Security',
         'user_id',
 
     ];
@@ -56,6 +59,10 @@ class Form extends Model
 
     public function Asmen() {
         return $this->belongsTo(Asmen::class);
+    }
+
+    public function DataSecurity() {
+        return $this->belongsTo(DataSecurity::class, 'data_securities_id');
     }
 
     public function detailLolos()
