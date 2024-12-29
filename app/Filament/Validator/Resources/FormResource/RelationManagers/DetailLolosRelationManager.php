@@ -45,7 +45,8 @@ class DetailLolosRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('pukul')
                     ->label('Pukul')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->formatStateUsing(fn ($state) => \Carbon\Carbon::parse($state)->setTimezone('Asia/Jakarta')->format('H:i')),
 
                 Tables\Columns\TextColumn::make('Gardu.gardu')
                     ->label('Gardu')

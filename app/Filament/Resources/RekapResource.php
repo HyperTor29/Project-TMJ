@@ -62,6 +62,7 @@ class RekapResource extends Resource
                 // Columns Form model
                 Tables\Columns\TextColumn::make('tanggal')
                     ->label('Tanggal')
+                    ->date('d/m/Y')
                     ->searchable()
                     ->sortable(),
 
@@ -130,10 +131,10 @@ class RekapResource extends Resource
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('DataSecurity.nik')
-                    ->label('NIK Security')
-                    ->searchable()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('DataSecurity.nik')
+                //     ->label('NIK Security')
+                //     ->searchable()
+                //     ->sortable(),
 
                 Tables\Columns\TextColumn::make('DataSecurity.jabatan')
                     ->label('Jabatan Security')

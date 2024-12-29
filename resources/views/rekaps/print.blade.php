@@ -285,7 +285,7 @@
                 </div>
                 <div class="personnel-item">
                     4. Nama    : {{ $form->DataSecurity->nama ?? '........................' }}<br>
-                       NIK     : {{ $form->DataSecurity->nik ?? '........................' }}<br>
+                       <!-- NIK     : {{ $form->DataSecurity->nik ?? '........................' }}<br> -->
                        Jabatan : {{ $form->DataSecurity->jabatan ?? '........................' }}
                 </div>
             </div>

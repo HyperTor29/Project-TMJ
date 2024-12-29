@@ -61,10 +61,10 @@ class DataSecurityResource extends Resource
                 ->searchable()
                 ->sortable(),
 
-                Tables\Columns\TextColumn::make('nik')
-                ->label('NIK')
-                ->searchable()
-                ->sortable(),
+                // Tables\Columns\TextColumn::make('nik')
+                // ->label('NIK')
+                // ->searchable()
+                // ->sortable(),
 
                 Tables\Columns\TextColumn::make('jabatan')
                 ->label('Jabatan')

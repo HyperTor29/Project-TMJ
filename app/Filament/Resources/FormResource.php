@@ -59,80 +59,80 @@ class FormResource extends Resource
             ->schema([
                 //
                 Forms\Components\DatePicker::make('tanggal')
-                ->label('Tanggal')
-                ->required()
-                ->format('d/m/Y')
-                ->locale('id'),
+                    ->label('Tanggal')
+                    ->required()
+                    ->format('d/m/Y')
+                    ->locale('id'),
 
                 Forms\Components\Select::make('gerbang_tujuan_id')
-                ->label('Gerbang Tol')
-                ->relationship('GerbangTujuan', 'name')
-                ->required(),
+                    ->label('Gerbang Tol')
+                    ->relationship('GerbangTujuan', 'name')
+                    ->required(),
 
                 Forms\Components\Select::make('shifts_id')
-                ->label('Shift')
-                ->relationship('Shifts', 'shift')
-                ->required(),
+                    ->label('Shift')
+                    ->relationship('Shifts', 'shift')
+                    ->required(),
 
                 Forms\Components\Select::make('data_cs_id')
-                ->label('Nama CS')
-                ->relationship('DataCs', 'nama')
-                ->required(),
+                    ->label('Nama CS')
+                    ->relationship('DataCs', 'nama')
+                    ->required(),
 
                 Forms\Components\Select::make('data_cs_id')
-                ->label('NIK CS')
-                ->relationship('DataCs', 'nik')
-                ->required(),
+                    ->label('NIK CS')
+                    ->relationship('DataCs', 'nik')
+                    ->required(),
 
                 Forms\Components\Select::make('data_cs_id')
-                ->label('Jabatan CS')
-                ->relationship('DataCs', 'jabatan')
-                ->required(),
+                    ->label('Jabatan CS')
+                    ->relationship('DataCs', 'jabatan')
+                    ->required(),
 
                 Forms\Components\Select::make('data_css_id')
-                ->label('Nama CSS')
-                ->relationship('DataCss', 'nama')
-                ->required(),
+                    ->label('Nama CSS')
+                    ->relationship('DataCss', 'nama')
+                    ->required(),
 
                 Forms\Components\Select::make('data_css_id')
-                ->label('NIK CSS')
-                ->relationship('DataCss', 'nik')
-                ->required(),
+                    ->label('NIK CSS')
+                    ->relationship('DataCss', 'nik')
+                    ->required(),
 
                 Forms\Components\Select::make('data_css_id')
-                ->label('Jabatan CSS')
-                ->relationship('DataCss', 'jabatan')
-                ->required(),
+                    ->label('Jabatan CSS')
+                    ->relationship('DataCss', 'jabatan')
+                    ->required(),
 
                 Forms\Components\Select::make('asmen_id')
-                ->label('Nama Asmen')
-                ->relationship('Asmen', 'nama')
-                ->required(),
+                    ->label('Nama Asmen')
+                    ->relationship('Asmen', 'nama')
+                    ->required(),
 
                 Forms\Components\Select::make('asmen_id')
-                ->label('NIK Asmen')
-                ->relationship('Asmen', 'nik')
-                ->required(),
+                    ->label('NIK Asmen')
+                    ->relationship('Asmen', 'nik')
+                    ->required(),
 
                 Forms\Components\Select::make('asmen_id')
-                ->label('Jabatan Asmen')
-                ->relationship('Asmen', 'jabatan')
-                ->required(),
+                    ->label('Jabatan Asmen')
+                    ->relationship('Asmen', 'jabatan')
+                    ->required(),
 
                 Forms\Components\Select::make('data_securities_id')
-                ->label('Data Security')
-                ->relationship('DataSecurity', 'nama')
-                ->required(),
+                    ->label('Data Security')
+                    ->relationship('DataSecurity', 'nama')
+                    ->required(),
+
+                // Forms\Components\Select::make('data_securities_id')
+                // ->label('NIK Security')
+                // ->relationship('DataSecurity', 'nik')
+                // ->required(),
 
                 Forms\Components\Select::make('data_securities_id')
-                ->label('NIK Security')
-                ->relationship('DataSecurity', 'nik')
-                ->required(),
-
-                Forms\Components\Select::make('data_securities_id')
-                ->label('Jabatan Security')
-                ->relationship('DataSecurity', 'jabatan')
-                ->required()
+                    ->label('Jabatan Security')
+                    ->relationship('DataSecurity', 'jabatan')
+                    ->required()
             ]);
     }
 
@@ -142,78 +142,79 @@ class FormResource extends Resource
             ->columns([
                 //
                 Tables\Columns\TextColumn::make('tanggal')
-                ->label('Tanggal')
-                ->searchable()
-                ->sortable(),
+                    ->label('Tanggal')
+                    ->date('d/m/Y')
+                    ->searchable()
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('GerbangTujuan.name')
-                ->label('Gerbang Tol')
-                ->searchable()
-                ->sortable(),
+                    ->label('Gerbang Tol')
+                    ->searchable()
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('Shifts.shift')
-                ->label('Shift')
-                ->searchable()
-                ->sortable(),
+                    ->label('Shift')
+                    ->searchable()
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('DataCs.nama')
-                ->label('Nama CS')
-                ->searchable()
-                ->sortable(),
+                    ->label('Nama CS')
+                    ->searchable()
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('DataCs.nik')
-                ->label('NIK CS')
-                ->searchable()
-                ->sortable(),
+                    ->label('NIK CS')
+                    ->searchable()
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('DataCs.jabatan')
-                ->label('Jabatan CS')
-                ->searchable()
-                ->sortable(),
+                    ->label('Jabatan CS')
+                    ->searchable()
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('DataCss.nama')
-                ->label('Nama CSS')
-                ->searchable()
-                ->sortable(),
+                    ->label('Nama CSS')
+                    ->searchable()
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('DataCss.nik')
-                ->label('NIK CSS')
-                ->searchable()
-                ->sortable(),
+                    ->label('NIK CSS')
+                    ->searchable()
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('DataCss.jabatan')
-                ->label('Jabatan CSS')
-                ->searchable()
-                ->sortable(),
+                    ->label('Jabatan CSS')
+                    ->searchable()
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('Asmen.nama')
-                ->label('Nama Asmen')
-                ->searchable()
-                ->sortable(),
+                    ->label('Nama Asmen')
+                    ->searchable()
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('Asmen.nik')
-                ->label('NIK Asmen')
-                ->searchable()
-                ->sortable(),
+                    ->label('NIK Asmen')
+                    ->searchable()
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('Asmen.jabatan')
-                ->label('Jabatan Asmen')
-                ->searchable()
-                ->sortable(),
+                    ->label('Jabatan Asmen')
+                    ->searchable()
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('DataSecurity.nama')
-                ->label('Nama Security')
-                ->searchable()
-                ->sortable(),
+                    ->label('Nama Security')
+                    ->searchable()
+                    ->sortable(),
 
-                Tables\Columns\TextColumn::make('DataSecurity.nik')
-                ->label('NIK Security')
-                ->searchable()
-                ->sortable(),
+                // Tables\Columns\TextColumn::make('DataSecurity.nik')
+                // ->label('NIK Security')
+                // ->searchable()
+                // ->sortable(),
 
                 Tables\Columns\TextColumn::make('DataSecurity.jabatan')
-                ->label('Jabatan Security')
-                ->searchable()
+                    ->label('Jabatan Security')
+                    ->searchable()
             ])
             ->filters([
                 //

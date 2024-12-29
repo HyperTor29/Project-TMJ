@@ -63,8 +63,16 @@ class InstansiChartWidget extends ChartWidget
         ];
 
         $colors = [];
+        $index = 0;
+
         foreach ($instansiNames as $name) {
-            $colors[$name] = $baseColors[$name] ?? sprintf('rgba(%d, %d, %d, 0.7)', crc32($name) % 256, crc32($name . 'x') % 256, crc32($name . 'y') % 256);
+            if (isset($baseColors[$name])) {
+                $colors[$name] = $baseColors[$name];
+            } else {
+                $hue = ($index * 137.5) % 360;
+                $colors[$name] = "hsl($hue, 70%, 60%)";
+                $index++;
+            }
         }
 
         return $colors;

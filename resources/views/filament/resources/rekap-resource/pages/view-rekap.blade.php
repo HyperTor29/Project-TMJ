@@ -22,7 +22,7 @@
             <dl class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
                     <dt class="font-bold text-gray-600 dark:text-gray-400">Tanggal</dt>
-                    <dd class="text-gray-800 dark:text-gray-200">{{ $record->tanggal }}</dd>
+                    <dd class="text-gray-800 dark:text-gray-200">{{ \Carbon\Carbon::parse($record->tanggal)->format('d-m-Y') }}</dd>
                 </div>
                 <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
                     <dt class="font-bold text-gray-600 dark:text-gray-400">Gerbang Tol</dt>
@@ -72,10 +72,10 @@
                     <dt class="font-bold text-gray-600 dark:text-gray-400">Nama Security</dt>
                     <dd class="text-gray-800 dark:text-gray-200">{{ $record->DataSecurity->nama ?? '-' }}</dd>
                 </div>
-                <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
+                <!-- <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
                     <dt class="font-bold text-gray-600 dark:text-gray-400">NIK Security</dt>
                     <dd class="text-gray-800 dark:text-gray-200">{{ $record->DataSecurity->nik ?? '-' }}</dd>
-                </div>
+                </div> -->
                 <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
                     <dt class="font-bold text-gray-600 dark:text-gray-400">Jabatan Security</dt>
                     <dd class="text-gray-800 dark:text-gray-200">{{ $record->DataSecurity->jabatan ?? '-' }}</dd>
