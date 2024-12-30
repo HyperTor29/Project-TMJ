@@ -1,6 +1,7 @@
 {
     "private": true,
     "type": "module",
+    "homepage":"https://siap.tertiblolos-tmj.com",
     "scripts": {
         "dev": "vite",
         "build": "vite build"

@@ -34,7 +34,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("{{ asset('images/GambarTol.jpeg') }}");
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("{{ asset('images/GambarTol2.jpeg') }}");
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
