@@ -3,10 +3,17 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RekapanController;
 use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('/storage-link', function () {
+    Artisan::call('storage:link');
+    return 'Storage link successfully';
+});
 
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/rekapan/{id}', [RekapanController::class, 'show'])->name('rekapan.show');
 Route::post('/rekapan/{id}/accept', [RekapanController::class, 'accept'])->name('rekapan.accept');
 Route::post('/rekapan/{id}/reject', [RekapanController::class, 'reject'])->name('rekapan.reject');
