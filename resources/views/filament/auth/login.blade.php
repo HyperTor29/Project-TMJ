@@ -40,13 +40,6 @@
             background-attachment: fixed;
         }
 
-        .filament-login-container {
-            width: 100%;
-            max-width: 420px;
-            padding: 20px;
-            perspective: 1000px;
-        }
-
         .filament-login {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
