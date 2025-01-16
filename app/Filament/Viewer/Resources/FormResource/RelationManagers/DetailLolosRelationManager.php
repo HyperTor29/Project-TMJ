@@ -64,7 +64,7 @@ class DetailLolosRelationManager extends RelationManager
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('Gerbang.name')
-                    ->label('Gerbang')
+                    ->label('Gerbang Asal')
                     ->sortable()
                     ->searchable(),
 

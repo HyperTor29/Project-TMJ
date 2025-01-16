@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Tertib Lolos</title>
+    <title>Login - Tertib Izin Lintas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <style>
@@ -282,7 +282,7 @@
         <div class="filament-login">
             <div class="login-header">
                 <img src="{{ asset('images/GambarTMJ.jpg') }}" alt="Tertib Lolos Logo" class="app-logo">
-                <h1 class="app-name">Tertib Lolos</h1>
+                <h1 class="app-name">Tertib Izin Lintas</h1>
                 <p class="welcome-text">Selamat Datang Kembali</p>
             </div>
             <div class="login-form">

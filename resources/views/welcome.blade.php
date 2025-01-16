@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tertib Lolos - PT Trans Marga Jateng</title>
+    <title>Tertib Izin Lintas - PT Trans Marga Jateng</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
@@ -78,11 +78,14 @@
     </style>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50">
-    <header x-data="{ isOpen: false }" class="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur-sm shadow-sm">
+    <header x-data="{ isOpen: false, scrolled: false }"
+       x-init="window.addEventListener('scroll', () => { scrolled = window.pageYOffset > 0 })"
+       :class="{ 'bg-white shadow-md': scrolled, 'bg-white/95 backdrop-blur-sm': !scrolled }"
+       class="sticky top-0 z-50 w-full border-b transition-all duration-300">
         <div class="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
             <a href="{{ url('/') }}" class="flex items-center space-x-2 group">
                 <img src="{{ asset('images/GambarTMJ.jpg') }}" alt="Tertib Lolos Logo" class="h-10 w-auto transform transition-transform group-hover:scale-105" width="80" height="60">
-                <span class="text-xl font-bold text-navy-blue group-hover:text-green-600 transition-colors">Tertib Lolos</span>
+                <span class="text-xl font-bold text-navy-blue group-hover:text-green-600 transition-colors">Tertib Izin Lintas</span>
             </a>
             <nav class="hidden md:flex gap-8 items-center">
                 <a class="nav-link text-sm font-medium text-navy-blue hover:text-green-600 transition-colors duration-200" href="#tentang">Tentang</a>
@@ -161,7 +164,7 @@
                 <div class="flex flex-col items-center space-y-8 text-center">
                     <div class="space-y-4 max-w-3xl mx-auto">
                         <h1 class="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-navy-blue animate-float">
-                            Selamat Datang di Tertib Lolos
+                            Selamat Datang di Tertib Izin Lintas
                         </h1>
                         <p class="mx-auto max-w-[700px] text-navy-blue text-lg md:text-xl lg:text-2xl animate-fade-in">
                             Sistem manajemen perizinan kendaraan pintar untuk kelancaran lalu lintas di gerbang tol PT Trans Marga Jateng.
@@ -226,9 +229,9 @@
                         <img src="{{ asset('images/GambarTol.jpeg') }}" alt="Gerbang Tol PT Trans Marga Jateng" class="relative w-full rounded-xl shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
                     </div>
                     <div class="flex flex-col justify-center space-y-6">
-                        <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl text-navy-blue">Tentang Tertib Lolos</h2>
+                        <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl text-navy-blue">Tentang Tertib Izin Lintas</h2>
                         <p class="text-lg text-gray-600">
-                            Tertib Lolos adalah sistem manajemen perizinan kendaraan inovatif yang dikembangkan oleh PT Trans Marga Jateng.
+                            Tertib Izin Lintas adalah sistem manajemen perizinan kendaraan inovatif yang dikembangkan oleh PT Trans Marga Jateng.
                             Dirancang untuk mengoptimalkan alur lalu lintas di gerbang tol, sistem ini menjamin keamanan, efisiensi, dan
                             keteraturan dalam proses perizinan kendaraan yang melintas.
                         </p>
@@ -268,7 +271,7 @@
                 <div class="text-center space-y-4 mb-12">
                     <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-navy-blue">Hubungi Kami</h2>
                     <p class="text-lg text-gray-600 max-w-[600px] mx-auto">
-                        Kami siap membantu Anda dengan segala pertanyaan tentang Tertib Lolos
+                        Kami siap membantu Anda dengan segala pertanyaan tentang Tertib Izin Lintas
                     </p>
                 </div>
                 <div class="grid gap-8 lg:grid-cols-2 lg:gap-12 items-start">
@@ -324,7 +327,7 @@
                 <div class="space-y-4">
                     <div class="flex items-center space-x-2">
                         <img src="{{ asset('images/GambarTMJ.jpg') }}" alt="Tertib Lolos Logo" class="h-10 w-auto" width="80" height="60">
-                        <span class="text-xl font-bold">Tertib Lolos</span>
+                        <span class="text-xl font-bold">Tertib Izin Lintas</span>
                     </div>
                     <p class="text-sm text-gray-300 max-w-md">
                         Sistem manajemen perizinan kendaraan pintar untuk kelancaran lalu lintas di gerbang tol PT Trans Marga Jateng.
@@ -343,7 +346,7 @@
             </div>
             <div class="mt-8 border-t border-gray-700 pt-8">
                 <p class="text-sm text-gray-300">
-                    © {{ date('Y') }} Tertib Lolos - PT Trans Marga Jateng. Hak Cipta Dilindungi.
+                    © {{ date('Y') }} Tertib Izin Lintas - PT Trans Marga Jateng. Hak Cipta Dilindungi.
                 </p>
             </div>
         </div>
@@ -354,3 +357,4 @@
     </script>
 </body>
 </html>
+

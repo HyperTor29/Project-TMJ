@@ -62,19 +62,6 @@ class DetailLolosRelationManager extends RelationManager
                         Forms\Components\TextInput::make('jumlah_kdr')
                             ->label('Jumlah Kendaraan (Diisi oleh Security)'),
 
-                        Forms\Components\Repeater::make('surats')
-                            ->label('Foto Surat (Diisi oleh Security)')
-                            ->relationship('surats')
-                            ->schema([
-                                Forms\Components\FileUpload::make('surat')
-                                    ->label('Foto Surat')
-                                    ->image()
-                                    ->maxSize(5120)
-                                    ->directory('surats')
-                                    ->imageResizeMode('contain')
-                                    ->imageResizeTargetWidth(800),
-                            ]),
-
                         Forms\Components\Repeater::make('fotos')
                             ->label('Foto Kendaraan (Diisi oleh Security)')
                             ->relationship('fotos')
@@ -99,7 +86,7 @@ class DetailLolosRelationManager extends RelationManager
                             ->label('Nomor Resi Akhir (Diisi oleh CS)'),
 
                         Forms\Components\Select::make('gerbang_id')
-                            ->label('Gerbang (Diisi oleh CS)')
+                            ->label('Gerbang Asal (Diisi oleh CS)')
                             ->relationship('Gerbang', 'name'),
 
                         Forms\Components\Select::make('gol_kdr_id')
@@ -118,6 +105,19 @@ class DetailLolosRelationManager extends RelationManager
 
                         Forms\Components\Checkbox::make('surat_izin_lintas')
                             ->label('Surat Izin Lintas (Diisi oleh CS)'),
+
+                        Forms\Components\Repeater::make('surats')
+                            ->label('Foto Surat (Diisi oleh CS)')
+                            ->relationship('surats')
+                            ->schema([
+                                Forms\Components\FileUpload::make('surat')
+                                    ->label('Foto Surat')
+                                    ->image()
+                                    ->maxSize(5120)
+                                    ->directory('surats')
+                                    ->imageResizeMode('contain')
+                                    ->imageResizeTargetWidth(800),
+                            ]),
                     ])
                     ->label('Diisi oleh CS'),
             ]);
@@ -149,7 +149,7 @@ class DetailLolosRelationManager extends RelationManager
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('Gerbang.name')
-                    ->label('Gerbang')
+                    ->label('Gerbang Asal')
                     ->sortable()
                     ->searchable(),
 

@@ -50,7 +50,7 @@ class Form extends Model
     }
 
     public function DataCs() {
-        return $this->belongsTo(DataCs::class);
+        return $this->belongsTo(DataCs::class, 'data_cs_id');
     }
 
     public function DataCss() {

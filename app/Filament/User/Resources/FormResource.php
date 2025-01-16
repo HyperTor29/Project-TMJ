@@ -75,17 +75,25 @@ class FormResource extends Resource
                 Forms\Components\Select::make('data_cs_id')
                     ->label('Nama CS')
                     ->relationship('DataCs', 'nama')
-                    ->required(),
+                    ->default(function () {
+                        $user = Auth::user();
+                        if ($user) {
+                            $dataCs = \App\Models\DataCs::where('nama', $user->name)->first();
+                            return $dataCs ? $dataCs->id : null;
+                        }
+                        return null;
+                    })
+                    ->disabled(),
 
                 Forms\Components\Select::make('data_cs_id')
                     ->label('NIK CS')
                     ->relationship('DataCs', 'nik')
-                    ->required(),
+                    ->disabled(),
 
                 Forms\Components\Select::make('data_cs_id')
                     ->label('Jabatan CS')
                     ->relationship('DataCs', 'jabatan')
-                    ->required(),
+                    ->disabled(),
 
                 Forms\Components\Select::make('data_css_id')
                     ->label('Nama CSS')
