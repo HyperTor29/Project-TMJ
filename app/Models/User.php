@@ -69,30 +69,29 @@ class User extends Authenticatable implements FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
         $user = Auth::user();
-        $roles = $user->role->name;
 
-        if ($panel->getId() === 'admin' && $roles === 'Admin') {
-            return true;
-        }
-
-        else if ($panel->getId() === 'user' && $roles === 'User') {
-            return true;
-        }
-
-        else if ($panel->getId() === 'verificator' && $roles === 'Verificator') {
-            return true;
-        }
-
-        else if ($panel->getId() === 'validator' && $roles === 'Validator') {
-            return true;
-        }
-
-        else if ($panel->getId() === 'viewer' && $roles === 'Viewer') {
-            return true;
-        }
-
-        else {
+        // Pastikan user memiliki role
+        if (!$user || !$user->role) {
             return false;
         }
+
+        $role = $user->role->name;
+
+        // Mapping panel dengan role yang diizinkan
+        $panelAccessMap = [
+            'admin' => ['Admin'],
+            'user' => ['User', 'Security'],
+            'verificator' => ['Verificator'],
+            'validator' => ['Validator'],
+            'viewer' => ['Viewer'],
+        ];
+
+        // Periksa apakah panel memiliki akses sesuai dengan role user
+        if (isset($panelAccessMap[$panel->getId()])) {
+            return in_array($role, $panelAccessMap[$panel->getId()]);
+        }
+
+        // Jika panel tidak dikenali, tolak akses
+        return false;
     }
 }

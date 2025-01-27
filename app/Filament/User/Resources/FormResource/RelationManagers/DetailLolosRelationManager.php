@@ -45,8 +45,11 @@ class DetailLolosRelationManager extends RelationManager
 
     public function form(Forms\Form $form): Forms\Form
     {
+        $userRole = Auth::user()->role->name;
+
         return $form
             ->schema([
+                // Bagian form untuk Security
                 Forms\Components\Card::make()
                     ->schema([
                         Forms\Components\TimePicker::make('pukul')
@@ -75,8 +78,10 @@ class DetailLolosRelationManager extends RelationManager
                                     ->imageResizeTargetWidth(800),
                             ]),
                     ])
-                    ->label('Diisi oleh Security'),
+                    ->label('Diisi oleh Security')
+                    ->hidden($userRole !== 'Security'), // Sembunyikan jika bukan Security
 
+                // Bagian form untuk CS
                 Forms\Components\Card::make()
                     ->schema([
                         Forms\Components\TextInput::make('nomor_resi_awal')
@@ -119,7 +124,8 @@ class DetailLolosRelationManager extends RelationManager
                                     ->imageResizeTargetWidth(800),
                             ]),
                     ])
-                    ->label('Diisi oleh CS'),
+                    ->label('Diisi oleh CS')
+                    ->hidden($userRole !== 'User'), // Sembunyikan jika bukan User
             ]);
     }
 

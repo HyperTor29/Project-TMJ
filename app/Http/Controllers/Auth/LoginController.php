@@ -39,6 +39,7 @@ class LoginController extends Controller
             case 'Admin':
                 return redirect('/admin');
             case 'User':
+            case 'Security':
                 return redirect('/user');
             case 'Verificator':
                 return redirect('/verificator');

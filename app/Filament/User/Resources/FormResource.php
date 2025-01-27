@@ -51,6 +51,22 @@ class FormResource extends Resource
         });
     }
 
+    public static function mutateBeforeSave(array $data): array
+    {
+        $user = Auth::user();
+
+        if ($user) {
+            $dataCs = \App\Models\DataCs::where('nama', $user->name)->first();
+
+            if ($dataCs) {
+                $data['data_cs_nik'] = $dataCs->nik;
+                $data['data_cs_jabatan'] = $dataCs->jabatan;
+            }
+        }
+
+        return $data;
+    }
+
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form
@@ -83,16 +99,30 @@ class FormResource extends Resource
                         }
                         return null;
                     })
-                    ->disabled(),
+                    ->required(),
 
-                Forms\Components\Select::make('data_cs_id')
+                Forms\Components\TextInput::make('data_cs_nik')
                     ->label('NIK CS')
-                    ->relationship('DataCs', 'nik')
+                    ->default(function () {
+                        $user = Auth::user();
+                        if ($user) {
+                            $dataCs = \App\Models\DataCs::where('nama', $user->name)->first();
+                            return $dataCs ? $dataCs->nik : null;
+                        }
+                        return null;
+                    })
                     ->disabled(),
 
-                Forms\Components\Select::make('data_cs_id')
+                Forms\Components\TextInput::make('data_cs_jabatan')
                     ->label('Jabatan CS')
-                    ->relationship('DataCs', 'jabatan')
+                    ->default(function () {
+                        $user = Auth::user();
+                        if ($user) {
+                            $dataCs = \App\Models\DataCs::where('nama', $user->name)->first();
+                            return $dataCs ? $dataCs->jabatan : null;
+                        }
+                        return null;
+                    })
                     ->disabled(),
 
                 Forms\Components\Select::make('data_css_id')
@@ -212,11 +242,6 @@ class FormResource extends Resource
                     ->label('Data Security')
                     ->searchable()
                     ->sortable(),
-
-                // Tables\Columns\TextColumn::make('DataSecurity.nik')
-                // ->label('NIK Security')
-                // ->searchable()
-                // ->sortable(),
 
                 Tables\Columns\TextColumn::make('DataSecurity.jabatan')
                     ->label('Jabatan Security')
