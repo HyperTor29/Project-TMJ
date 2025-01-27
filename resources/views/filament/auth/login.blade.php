@@ -34,7 +34,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("{{ asset('images/login.jpeg') }}");
+            background-image: url("{{ asset('images/GambarAiTol2.jpeg') }}");
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -82,13 +82,14 @@
         }
 
         .app-logo {
-            width: 90px;
-            height: 90px;
-            margin-bottom: 20px;
+            width: 160px;
+            height: 100px;
+            margin: 0 auto 20px auto;
+            display: block;
             border-radius: 50%;
             border: 4px solid rgba(255, 255, 255, 0.9);
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            animation: float 6s ease-in-out infinite;
+            animation: float 4s ease-in-out infinite;
         }
 
         .app-name {
@@ -131,7 +132,7 @@
 
         .input-field input {
             width: 100%;
-            padding: 16px 15px;
+            /* padding: 16px 15px; */
             border-radius: 12px;
             border: 2px solid var(--input-border);
             font-size: 16px;
