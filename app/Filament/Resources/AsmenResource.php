@@ -23,6 +23,16 @@ class AsmenResource extends Resource
 
     protected static ?int $navigationSort = 13;
 
+    public static function getModelLabel(): string
+    {
+        return 'Asmen';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Data Asmen';
+    }
+
     protected static function getHeaderWidgets(): array
     {
         return [
@@ -83,9 +93,8 @@ class AsmenResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make()
+                    ->label('Delete'),
             ]);
     }
 

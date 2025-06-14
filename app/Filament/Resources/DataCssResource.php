@@ -23,6 +23,16 @@ class DataCssResource extends Resource
 
     protected static ?int $navigationSort = 12;
 
+    public static function getModelLabel(): string
+    {
+        return 'CSS';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Data CSS';
+    }
+
     protected static function getHeaderWidgets(): array
     {
         return [
@@ -83,9 +93,8 @@ class DataCssResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make()
+                    ->label('Delete'),
             ]);
     }
 

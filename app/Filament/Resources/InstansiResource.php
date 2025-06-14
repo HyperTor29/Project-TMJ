@@ -25,6 +25,16 @@ class InstansiResource extends Resource
 
     protected static ?int $navigationSort = 35;
 
+    public static function getModelLabel(): string
+    {
+        return 'Instansi';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Daftar Instansi';
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -55,9 +65,8 @@ class InstansiResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make()
+                    ->label('Delete'),
             ]);
     }
 

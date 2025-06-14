@@ -4,6 +4,8 @@ namespace App\Filament\Validator\Widgets;
 
 use Filament\Widgets\ChartWidget;
 use App\Models\DetailLolos;
+use App\Models\Form;
+use Carbon\Carbon;
 
 class SuratIzinLintasChartWidget extends ChartWidget
 {
@@ -12,16 +14,27 @@ class SuratIzinLintasChartWidget extends ChartWidget
 
     protected function getData(): array
     {
-        $suratData = DetailLolos::selectRaw('surat_izin_lintas, COUNT(*) as total')
-            ->groupBy('surat_izin_lintas')
-            ->pluck('total', 'surat_izin_lintas')
+        $selectedYear = $this->filter ?? Carbon::now()->year;
+
+        $activeFormIds = Form::whereNull('deleted_at')
+            ->whereYear('created_at', $selectedYear)
+            ->pluck('id')
+            ->toArray();
+
+        $query = DetailLolos::selectRaw('surat_izin_lintas, COUNT(*) as total')
+            ->whereIn('form_id', $activeFormIds)
+            ->whereNull('deleted_at')
+            ->whereYear('created_at', $selectedYear)
+            ->groupBy('surat_izin_lintas');
+
+        $suratData = $query->pluck('total', 'surat_izin_lintas')
             ->toArray();
 
         $totalKendaraan = array_sum($suratData);
 
         $data = [
-            $totalKendaraan > 0 ? round(($suratData[1] ?? 0) / $totalKendaraan * 100, 2) : 0, // Ya
-            $totalKendaraan > 0 ? round(($suratData[0] ?? 0) / $totalKendaraan * 100, 2) : 0, // Tidak
+            $totalKendaraan > 0 ? round(($suratData[1] ?? 0) / $totalKendaraan * 100, 2) : 0,
+            $totalKendaraan > 0 ? round(($suratData[0] ?? 0) / $totalKendaraan * 100, 2) : 0,
         ];
 
         return [
@@ -33,6 +46,19 @@ class SuratIzinLintasChartWidget extends ChartWidget
                 ],
             ],
             'labels' => ['Ya', 'Tidak'],
+            'options' => [
+                'plugins' => [
+                    'legend' => [
+                        'position' => 'bottom',
+                    ],
+                    'tooltip' => [
+                        'callbacks' => [
+                            'label' => 'function(context) { return context.label + ": " + context.raw + "%"; }',
+                        ],
+                    ],
+                ],
+                'cutout' => '60%',
+            ],
         ];
     }
 
@@ -40,4 +66,39 @@ class SuratIzinLintasChartWidget extends ChartWidget
     {
         return 'doughnut';
     }
+
+    protected function getFilters(): ?array
+    {
+        $currentYear = Carbon::now()->year;
+
+        $activeFormIds = Form::whereNull('deleted_at')
+            ->pluck('id')
+            ->toArray();
+
+        $years = DetailLolos::whereIn('form_id', $activeFormIds)
+            ->whereNull('deleted_at')
+            ->selectRaw('YEAR(created_at) as year')
+            ->distinct()
+            ->orderByDesc('year')
+            ->pluck('year')
+            ->toArray();
+
+        if (!in_array($currentYear, $years)) {
+            $years[] = $currentYear;
+            sort($years);
+            rsort($years);
+        }
+
+        if (empty($years)) {
+            $years = [$currentYear];
+        }
+
+        $formattedYears = [];
+        foreach ($years as $year) {
+            $formattedYears[(string)$year] = (string)$year;
+        }
+
+        return $formattedYears;
+    }
 }
+

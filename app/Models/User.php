@@ -61,6 +61,11 @@ class User extends Authenticatable implements FilamentUser
         $this->attributes['password'] = Hash::make($password);
     }
 
+    public function data_cs()
+    {
+        return $this->hasOne(DataCs::class, 'nama', 'name'); // Sesuaikan nama kolom
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class);

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class Form extends Model
 {
@@ -25,10 +26,8 @@ class Form extends Model
         'NIK Asmen',
         'Jabatan Asmen',
         'Nama Security',
-        'NIK Security',
         'Jabatan Security',
         'user_id',
-
     ];
 
     protected $table = 'forms';
@@ -37,6 +36,21 @@ class Form extends Model
     {
         $this->attributes['Nama'] = $value;
         $this->attributes['Jabatan'] = $value;
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $user = Auth::user();
+
+            if ($user && $user->data_cs) {
+                $model->data_cs_id = $user->data_cs->nama;
+                $model->data_cs_nik = $user->data_cs->nik;
+                $model->data_cs_jabatan = $user->data_cs->jabatan;
+            }
+        });
     }
 
     public function GerbangTujuan()

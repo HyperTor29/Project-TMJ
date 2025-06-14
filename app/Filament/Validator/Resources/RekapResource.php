@@ -25,9 +25,19 @@ class RekapResource extends Resource
 
     protected static ?int $navigationSort = 12;
 
+    public static function getModelLabel(): string
+    {
+        return 'Rekap Data';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Rekap Data';
+    }
+
     public static function getEloquentQuery(): Builder
     {
-        $query = parent::getEloquentQuery();
+        $query = parent::getEloquentQuery()->orderBy('tanggal', 'desc');
 
         if (in_array(Auth::user()->role->name, ['Admin', 'Validator', 'Viewer'])) {
             return $query;

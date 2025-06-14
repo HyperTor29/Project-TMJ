@@ -25,6 +25,16 @@ class GerbangTujuanResource extends Resource
 
     protected static ?int $navigationSort = 33;
 
+    public static function getModelLabel(): string
+    {
+        return 'Gerbang Tujuan';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Daftar Gerbang Tujuan';
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -65,9 +75,8 @@ class GerbangTujuanResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make()
+                    ->label('Delete'),
             ]);
     }
 

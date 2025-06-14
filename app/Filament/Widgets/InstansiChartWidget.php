@@ -4,34 +4,55 @@ namespace App\Filament\Widgets;
 
 use Filament\Widgets\ChartWidget;
 use App\Models\DetailLolos;
+use App\Models\Form;
+use Illuminate\Support\Collection;
 
 class InstansiChartWidget extends ChartWidget
 {
-    protected static ?string $heading = 'Jumlah Kendaraan tiap Instansi per Tahun';
+    protected static ?string $heading = 'Jumlah Kendaraan tiap Instansi per Bulan';
+
+    protected static array $defaultInstansiColors = [
+        // Contoh: 'Kepolisian' => '#F87171',
+        // Tambahkan instansi lain jika diperlukan
+    ];
 
     protected function getData(): array
     {
+        $selectedYear = $this->filter ?? now()->year;
+
+        $activeFormIds = Form::whereNull('deleted_at')
+            ->whereYear('created_at', $selectedYear)
+            ->pluck('id')
+            ->toArray();
+
         $instansiData = DetailLolos::with('Instansi')
+            ->whereIn('form_id', $activeFormIds)
+            ->whereNull('deleted_at')
+            ->whereYear('created_at', $selectedYear)
             ->get()
-            ->groupBy(fn($detail) => ($detail->Instansi->instansi ?? 'Unknown') . ' - ' . $detail->created_at->year);
+            ->groupBy(fn($detail) => $detail->Instansi->instansi ?? 'Tidak Diketahui');
 
         $datasets = [];
-        $instansiNames = $instansiData->keys()->map(fn($key) => explode(' - ', $key)[0])->unique();
-        $colors = $this->generateConsistentColors($instansiNames);
 
-        foreach ($instansiData as $key => $details) {
-            $instansiName = explode(' - ', $key)[0];
+        $instansiNames = $instansiData->keys()->toArray();
+
+        $instansiColorMap = $this->generateDistinctColors($instansiNames);
+
+        foreach ($instansiData as $instansiName => $details) {
             $monthlyData = array_fill(0, 12, 0);
 
             foreach ($details as $detail) {
                 $monthIndex = $detail->created_at->month - 1;
-                $monthlyData[$monthIndex]++;
+                $monthlyData[$monthIndex] += $detail->jumlah_kdr ?? 1;
             }
 
+            $color = static::$defaultInstansiColors[$instansiName] ?? $instansiColorMap[$instansiName] ?? 'rgba(0,0,0,0.7)';
+
             $datasets[] = [
-                'label' => $key,
+                'label' => $instansiName,
                 'data' => $monthlyData,
-                'backgroundColor' => $colors[$instansiName] ?? 'rgba(0, 0, 0, 0.7)',
+                'backgroundColor' => $color,
+                'borderColor' => $color,
                 'borderWidth' => 1,
             ];
         }
@@ -47,32 +68,53 @@ class InstansiChartWidget extends ChartWidget
         return 'bar';
     }
 
-    private function getMonthLabels(): array
+    protected function getFilters(): ?array
     {
-        return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        $activeFormIds = Form::whereNull('deleted_at')
+            ->pluck('id')
+            ->toArray();
+
+        $years = DetailLolos::whereIn('form_id', $activeFormIds)
+            ->whereNull('deleted_at')
+            ->selectRaw('YEAR(created_at) as year')
+            ->distinct()
+            ->orderByDesc('year')
+            ->pluck('year')
+            ->toArray();
+
+        if (empty($years)) {
+            $years = [now()->year];
+        }
+
+        $formattedYears = [];
+        foreach ($years as $year) {
+            $formattedYears[(string)$year] = (string)$year;
+        }
+
+        return $formattedYears;
     }
 
-    private function generateConsistentColors($instansiNames): array
+    protected function getMonthLabels(): array
     {
-        $baseColors = [
-            'Admin' => 'rgba(255, 99, 132, 0.7)',
-            'User' => 'rgba(54, 162, 235, 0.7)',
-            'Verificator' => 'rgba(255, 206, 86, 0.7)',
-            'Validator' => 'rgba(75, 192, 192, 0.7)',
-            'Viewer' => 'rgba(153, 102, 255, 0.7)',
-        ];
+        return ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des'];
+    }
 
+    private function generateDistinctColors(array $labels): array
+    {
         $colors = [];
-        $index = 0;
+        $count = count($labels);
 
-        foreach ($instansiNames as $name) {
-            if (isset($baseColors[$name])) {
-                $colors[$name] = $baseColors[$name];
-            } else {
-                $hue = ($index * 137.5) % 360;
-                $colors[$name] = "hsl($hue, 70%, 60%)";
-                $index++;
-            }
+        if ($count === 0) {
+            return $colors;
+        }
+
+        $hueStep = 360 / max(1, $count);
+        $saturation = 70;
+        $lightness = 60;
+
+        foreach ($labels as $i => $label) {
+            $hue = $i * $hueStep;
+            $colors[$label] = "hsla($hue, {$saturation}%, {$lightness}%, 0.8)";
         }
 
         return $colors;

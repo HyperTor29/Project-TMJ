@@ -20,6 +20,16 @@ class InstansiResource extends Resource
 
     protected static ?int $navigationSort = 35;
 
+    public static function getModelLabel(): string
+    {
+        return 'Instansi';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Daftar Instansi';
+    }
+
     public static function table(Table $table): Table
     {
         return $table

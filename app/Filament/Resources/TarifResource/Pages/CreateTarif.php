@@ -14,4 +14,16 @@ class CreateTarif extends CreateRecord
     {
         return "Create Daftar Tarif";
     }
+
+    protected function getFormActions(): array
+    {
+        return [
+            $this->getCreateFormAction()
+                ->label('Save'),
+            $this->getCreateAnotherFormAction()
+                ->label('Save & Create Another'),
+            $this->getCancelFormAction()
+                ->label('Cancel'),
+        ];
+    }
 }

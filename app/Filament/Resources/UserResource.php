@@ -22,6 +22,16 @@ class UserResource extends Resource
 
     protected static ?string $navigationGroup = 'Setting';
 
+    public static function getModelLabel(): string
+    {
+        return 'Akun';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Akun';
+    }
+
     protected static function getHeaderWidgets(): array
     {
         return [
@@ -87,9 +97,8 @@ class UserResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make()
+                    ->label('Delete'),
             ]);
     }
 

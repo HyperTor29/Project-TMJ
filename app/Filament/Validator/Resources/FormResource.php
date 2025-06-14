@@ -21,9 +21,19 @@ class FormResource extends Resource
 
     protected static ?string $navigationGroup = 'Laporan';
 
+    public static function getModelLabel(): string
+    {
+        return 'Form Isian';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Form Isian';
+    }
+
     public static function getEloquentQuery(): Builder
     {
-        $query = parent::getEloquentQuery();
+        $query = parent::getEloquentQuery()->orderBy('tanggal', 'desc');
 
         if (in_array(Auth::user()->role->name, ['Admin', 'Validator', 'Viewer'])) {
             return $query;

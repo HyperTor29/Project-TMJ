@@ -25,6 +25,16 @@ class DataSecurityResource extends Resource
 
     protected static ?int $navigationSort = 14;
 
+    public static function getModelLabel(): string
+    {
+        return 'Security';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Data Security';
+    }
+
     public static function table(Table $table): Table
     {
         return $table

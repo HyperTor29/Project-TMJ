@@ -22,9 +22,19 @@ class FormResource extends Resource
 
     protected static ?string $navigationGroup = 'Laporan';
 
+    public static function getModelLabel(): string
+    {
+        return 'Form';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Form Isian';
+    }
+
     public static function getEloquentQuery(): Builder
     {
-        $query = parent::getEloquentQuery();
+        $query = parent::getEloquentQuery()->orderBy('tanggal', 'desc');
 
         if (in_array(Auth::user()->role->name, ['Admin', 'Validator', 'Viewer'])) {
             return $query;
@@ -51,27 +61,13 @@ class FormResource extends Resource
         });
     }
 
-    public static function mutateBeforeSave(array $data): array
-    {
-        $user = Auth::user();
-
-        if ($user) {
-            $dataCs = \App\Models\DataCs::where('nama', $user->name)->first();
-
-            if ($dataCs) {
-                $data['data_cs_nik'] = $dataCs->nik;
-                $data['data_cs_jabatan'] = $dataCs->jabatan;
-            }
-        }
-
-        return $data;
-    }
-
     public static function form(Forms\Form $form): Forms\Form
     {
-        return $form
-            ->schema([
-                //
+        return $form->schema(function () {
+            $user = Auth::user();
+            $dataCs = \App\Models\DataCs::where('nama', $user->name)->first();
+
+            return [
                 Forms\Components\DatePicker::make('tanggal')
                     ->label('Tanggal')
                     ->required()
@@ -91,85 +87,117 @@ class FormResource extends Resource
                 Forms\Components\Select::make('data_cs_id')
                     ->label('Nama CS')
                     ->relationship('DataCs', 'nama')
-                    ->default(function () {
-                        $user = Auth::user();
-                        if ($user) {
-                            $dataCs = \App\Models\DataCs::where('nama', $user->name)->first();
-                            return $dataCs ? $dataCs->id : null;
-                        }
-                        return null;
-                    })
-                    ->required(),
+                    ->required()
+                    ->reactive()
+                    ->afterStateUpdated(function ($state, callable $set) {
+                        $data = \App\Models\DataCs::find($state);
+                        $set('data_cs_nik_display', $data?->nik);
+                        $set('data_cs_jabatan_display', $data?->jabatan);
+                    }),
 
-                Forms\Components\TextInput::make('data_cs_nik')
+                Forms\Components\TextInput::make('data_cs_nik_display')
                     ->label('NIK CS')
-                    ->default(function () {
-                        $user = Auth::user();
-                        if ($user) {
-                            $dataCs = \App\Models\DataCs::where('nama', $user->name)->first();
-                            return $dataCs ? $dataCs->nik : null;
+                    ->disabled()
+                    ->dehydrated(false)
+                    ->afterStateHydrated(function (Forms\Components\TextInput $component, $state, $record) {
+                        if ($record && $record->DataCs) {
+                            $component->state($record->DataCs->nik);
                         }
-                        return null;
-                    })
-                    ->disabled(),
+                    }),
 
-                Forms\Components\TextInput::make('data_cs_jabatan')
+                Forms\Components\TextInput::make('data_cs_jabatan_display')
                     ->label('Jabatan CS')
-                    ->default(function () {
-                        $user = Auth::user();
-                        if ($user) {
-                            $dataCs = \App\Models\DataCs::where('nama', $user->name)->first();
-                            return $dataCs ? $dataCs->jabatan : null;
+                    ->disabled()
+                    ->dehydrated(false)
+                    ->afterStateHydrated(function (Forms\Components\TextInput $component, $state, $record) {
+                        if ($record && $record->DataCs) {
+                            $component->state($record->DataCs->jabatan);
                         }
-                        return null;
-                    })
-                    ->disabled(),
+                    }),
 
                 Forms\Components\Select::make('data_css_id')
                     ->label('Nama CSS')
                     ->relationship('DataCss', 'nama')
-                    ->required(),
+                    ->required()
+                    ->reactive()
+                    ->afterStateUpdated(function ($state, callable $set) {
+                        $data = \App\Models\DataCss::find($state);
+                        $set('data_css_nik_display', $data?->nik);
+                        $set('data_css_jabatan_display', $data?->jabatan);
+                    }),
 
-                Forms\Components\Select::make('data_css_id')
+                Forms\Components\TextInput::make('data_css_nik_display')
                     ->label('NIK CSS')
-                    ->relationship('DataCss', 'nik')
-                    ->required(),
+                    ->disabled()
+                    ->dehydrated(false)
+                    ->afterStateHydrated(function (Forms\Components\TextInput $component, $state, $record) {
+                        if ($record && $record->DataCss) {
+                            $component->state($record->DataCss->nik);
+                        }
+                    }),
 
-                Forms\Components\Select::make('data_css_id')
+                Forms\Components\TextInput::make('data_css_jabatan_display')
                     ->label('Jabatan CSS')
-                    ->relationship('DataCss', 'jabatan')
-                    ->required(),
+                    ->disabled()
+                    ->dehydrated(false)
+                    ->afterStateHydrated(function (Forms\Components\TextInput $component, $state, $record) {
+                        if ($record && $record->DataCss) {
+                            $component->state($record->DataCss->jabatan);
+                        }
+                    }),
 
                 Forms\Components\Select::make('asmen_id')
                     ->label('Nama Asmen')
                     ->relationship('Asmen', 'nama')
-                    ->required(),
-
-                Forms\Components\Select::make('asmen_id')
-                    ->label('NIK Asmen')
-                    ->relationship('Asmen', 'nik')
-                    ->required(),
-
-                Forms\Components\Select::make('asmen_id')
-                    ->label('Jabatan Asmen')
-                    ->relationship('Asmen', 'jabatan')
-                    ->required(),
-
-                Forms\Components\Select::make('data_securities_id')
-                    ->label('Data Security')
-                    ->relationship('DataSecurity', 'nama')
-                    ->required(),
-
-                // Forms\Components\Select::make('data_securities_id')
-                // ->label('NIK Security')
-                // ->relationship('DataSecurity', 'nik')
-                // ->required(),
-
-                Forms\Components\Select::make('data_securities_id')
-                    ->label('Jabatan Security')
-                    ->relationship('DataSecurity', 'jabatan')
                     ->required()
-            ]);
+                    ->reactive()
+                    ->afterStateUpdated(function ($state, callable $set) {
+                        $data = \App\Models\Asmen::find($state);
+                        $set('asmen_nik_display', $data?->nik);
+                        $set('asmen_jabatan_display', $data?->jabatan);
+                    }),
+
+                Forms\Components\TextInput::make('asmen_nik_display')
+                    ->label('NIK Asmen')
+                    ->disabled()
+                    ->dehydrated(false)
+                    ->afterStateHydrated(function (Forms\Components\TextInput $component, $state, $record) {
+                        if ($record && $record->Asmen) {
+                            $component->state($record->Asmen->nik);
+                        }
+                    }),
+
+                Forms\Components\TextInput::make('asmen_jabatan_display')
+                    ->label('Jabatan Asmen')
+                    ->disabled()
+                    ->dehydrated(false)
+                    ->afterStateHydrated(function (Forms\Components\TextInput $component, $state, $record) {
+                        if ($record && $record->Asmen) {
+                            $component->state($record->Asmen->jabatan);
+                        }
+                    }),
+
+                Forms\Components\Select::make('data_securities_id')
+                    ->label('Nama Security')
+                    ->relationship('DataSecurity', 'nama')
+                    ->required()
+                    ->reactive()
+                    ->afterStateUpdated(function ($state, callable $set) {
+                        $data = \App\Models\DataSecurity::find($state);
+                        $set('data_security_jabatan_display', $data?->jabatan);
+                    }),
+
+                Forms\Components\TextInput::make('data_security_jabatan_display')
+                    ->label('Jabatan Security')
+                    ->disabled()
+                    ->dehydrated(false)
+                    ->afterStateHydrated(function (Forms\Components\TextInput $component, $state, $record) {
+                        if ($record && $record->DataSecurity) {
+                            $component->state($record->DataSecurity->jabatan);
+                        }
+                    }),
+            ];
+        });
     }
 
     public static function table(Table $table): Table
@@ -239,7 +267,7 @@ class FormResource extends Resource
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('DataSecurity.nama')
-                    ->label('Data Security')
+                    ->label('Nama Security')
                     ->searchable()
                     ->sortable(),
 
@@ -255,9 +283,8 @@ class FormResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make()
+                    ->label('Delete'),
             ]);
     }
 

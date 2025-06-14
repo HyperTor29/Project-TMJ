@@ -20,6 +20,16 @@ class DataCsResource extends Resource
 
     protected static ?int $navigationSort = 11;
 
+    public static function getModelLabel(): string
+    {
+        return 'CS';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Data CS';
+    }
+
     public static function table(Table $table): Table
     {
         return $table

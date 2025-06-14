@@ -27,17 +27,6 @@
             border-color: #000080;
         }
 
-        .hero-gradient {
-            background: linear-gradient(135deg, #4CAF50 0%, #FFD700 50%, #4CAF50 100%);
-            animation: gradientShift 15s ease infinite;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
         .card-hover {
             transition: all 0.3s ease;
         }
@@ -93,7 +82,7 @@
                 <a class="nav-link text-sm font-medium text-navy-blue hover:text-green-600 transition-colors duration-200" href="#kontak">Kontak</a>
                 <div x-data="{ open: false }" class="relative">
                     <button @click="open = !open" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 border-2 border-navy-blue text-navy-blue hover:bg-navy-blue hover:text-white h-10 px-6 py-2">
-                        Masuk
+                        Login
                     </button>
                     <div x-show="open" @click.away="open = false" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="absolute right-0 mt-2 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none" role="menu">
                         <div class="py-1" role="none">
@@ -101,7 +90,7 @@
                                 <i data-lucide="user-cog" class="mr-3 h-4 w-4"></i>Admin
                             </a>
                             <a href="/user/login" class="group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-navy-blue hover:text-white transition-colors duration-150" role="menuitem">
-                                <i data-lucide="user" class="mr-3 h-4 w-4"></i>User(CS)
+                                <i data-lucide="user" class="mr-3 h-4 w-4"></i>User(CS/Security)
                             </a>
                             <a href="/verificator/login" class="group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-navy-blue hover:text-white transition-colors duration-150" role="menuitem">
                                 <i data-lucide="check-circle" class="mr-3 h-4 w-4"></i>Verificator(CSS)
@@ -158,25 +147,28 @@
     </header>
 
     <main class="flex-1">
-        <section class="relative w-full py-12 md:py-24 lg:py-32 xl:py-48 hero-gradient overflow-hidden">
-            <div class="absolute inset-0 bg-grid-white/[0.1] bg-[size:60px_60px]"></div>
-            <div class="container mx-auto px-4 md:px-6 max-w-7xl relative">
-                <div class="flex flex-col items-center space-y-8 text-center">
-                    <div class="space-y-4 max-w-3xl mx-auto">
-                        <h1 class="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-navy-blue animate-float">
-                            Selamat Datang di Tertib Izin Lintas
-                        </h1>
-                        <p class="mx-auto max-w-[700px] text-navy-blue text-lg md:text-xl lg:text-2xl animate-fade-in">
-                            Sistem manajemen perizinan kendaraan pintar untuk kelancaran lalu lintas di gerbang tol PT Trans Marga Jateng.
-                        </p>
-                    </div>
-                    <a href="#kontak" class="group inline-flex items-center justify-center rounded-full text-base font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 bg-navy-blue text-white hover:bg-green-600 h-12 px-8 py-3 animate-fade-in">
-                        Hubungi Kami
-                        <i data-lucide="arrow-right" class="ml-2 h-5 w-5 transform transition-transform group-hover:translate-x-1"></i>
-                    </a>
-                </div>
+        <section class="relative w-full py-12 md:py-24 lg:py-32 xl:py-48 overflow-hidden">
+    <div class="absolute inset-0">
+        <img src="{{ asset('images/LandingPage.jpeg') }}" alt="Toll Gate" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-black/50"></div>
+    </div>
+    <div class="container mx-auto px-4 md:px-6 max-w-7xl relative">
+        <div class="flex flex-col items-center space-y-8 text-center">
+            <div class="space-y-4 max-w-3xl mx-auto bg-navy-blue/80 p-6 rounded-xl backdrop-blur-sm">
+                <h1 class="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-navy-blue animate-float" style="text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff, 2px 2px 3px rgba(0,0,0,0.2);">
+                    Selamat Datang di Tertib Izin Lintas
+                </h1>
+                <p class="mx-auto max-w-[700px] text-gray-800 text-lg md:text-xl lg:text-2xl animate-fade-in font-medium" style="text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;">
+                    Sistem manajemen perizinan kendaraan pintar untuk kelancaran lalu lintas di gerbang tol PT Trans Marga Jateng.
+                </p>
             </div>
-        </section>
+            <a href="#kontak" class="group inline-flex items-center justify-center rounded-full text-base font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 bg-navy-blue text-white hover:bg-green-600 h-12 px-8 py-3 animate-fade-in">
+                Hubungi Kami
+                <i data-lucide="arrow-right" class="ml-2 h-5 w-5 transform transition-transform group-hover:translate-x-1"></i>
+            </a>
+        </div>
+    </div>
+</section>
 
         <section id="fitur" class="w-full py-16 md:py-24 lg:py-32 bg-white">
             <div class="container mx-auto px-4 md:px-6 max-w-7xl">
@@ -306,7 +298,7 @@
                     </div>
                     <div class="relative rounded-xl overflow-hidden h-[400px]">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.6295811908483!2d110.42340661477567!3d-7.052866994915436!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708c0ea49270a7%3A0x4027a76e352e4a0!2sJl.%20Mulawarman%20Raya%20No.1B%2C%20Kramas%2C%20Kec.%20Tembalang%2C%20Kota%20Semarang%2C%20Jawa%20Tengah%2050268!5e0!3m2!1sen!2sid!4v1635134567890!5m2!1sen!2sid"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.6295811908483!2d110.42340661477567!3d-7.052866994915436!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708c0ea49270a7%3A0x4027a76e352e4a0!2sJl.%20Mulawarman%20Raya%20No.1B%2C%20Kramas%2C%20Kec.%20Tembalang%2C%20Kota%20Semarang%2C%20Jawa%20Tengah%2050268!5e0!3m2!1sen!2sid!4v1635134567890!5m2!1sen!2sid!4v1635134567890"
                             width="100%"
                             height="100%"
                             style="border:0;"

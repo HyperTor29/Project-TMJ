@@ -1,0 +1,12 @@
+/* app.css */
+.btn-accept {
+    @apply px-4 py-2 bg-green-600 text-black text-sm font-medium rounded-md shadow hover:bg-green-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-300;
+}
+
+.btn-reject {
+    @apply px-4 py-2 bg-red-600 text-black text-sm font-medium rounded-md shadow hover:bg-red-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-300;
+}
+
+.btn-print {
+    @apply px-4 py-2 bg-white text-black text-sm font-medium rounded-md shadow hover:bg-blue-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300;
+}

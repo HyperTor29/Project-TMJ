@@ -25,6 +25,16 @@ class DataSecurityResource extends Resource
 
     protected static ?int $navigationSort = 14;
 
+    public static function getModelLabel(): string
+    {
+        return 'Security';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Data Security';
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -34,13 +44,6 @@ class DataSecurityResource extends Resource
                 ->label('Nama')
                 ->minLength(2)
                 ->maxLength(255)
-                ->required(),
-
-                Forms\Components\TextInput::make('nik')
-                ->label('NIK')
-                ->numeric()
-                ->minLength(2)
-                ->maxLength(16)
                 ->required(),
 
                 Forms\Components\TextInput::make('jabatan')
@@ -61,11 +64,6 @@ class DataSecurityResource extends Resource
                 ->searchable()
                 ->sortable(),
 
-                // Tables\Columns\TextColumn::make('nik')
-                // ->label('NIK')
-                // ->searchable()
-                // ->sortable(),
-
                 Tables\Columns\TextColumn::make('jabatan')
                 ->label('Jabatan')
                 ->searchable()
@@ -78,9 +76,8 @@ class DataSecurityResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make()
+                    ->label('Delete'),
             ]);
     }
 

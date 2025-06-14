@@ -14,4 +14,16 @@ class CreateGolKdr extends CreateRecord
     {
         return "Create Golongan Kendaraan";
     }
+
+    protected function getFormActions(): array
+    {
+        return [
+            $this->getCreateFormAction()
+                ->label('Save'),
+            $this->getCreateAnotherFormAction()
+                ->label('Save & Create Another'),
+            $this->getCancelFormAction()
+                ->label('Cancel'),
+        ];
+    }
 }

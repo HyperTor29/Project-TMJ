@@ -25,6 +25,16 @@ class ShiftResource extends Resource
 
     protected static ?int $navigationSort = 36;
 
+    public static function getModelLabel(): string
+    {
+        return 'Shift';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Daftar Shift';
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -77,9 +87,8 @@ class ShiftResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make()
+                    ->label('Delete'),
             ]);
     }
 

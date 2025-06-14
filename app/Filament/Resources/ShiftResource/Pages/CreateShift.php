@@ -14,4 +14,16 @@ class CreateShift extends CreateRecord
     {
         return "Create Daftar Shift";
     }
+
+    protected function getFormActions(): array
+    {
+        return [
+            $this->getCreateFormAction()
+                ->label('Save'),
+            $this->getCreateAnotherFormAction()
+                ->label('Save & Create Another'),
+            $this->getCancelFormAction()
+                ->label('Cancel'),
+        ];
+    }
 }

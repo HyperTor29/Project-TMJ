@@ -23,9 +23,19 @@ class FormResource extends Resource
 
     protected static ?int $navigationSort = 21;
 
+    public static function getModelLabel(): string
+    {
+        return 'Form';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Form Isian';
+    }
+
     public static function getEloquentQuery(): Builder
     {
-        $query = parent::getEloquentQuery();
+        $query = parent::getEloquentQuery()->orderBy('tanggal', 'desc');
 
         if (in_array(Auth::user()->role->name, ['Admin', 'Validator', 'Viewer'])) {
             return $query;
@@ -122,11 +132,6 @@ class FormResource extends Resource
                     ->label('Nama Security')
                     ->searchable()
                     ->sortable(),
-
-                // Tables\Columns\TextColumn::make('DataSecurity.nik')
-                // ->label('NIK Security')
-                // ->searchable()
-                // ->sortable(),
 
                 Tables\Columns\TextColumn::make('DataSecurity.jabatan')
                     ->label('Jabatan Security')

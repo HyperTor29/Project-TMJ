@@ -21,6 +21,16 @@ class GerbangResource extends Resource
 
     protected static ?int $navigationSort = 32;
 
+    public static function getModelLabel(): string
+    {
+        return 'Gerbang';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Daftar Gerbang Asal';
+    }
+
     public static function table(Table $table): Table
     {
         return $table

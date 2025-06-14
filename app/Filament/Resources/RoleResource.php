@@ -25,6 +25,16 @@ class RoleResource extends Resource
 
     protected static ?int $navigationSort = 42;
 
+    public static function getModelLabel(): string
+    {
+        return 'Role';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Role';
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -66,9 +76,8 @@ class RoleResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make()
+                    ->label('Delete'),
             ]);
     }
 

@@ -20,6 +20,16 @@ class GolKdrResource extends Resource
 
     protected static ?int $navigationSort = 34;
 
+    public static function getModelLabel(): string
+    {
+        return 'Golongan Kendaraan';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Daftar Golongan Kendaraan';
+    }
+
     public static function table(Table $table): Table
     {
         return $table

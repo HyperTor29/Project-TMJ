@@ -4,6 +4,8 @@ namespace App\Filament\Viewer\Widgets;
 
 use Filament\Widgets\ChartWidget;
 use App\Models\DetailLolos;
+use App\Models\Form;
+use Carbon\Carbon;
 
 class KendaraanPerShiftChartWidget extends ChartWidget
 {
@@ -11,23 +13,54 @@ class KendaraanPerShiftChartWidget extends ChartWidget
 
     protected function getData(): array
     {
-        $shiftData = DetailLolos::selectRaw('forms.shift_id as shift, SUM(detail_lolos.jumlah_kdr) as total_kendaraan')
+        $selectedYear = $this->filter ?? Carbon::now()->year;
+
+        $query = DetailLolos::selectRaw('forms.shift_id as shift, SUM(detail_lolos.jumlah_kdr) as total_kendaraan')
             ->join('forms', 'forms.id', '=', 'detail_lolos.form_id')
-            ->groupBy('forms.shift_id')
-            ->orderBy('forms.shift_id')
-            ->get()
+            ->whereNull('forms.deleted_at')
+            ->whereNull('detail_lolos.deleted_at')
+            ->whereYear('detail_lolos.created_at', $selectedYear)
+            ->groupBy('forms.shift_id');
+
+        $rawData = $query->get()
             ->pluck('total_kendaraan', 'shift')
             ->toArray();
+
+        $shifts = [1, 2, 3];
+        $jumlahKendaraan = [];
+        $shiftLabels = ['Shift 1', 'Shift 2', 'Shift 3'];
+        $greenColor = '#10B981';
+
+        foreach ($shifts as $index => $shift) {
+            $jumlahKendaraan[] = $rawData[$shift] ?? 0;
+        }
 
         return [
             'datasets' => [
                 [
                     'label' => 'Jumlah Kendaraan',
-                    'data' => array_values($shiftData),
-                    'backgroundColor' => ['#60A5FA', '#34D399', '#FBBF24'],
+                    'data' => $jumlahKendaraan,
+                    'backgroundColor' => $greenColor,
                 ],
             ],
-            'labels' => array_keys($shiftData),
+            'labels' => $shiftLabels,
+            'options' => [
+                'scales' => [
+                    'x' => [
+                        'title' => [
+                            'display' => true,
+                            'text' => 'Shift',
+                        ],
+                    ],
+                    'y' => [
+                        'title' => [
+                            'display' => true,
+                            'text' => 'Jumlah Kendaraan',
+                        ],
+                        'beginAtZero' => true,
+                    ],
+                ],
+            ],
         ];
     }
 
@@ -35,4 +68,36 @@ class KendaraanPerShiftChartWidget extends ChartWidget
     {
         return 'bar';
     }
+
+    protected function getFilters(): ?array
+    {
+        $currentYear = Carbon::now()->year;
+
+        $years = DetailLolos::selectRaw('YEAR(detail_lolos.created_at) as year')
+            ->join('forms', 'forms.id', '=', 'detail_lolos.form_id')
+            ->whereNull('forms.deleted_at')
+            ->whereNull('detail_lolos.deleted_at')
+            ->distinct()
+            ->orderByDesc('year')
+            ->pluck('year')
+            ->toArray();
+
+        if (!in_array($currentYear, $years)) {
+            $years[] = $currentYear;
+            sort($years);
+            rsort($years);
+        }
+
+        if (empty($years)) {
+            $years = [$currentYear];
+        }
+
+        $formattedYears = [];
+        foreach ($years as $year) {
+            $formattedYears[(string)$year] = (string)$year;
+        }
+
+        return $formattedYears;
+    }
 }
+

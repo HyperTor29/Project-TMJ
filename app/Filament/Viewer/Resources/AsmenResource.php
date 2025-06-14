@@ -20,6 +20,16 @@ class AsmenResource extends Resource
 
     protected static ?int $navigationSort = 13;
 
+    public static function getModelLabel(): string
+    {
+        return 'Asmen';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Data Asmen';
+    }
+
     public static function table(Table $table): Table
     {
         return $table

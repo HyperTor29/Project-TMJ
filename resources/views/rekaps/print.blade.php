@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Lolos/Izin Lintas</title>
+    <title>Form Izin Lintas</title>
     <style>
         @page {
             margin: 2.5cm;
@@ -250,7 +250,8 @@
         <div class="header">
         <img src="{{ asset('images/GambarTMJ.jpg') }}" alt="Tertib Lolos Logo" class="h-10 w-auto" width="80" height="50">
             <div class="header-text">
-                <h1>FORM LOLOS/ IZIN LINTAS</h1>
+                <h1>FORM IZIN LINTAS</h1>
+                <p style="margin-top: 5px; font-size: 18px; font-weight: normal;">Ruas Semarang-Solo</p>
             </div>
         </div>
 
@@ -268,25 +269,26 @@
             </div>
 
             <div class="personnel-info">
-                <div class="personnel-item">
-                    1. Nama    : {{ $form->DataCs->nama ?? '........................' }}<br>
-                       NIK     : {{ $form->DataCs->nik ?? '........................' }}<br>
-                       Jabatan : {{ $form->DataCs->jabatan ?? '........................' }}
-                </div>
-                <div class="personnel-item">
-                    2. Nama    : {{ $form->DataCss->nama ?? '........................' }}<br>
-                       NIK     : {{ $form->DataCss->nik ?? '........................' }}<br>
-                       Jabatan : {{ $form->DataCss->jabatan ?? '........................' }}
-                </div>
-                <div class="personnel-item">
-                    3. Nama    : {{ $form->Asmen->nama ?? '........................' }}<br>
-                       NIK     : {{ $form->Asmen->nik ?? '........................' }}<br>
-                       Jabatan : {{ $form->Asmen->jabatan ?? '........................' }}
-                </div>
-                <div class="personnel-item">
-                    4. Nama    : {{ $form->DataSecurity->nama ?? '........................' }}<br>
-                       <!-- NIK     : {{ $form->DataSecurity->nik ?? '........................' }}<br> -->
-                       Jabatan : {{ $form->DataSecurity->jabatan ?? '........................' }}
+                <div class="personnel-item" style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+                    <div style="flex: 1; min-width: 45%;">
+                        1. Nama    : <strong>{{ $form->DataCs->nama ?? '........................' }}</strong><br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;NIK     : {{ $form->DataCs->nik ?? '........................' }}</><br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;Jabatan : {{ $form->DataCs->jabatan ?? '........................' }}</>
+                    </div>
+                    <div style="flex: 1; min-width: 45%;">
+                        3. Nama    : <strong>{{ $form->Asmen->nama ?? '........................' }}</strong><br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;NIK     : {{ $form->Asmen->nik ?? '........................' }}<br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;Jabatan : {{ $form->Asmen->jabatan ?? '........................' }}
+                    </div>
+                    <div style="flex: 1; min-width: 45%; margin-top: 15px;">
+                        2. Nama    : <strong>{{ $form->DataCss->nama ?? '........................' }}</strong><br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;NIK     : {{ $form->DataCss->nik ?? '........................' }}<br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;Jabatan : {{ $form->DataCss->jabatan ?? '........................' }}
+                    </div>
+                    <div style="flex: 1; min-width: 45%; margin-top: 15px;">
+                        4. Nama    : <strong>{{ $form->DataSecurity->nama ?? '........................' }}</strong><br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;Jabatan : {{ $form->DataSecurity->jabatan ?? '........................' }}
+                    </div>
                 </div>
             </div>
 
@@ -335,25 +337,25 @@
         </table>
 
         <div class="signatures">
-            <div class="signature-box supervisor">
-                <div class="signature-title">Customer Service Supervisor</div>
-                <div class="signature-name">{{ $form->DataCss->nama ?? '' }}</div>
+            <div class="signature-box manager">
+                <div class="signature-title">Asmen Transaksi</div>
+                <div class="signature-name">{{ $form->Asmen->nama ?? '' }}</div>
                 <div class="signature-line"></div>
-                <div class="signature-nik">NIK. {{ $form->DataCss->nik ?? '' }}</div>
+                <div class="signature-nik">NIK. {{ $form->Asmen->nik ?? '' }}</div>
             </div>
 
             <div class="signature-box service">
-                <div class="signature-title">Customer Service</div>
+                <div class="signature-title">Customer Service (CS)</div>
                 <div class="signature-name">{{ $form->DataCs->nama ?? '' }}</div>
                 <div class="signature-line"></div>
                 <div class="signature-nik">NIK. {{ $form->DataCs->nik ?? '' }}</div>
             </div>
 
-            <div class="signature-box manager">
-                <div class="signature-title">Asmen Lalu Lintas</div>
-                <div class="signature-name">{{ $form->Asmen->nama ?? '' }}</div>
+            <div class="signature-box supervisor">
+                <div class="signature-title">Supervisor (CS)</div>
+                <div class="signature-name">{{ $form->DataCss->nama ?? '' }}</div>
                 <div class="signature-line"></div>
-                <div class="signature-nik">NIK. {{ $form->Asmen->nik ?? '' }}</div>
+                <div class="signature-nik">NIK. {{ $form->DataCss->nik ?? '' }}</div>
             </div>
         </div>
     </div>

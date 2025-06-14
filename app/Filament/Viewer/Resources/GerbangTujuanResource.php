@@ -25,6 +25,16 @@ class GerbangTujuanResource extends Resource
 
     protected static ?int $navigationSort = 33;
 
+    public static function getModelLabel(): string
+    {
+        return 'Gerbang Tujuan';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Daftar Gerbang Tujuan';
+    }
+
     public static function table(Table $table): Table
     {
         return $table

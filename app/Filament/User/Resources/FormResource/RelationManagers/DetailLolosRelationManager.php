@@ -12,7 +12,7 @@ class DetailLolosRelationManager extends RelationManager
 {
     protected static string $relationship = 'detailLolos';
 
-    protected static ?string $recordTitleAttribute = 'id';
+    protected static ?string $recordTitleAttribute = null;
 
     public static function getEloquentQuery(): Builder
     {
@@ -49,7 +49,6 @@ class DetailLolosRelationManager extends RelationManager
 
         return $form
             ->schema([
-                // Bagian form untuk Security
                 Forms\Components\Card::make()
                     ->schema([
                         Forms\Components\TimePicker::make('pukul')
@@ -63,7 +62,8 @@ class DetailLolosRelationManager extends RelationManager
                             ->relationship('Gardu', 'gardu'),
 
                         Forms\Components\TextInput::make('jumlah_kdr')
-                            ->label('Jumlah Kendaraan (Diisi oleh Security)'),
+                            ->label('Jumlah Kendaraan (Diisi oleh Security)')
+                            ->numeric(),
 
                         Forms\Components\Repeater::make('fotos')
                             ->label('Foto Kendaraan (Diisi oleh Security)')
@@ -79,9 +79,8 @@ class DetailLolosRelationManager extends RelationManager
                             ]),
                     ])
                     ->label('Diisi oleh Security')
-                    ->hidden($userRole !== 'Security'), // Sembunyikan jika bukan Security
+                    ->hidden($userRole !== 'Security'),
 
-                // Bagian form untuk CS
                 Forms\Components\Card::make()
                     ->schema([
                         Forms\Components\TextInput::make('nomor_resi_awal')
@@ -109,7 +108,13 @@ class DetailLolosRelationManager extends RelationManager
                             ->label('Penanggung Jawab (Diisi oleh CS)'),
 
                         Forms\Components\Checkbox::make('surat_izin_lintas')
-                            ->label('Surat Izin Lintas (Diisi oleh CS)'),
+                            ->label('Surat Izin Lintas (Diisi oleh CS)')
+                            ->live()
+                            ->afterStateUpdated(function ($state, callable $set) {
+                                if (!$state) {
+                                    $set('surats', []);
+                                }
+                            }),
 
                         Forms\Components\Repeater::make('surats')
                             ->label('Foto Surat (Diisi oleh CS)')
@@ -122,10 +127,12 @@ class DetailLolosRelationManager extends RelationManager
                                     ->directory('surats')
                                     ->imageResizeMode('contain')
                                     ->imageResizeTargetWidth(800),
-                            ]),
+                            ])
+                            ->visible(fn (callable $get) => $get('surat_izin_lintas') === true)
+                            ->hidden(fn (callable $get) => $get('surat_izin_lintas') !== true),
                     ])
                     ->label('Diisi oleh CS')
-                    ->hidden($userRole !== 'User'), // Sembunyikan jika bukan User
+                    ->hidden($userRole !== 'User'),
             ]);
     }
 
@@ -137,75 +144,167 @@ class DetailLolosRelationManager extends RelationManager
                     ->label('Pukul')
                     ->sortable()
                     ->searchable()
-                    ->formatStateUsing(fn ($state) => \Carbon\Carbon::parse($state)->setTimezone('Asia/Jakarta')->format('H:i')),
+                    ->formatStateUsing(fn ($state) => $state ? \Carbon\Carbon::parse($state)->setTimezone('Asia/Jakarta')->format('H:i') : '-')
+                    ->placeholder('-'),
 
                 Tables\Columns\TextColumn::make('Gardu.gardu')
                     ->label('Gardu')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->placeholder('-')
+                    ->default('-'),
 
                 Tables\Columns\TextColumn::make('nomor_resi_awal')
                     ->label('Nomor Resi Awal')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->placeholder('-')
+                    ->default('-'),
 
                 Tables\Columns\TextColumn::make('nomor_resi_akhir')
                     ->label('Nomor Resi Akhir')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->placeholder('-')
+                    ->default('-'),
 
                 Tables\Columns\TextColumn::make('Gerbang.name')
                     ->label('Gerbang')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->placeholder('-')
+                    ->default('-'),
 
                 Tables\Columns\TextColumn::make('jumlah_kdr')
                     ->label('Jumlah Kendaraan')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->placeholder('-')
+                    ->default('-')
+                    ->formatStateUsing(fn ($state) => $state ?? '-'),
 
                 Tables\Columns\TextColumn::make('GolKdr.golongan')
                     ->label('Golongan Kendaraan')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->placeholder('-')
+                    ->default('-'),
 
                 Tables\Columns\TextColumn::make('nomor_kendaraan')
                     ->label('Nomor Kendaraan')
-                    ->sortable(),
+                    ->sortable()
+                    ->placeholder('-')
+                    ->default('-'),
 
                 Tables\Columns\TextColumn::make('Instansi.instansi')
                     ->label('Instansi')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->placeholder('-')
+                    ->default('-'),
 
                 Tables\Columns\TextColumn::make('penanggung_jawab')
                     ->label('Penanggung Jawab')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->placeholder('-')
+                    ->default('-'),
 
-                Tables\Columns\CheckboxColumn::make('surat_izin_lintas')
-                    ->label('Surat Izin Lintas'),
+                Tables\Columns\BooleanColumn::make('surat_izin_lintas')
+                    ->label('Surat Izin Lintas')
+                    ->trueColor('success')
+                    ->falseColor('danger')
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-x-circle'),
 
                 Tables\Columns\ImageColumn::make('surats.surat')
                     ->label('Foto Surat')
-                    ->url(fn ($record) => asset('storage/' . $record->surat)),
+                    ->getStateUsing(function ($record) {
+                        $surat = $record->surats?->first();
+                        return $surat ? $surat->surat : null;
+                    })
+                    ->url(function ($record) {
+                        $surat = $record->surats?->first();
+                        return $surat && $surat->surat ? asset('storage/' . $surat->surat) : null;
+                    })
+                    ->defaultImageUrl(asset('images/no-image.png'))
+                    ->size(50),
 
                 Tables\Columns\ImageColumn::make('fotos.foto')
                     ->label('Foto Kendaraan')
-                    ->url(fn ($record) => asset('storage/' . $record->foto)),
+                    ->getStateUsing(function ($record) {
+                        $foto = $record->fotos?->first();
+                        return $foto ? $foto->foto : null;
+                    })
+                    ->url(function ($record) {
+                        $foto = $record->fotos?->first();
+                        return $foto && $foto->foto ? asset('storage/' . $foto->foto) : null;
+                    })
+                    ->defaultImageUrl(asset('images/no-image.png'))
+                    ->size(50),
 
                 Tables\Columns\TextColumn::make('status')
                     ->label('Status')
+                    ->badge()
+                    ->formatStateUsing(function ($record) {
+                        $securityFilled = $record->gardu_id && $record->jumlah_kdr && $record->fotos?->count() > 0;
+                        $csFilled = $record->nomor_resi_awal && $record->nomor_resi_akhir && $record->gerbang_id;
+
+                        if ($securityFilled && $csFilled) {
+                            return 'Lengkap';
+                        } elseif ($securityFilled || $csFilled) {
+                            return 'Sebagian';
+                        } else {
+                            return 'Kosong';
+                        }
+                    })
+                    ->color(fn (string $state): string => match ($state) {
+                        'Lengkap' => 'success',
+                        'Sebagian' => 'warning',
+                        'Kosong' => 'danger',
+                        default => 'secondary',
+                    }),
             ])
-            ->filters([])
+            ->filters([
+                Tables\Filters\SelectFilter::make('status')
+                    ->label('Status')
+                    ->options([
+                        'lengkap' => 'Lengkap',
+                        'sebagian' => 'Sebagian',
+                        'kosong' => 'Kosong',
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        if (!$data['value']) {
+                            return $query;
+                        }
+
+                        return match ($data['value']) {
+                            'lengkap' => $query->whereNotNull('gardu_id')
+                                ->whereNotNull('jumlah_kdr')
+                                ->whereNotNull('nomor_resi_awal')
+                                ->whereNotNull('nomor_resi_akhir')
+                                ->whereNotNull('gerbang_id'),
+                            'sebagian' => $query->where(function ($q) {
+                                $q->whereNotNull('gardu_id')
+                                  ->orWhereNotNull('nomor_resi_awal');
+                            }),
+                            'kosong' => $query->whereNull('gardu_id')
+                                ->whereNull('nomor_resi_awal'),
+                            default => $query,
+                        };
+                    }),
+            ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->label('New Detail')
+                    ->modalSubmitActionLabel('Save'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()
+                    ->label('Delete'),
             ]);
     }
 }

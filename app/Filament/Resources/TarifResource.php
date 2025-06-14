@@ -25,6 +25,16 @@ class TarifResource extends Resource
 
     protected static ?int $navigationSort = 37;
 
+    public static function getModelLabel(): string
+    {
+        return 'Tarif';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Daftar Tarif';
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -85,9 +95,8 @@ class TarifResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make()
+                    ->label('Delete'),
             ]);
     }
 

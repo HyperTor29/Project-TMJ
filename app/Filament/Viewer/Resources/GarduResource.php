@@ -20,6 +20,16 @@ class GarduResource extends Resource
 
     protected static ?int $navigationSort = 31;
 
+    public static function getModelLabel(): string
+    {
+        return 'Gardu';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Daftar Gardu';
+    }
+
     public static function table(Table $table): Table
     {
         return $table

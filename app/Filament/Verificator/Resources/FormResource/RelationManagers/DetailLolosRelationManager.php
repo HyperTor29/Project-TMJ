@@ -189,7 +189,8 @@ class DetailLolosRelationManager extends RelationManager
             ])
             ->filters([])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->label('New Detail'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

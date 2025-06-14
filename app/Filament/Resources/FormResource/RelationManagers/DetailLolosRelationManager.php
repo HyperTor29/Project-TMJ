@@ -12,7 +12,7 @@ class DetailLolosRelationManager extends RelationManager
 {
     protected static string $relationship = 'detailLolos';
 
-    protected static ?string $recordTitleAttribute = 'id';
+    protected static ?string $recordTitleAttribute = null;
 
     public static function getEloquentQuery(): Builder
     {
@@ -104,7 +104,13 @@ class DetailLolosRelationManager extends RelationManager
                             ->label('Penanggung Jawab (Diisi oleh CS)'),
 
                         Forms\Components\Checkbox::make('surat_izin_lintas')
-                            ->label('Surat Izin Lintas (Diisi oleh CS)'),
+                            ->label('Surat Izin Lintas (Diisi oleh CS)')
+                            ->live()
+                            ->afterStateUpdated(function ($state, callable $set) {
+                                if (!$state) {
+                                    $set('surats', []);
+                                }
+                            }),
 
                         Forms\Components\Repeater::make('surats')
                             ->label('Foto Surat (Diisi oleh CS)')
@@ -117,7 +123,9 @@ class DetailLolosRelationManager extends RelationManager
                                     ->directory('surats')
                                     ->imageResizeMode('contain')
                                     ->imageResizeTargetWidth(800),
-                            ]),
+                            ])
+                            ->visible(fn (callable $get) => $get('surat_izin_lintas') === true)
+                            ->hidden(fn (callable $get) => $get('surat_izin_lintas') !== true),
                     ])
                     ->label('Diisi oleh CS'),
             ]);
@@ -193,13 +201,15 @@ class DetailLolosRelationManager extends RelationManager
             ])
             ->filters([])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->label('New Detail'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()
+                    ->label('Delete'),
             ]);
     }
 }

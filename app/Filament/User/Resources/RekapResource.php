@@ -25,9 +25,19 @@ class RekapResource extends Resource
 
     protected static ?int $navigationSort = 12;
 
+    public static function getModelLabel(): string
+    {
+        return 'Rekap Data';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Rekap Data';
+    }
+
     public static function getEloquentQuery(): Builder
     {
-        $query = parent::getEloquentQuery();
+        $query = parent::getEloquentQuery()->orderBy('tanggal', 'desc');
 
         if (in_array(Auth::user()->role->name, ['Admin', 'Validator', 'Viewer'])) {
             return $query;
@@ -58,7 +68,7 @@ class RekapResource extends Resource
     {
         return $table
             ->columns([
-                // Columns Form model
+                //
                 Tables\Columns\TextColumn::make('tanggal')
                     ->label('Tanggal')
                     ->date('d/m/Y')
@@ -66,12 +76,7 @@ class RekapResource extends Resource
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('GerbangTujuan.name')
-                    ->label('Gerbang Tol')
-                    ->searchable()
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('Shifts.shift')
-                    ->label('Shift')
+                    ->label('Gerbang Tujuan')
                     ->searchable()
                     ->sortable(),
 
@@ -82,16 +87,19 @@ class RekapResource extends Resource
 
                 Tables\Columns\TextColumn::make('DataCs.nama')
                     ->label('Nama CS')
+                    ->default(fn() => Auth::user()?->data_cs->nama)
                     ->searchable()
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('DataCs.nik')
                     ->label('NIK CS')
+                    ->default(fn() => Auth::user()?->data_cs->nik)
                     ->searchable()
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('DataCs.jabatan')
                     ->label('Jabatan CS')
+                    ->default(fn() => Auth::user()?->data_cs->jabatan)
                     ->searchable()
                     ->sortable(),
 
@@ -129,11 +137,6 @@ class RekapResource extends Resource
                     ->label('Nama Security')
                     ->searchable()
                     ->sortable(),
-
-                // Tables\Columns\TextColumn::make('DataSecurity.nik')
-                //     ->label('NIK Security')
-                //     ->searchable()
-                //     ->sortable(),
 
                 Tables\Columns\TextColumn::make('DataSecurity.jabatan')
                     ->label('Jabatan Security')

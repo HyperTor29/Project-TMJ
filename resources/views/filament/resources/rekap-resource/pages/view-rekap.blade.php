@@ -8,7 +8,7 @@
         <div class="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
             <h2 class="text-2xl font-bold">Detail Rekapan</h2>
             <a href="{{ url()->previous() }}"
-               class="flex items-center px-4 py-2 bg-white text-black text-sm font-medium rounded-md shadow hover:bg-blue-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300">
+               class="flex items-center px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-md shadow hover:bg-primary-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-300">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                 </svg>
@@ -72,10 +72,6 @@
                     <dt class="font-bold text-gray-600 dark:text-gray-400">Nama Security</dt>
                     <dd class="text-gray-800 dark:text-gray-200">{{ $record->DataSecurity->nama ?? '-' }}</dd>
                 </div>
-                <!-- <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
-                    <dt class="font-bold text-gray-600 dark:text-gray-400">NIK Security</dt>
-                    <dd class="text-gray-800 dark:text-gray-200">{{ $record->DataSecurity->nik ?? '-' }}</dd>
-                </div> -->
                 <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
                     <dt class="font-bold text-gray-600 dark:text-gray-400">Jabatan Security</dt>
                     <dd class="text-gray-800 dark:text-gray-200">{{ $record->DataSecurity->jabatan ?? '-' }}</dd>
@@ -161,7 +157,7 @@
                                             <!-- Tombol Accept -->
                                             <form action="{{ route('rekapan.accept-single', ['id' => $record->id, 'detailId' => $detail->id]) }}" method="POST">
                                                 @csrf
-                                                <button type="submit" class="px-4 py-2 bg-green-600 text-black text-sm font-medium rounded-md shadow hover:bg-green-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-300">
+                                                <button type="submit" class="px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md shadow hover:bg-green-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-300">
                                                     Accept
                                                 </button>
                                             </form>
@@ -169,7 +165,7 @@
                                             <!-- Tombol Reject -->
                                             <form action="{{ route('rekapan.reject-single', ['id' => $record->id, 'detailId' => $detail->id]) }}" method="POST">
                                                 @csrf
-                                                <button type="submit" class="px-4 py-2 bg-red-600 text-black text-sm font-medium rounded-md shadow hover:bg-red-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-300">
+                                                <button type="submit" class="px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md shadow hover:bg-red-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-300">
                                                     Reject
                                                 </button>
                                             </form>
@@ -268,7 +264,7 @@
                 <!-- Tombol Print -->
                 <a href="{{ route('rekapan.print', ['id' => $record->id]) }}"
                     target="_blank"
-                    class="px-4 py-2 bg-white text-black text-sm font-medium rounded-md shadow hover:bg-blue-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    class="flex items-center px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-md shadow hover:bg-primary-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-300">
                     Print
                 </a>
 
@@ -278,7 +274,7 @@
                     @foreach ($record->DetailLolos as $detail)
                         <input type="hidden" name="detailLolosIds[]" value="{{ $detail->id }}">
                     @endforeach
-                    <button type="submit" class="px-4 py-2 bg-green-600 text-black text-sm font-medium rounded-md shadow hover:bg-green-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-300">
+                    <button type="submit" class="px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md shadow hover:bg-green-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-300">
                         Accept All
                     </button>
                 </form>
@@ -289,7 +285,7 @@
                     @foreach ($record->DetailLolos as $detail)
                         <input type="hidden" name="detailLolosIds[]" value="{{ $detail->id }}">
                     @endforeach
-                    <button type="submit" class="px-4 py-2 bg-red-600 text-black text-sm font-medium rounded-md shadow hover:bg-red-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-300">
+                    <button type="submit" class="px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md shadow hover:bg-red-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-300">
                         Reject All
                     </button>
                 </form>

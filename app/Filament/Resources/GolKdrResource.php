@@ -25,6 +25,16 @@ class GolKdrResource extends Resource
 
     protected static ?int $navigationSort = 34;
 
+    public static function getModelLabel(): string
+    {
+        return 'Golongan Kendaraan';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Daftar Golongan Kendaraan';
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -56,9 +66,8 @@ class GolKdrResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make()
+                    ->label('Delete'),
             ]);
     }
 

@@ -22,9 +22,19 @@ class FormResource extends Resource
 
     protected static ?string $navigationGroup = 'Laporan';
 
+    public static function getModelLabel(): string
+    {
+        return 'Form';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Form Isian';
+    }
+
     public static function getEloquentQuery(): Builder
     {
-        $query = parent::getEloquentQuery();
+        $query = parent::getEloquentQuery()->orderBy('tanggal', 'desc');
 
         if (in_array(Auth::user()->role->name, ['Admin', 'Validator', 'Viewer', 'Verificator'])) {
             return $query;
@@ -122,11 +132,6 @@ class FormResource extends Resource
                     ->relationship('DataSecurity', 'nama')
                     ->required(),
 
-                // Forms\Components\Select::make('data_securities_id')
-                // ->label('NIK Security')
-                // ->relationship('DataSecurity', 'nik')
-                // ->required(),
-
                 Forms\Components\Select::make('data_securities_id')
                     ->label('Jabatan Security')
                     ->relationship('DataSecurity', 'jabatan')
@@ -200,11 +205,6 @@ class FormResource extends Resource
                     ->searchable()
                     ->sortable(),
 
-                // Tables\Columns\TextColumn::make('DataSecurity.nik')
-                // ->label('NIK Security')
-                // ->searchable()
-                // ->sortable(),
-
                 Tables\Columns\TextColumn::make('DataSecurity.jabatan')
                     ->label('Jabatan Security')
                     ->searchable()
@@ -217,9 +217,8 @@ class FormResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make()
+                    ->label('Delete'),
             ]);
     }
 

@@ -34,7 +34,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-image: url("{{ asset('images/GambarAiTol2.jpeg') }}");
+            background-image: url("{{ asset('images/LoginPage.jpeg') }}");
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -111,6 +111,8 @@
 
         .login-form {
             padding: 40px 30px;
+            background-color: rgba(255, 255, 255, 0.8); /* Added transparency */
+            border-radius: 12px; /* Optional: Add border-radius for better appearance */
         }
 
         .input-field {

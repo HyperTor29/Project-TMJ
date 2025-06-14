@@ -20,6 +20,16 @@ class TarifResource extends Resource
 
     protected static ?int $navigationSort = 37;
 
+    public static function getModelLabel(): string
+    {
+        return 'Tarif';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Daftar Tarif';
+    }
+
     public static function table(Table $table): Table
     {
         return $table

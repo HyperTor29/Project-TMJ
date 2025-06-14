@@ -19,6 +19,6 @@ class ListRekaps extends ListRecords
 
     public function getTitle(): string
     {
-        return "Rekap";
+        return "Rekap Data";
     }
 }
